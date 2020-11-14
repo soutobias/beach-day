@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 2020_11_14_155029) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "reviews", "beaches"
   add_foreign_key "real_time_values", "beaches"
+  add_foreign_key "reviews", "beaches"
   add_foreign_key "weather_forecast_values", "beaches"
 end
