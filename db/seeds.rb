@@ -59,3 +59,63 @@ Beach.create(name: "Praia do Leme", lat: "-22.9648", lng:  "-43.1688")
 Beach.create(name: "Itacoatiara - Pampo", lat: "-22.9746", lng:  "-43.0364")
 Beach.create(name: "Itacoatiara - Meio", lat:  "-22.9748", lng:  "-43.0336")
 Beach.create(name: "Itacoatiara - Costao", lat:  "-22.9758", lng:  "-43.0305")
+
+RealTimeValue.destroy_all
+WeatherForecastValue.destroy_all
+
+beaches = Beach.all
+
+date_time_past = []
+date_time_future = []
+c = 9
+d = 0
+10.times do
+  date_time_past << DateTime.strptime((Time.now.to_i - (3600 * c)).to_s, '%s')
+  c -= 1
+  date_time_future << DateTime.strptime((Time.now.to_i + (3600 * d * 24)).to_s, '%s')
+  d += 1
+end
+
+beaches.each do |beach|
+  date_time_past.each do |date_time|
+    r = RealTimeValue.new(
+      date_time: date_time,
+      wave_height: (1..5).to_a.sample,
+      wave_direction:  ["norte", "nordeste", "leste", "sudeste", "sul", "sudoeste", "oeste", "noroeste"].sample,
+      wave_formation:  ["regular", "mal formado", "ondas perfeitas"].sample,
+      wind_speed: (1..30).to_a.sample,
+      wind_direction:  ["norte", "nordeste", "leste", "sudeste", "sul", "sudoeste", "oeste", "noroeste"].sample,
+      rain:  ["sem chuva", "sem chuva", "sem chuva", "chuvas esparsas", "muita chuva", "temporal"].sample,
+      humidity: (20..100).to_a.sample,
+      pressure: (1000..1100).to_a.sample,
+      water_temperature: (15..30).to_a.sample,
+      air_temperature: (20..40).to_a.sample,
+      cleaning: [true, false].sample,
+      tide: (0..2).to_a.sample,
+      tide_situation: ["mare baixa", "mare alta", "mare subindo", "mare descendo"].sample,
+      description: ["dia ensolarado", "nuvens e chuvas esparsas", "muita chuva"].sample
+    )
+    r.beach = beach
+    r.save!
+  end
+
+  date_time_future.each do |date_time|
+    w = WeatherForecastValue.new(
+      date_time: date_time,
+      wave_height: (1..5).to_a.sample,
+      wave_direction:  ["norte", "nordeste", "leste", "sudeste", "sul", "sudoeste", "oeste", "noroeste"].sample,
+      wave_formation:  ["regular", "mal formado", "ondas perfeitas"].sample,
+      wind_speed: (1..30).to_a.sample,
+      wind_direction:  ["norte", "nordeste", "leste", "sudeste", "sul", "sudoeste", "oeste", "noroeste"].sample,
+      rain: (0..20).to_a.sample,
+      rain_probability: (20..100).to_a.sample,
+      humidity: (20..100).to_a.sample,
+      pressure: (1000..1100).to_a.sample,
+      water_temperature: (15..30).to_a.sample,
+      air_temperature: (20..40).to_a.sample,
+      description: ["dia ensolarado", "nuvens e chuvas esparsas", "muita chuva"]
+    )
+    w.beach = beach
+    w.save!
+  end
+end
