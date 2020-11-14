@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  beach: one
+  date_time: 2020-11-14 11:10:20
+  wave_direction: MyString
+  wave_height: 
+  rain: 1
+  rain_probability: 1
+  wind_direction: MyString
+  wind_speed: 
+  water_temperature: 
+  air_temperature: 
+
+two:
+  beach: two
+  date_time: 2020-11-14 11:10:20
+  wave_direction: MyString
+  wave_height: 
+  rain: 1
+  rain_probability: 1
+  wind_direction: MyString
+  wind_speed: 
+  water_temperature: 
+  air_temperature: 
