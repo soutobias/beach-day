@@ -29,6 +29,9 @@ gem 'devise'
 gem 'pundit'
 gem 'dotenv-rails', groups: [:development, :test]
 
+gem 'autoprefixer-rails'
+gem 'font-awesome-sass', '~> 5.6.1'
+
 gem 'cloudinary', '~> 1.16.0'
 
 # Reduces boot times through caching; required in config/boot.rb
