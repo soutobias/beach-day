@@ -5,6 +5,31 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# Create Users
+
+require 'faker'
+
+User.destroy_all
+
+user_index = 1
+10.times do
+  puts "Creating user #{user_index}"
+  admin_priviledges = user_index == 1
+  user_name = User.new(
+    email: "#{user_index}@gmail.com",
+    password: '123abc',
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    admin: admin_priviledges
+  )
+  puts "Saving user #{user_index}"
+  user_name.save!
+  puts "User #{user_index} saved"
+end
+
+# Create Beaches
+
 Beach.destroy_all
 
 Beach.create(name: "Prainha - Canto Direito", lat: "-23.0423", lng:  "-43.5072")
