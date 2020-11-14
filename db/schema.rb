@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_12_235911) do
+ActiveRecord::Schema.define(version: 2020_11_14_141611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,24 @@ ActiveRecord::Schema.define(version: 2020_11_12_235911) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.text "content"
+    t.integer "parking"
+    t.integer "restaurant"
+    t.integer "public_transportation"
+    t.integer "security"
+    t.integer "cleaning"
+    t.integer "rent_equipment"
+    t.integer "wave"
+    t.integer "wind"
+    t.integer "accessibility"
+    t.integer "sand_strip"
+    t.bigint "beach_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["beach_id"], name: "index_reviews_on_beach_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -60,4 +78,5 @@ ActiveRecord::Schema.define(version: 2020_11_12_235911) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "reviews", "beaches"
 end
