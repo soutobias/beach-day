@@ -24,7 +24,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'simple_form'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-
+gem 'faker'
 gem 'devise'
 gem 'pundit'
 gem 'dotenv-rails', groups: [:development, :test]

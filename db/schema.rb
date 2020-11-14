@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_14_152345) do
+ActiveRecord::Schema.define(version: 2020_11_14_155029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,29 @@ ActiveRecord::Schema.define(version: 2020_11_14_152345) do
     t.decimal "overall_rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "overview"
+  end
+
+  create_table "real_time_values", force: :cascade do |t|
+    t.bigint "beach_id", null: false
+    t.datetime "date_time"
+    t.decimal "wave_height"
+    t.string "wave_direction"
+    t.string "wave_formation"
+    t.decimal "wind_speed"
+    t.string "wind_direction"
+    t.string "rain"
+    t.integer "humidity"
+    t.decimal "pressure"
+    t.decimal "air_temperature"
+    t.decimal "water_temperature"
+    t.boolean "cleaning"
+    t.decimal "tide"
+    t.string "tide_situation"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "description"
+    t.index ["beach_id"], name: "index_real_time_values_on_beach_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -74,10 +97,33 @@ ActiveRecord::Schema.define(version: 2020_11_14_152345) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "first_name"
     t.string "last_name"
+    t.boolean "admin"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "weather_forecast_values", force: :cascade do |t|
+    t.bigint "beach_id", null: false
+    t.datetime "date_time"
+    t.string "wave_direction"
+    t.decimal "wave_height"
+    t.integer "rain"
+    t.integer "rain_probability"
+    t.string "wind_direction"
+    t.decimal "wind_speed"
+    t.decimal "water_temperature"
+    t.decimal "air_temperature"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "description"
+    t.string "wave_formation"
+    t.integer "humidity"
+    t.decimal "pressure"
+    t.index ["beach_id"], name: "index_weather_forecast_values_on_beach_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "reviews", "beaches"
+  add_foreign_key "real_time_values", "beaches"
+  add_foreign_key "weather_forecast_values", "beaches"
 end
