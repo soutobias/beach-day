@@ -65,6 +65,28 @@ WeatherForecastValue.destroy_all
 
 beaches = Beach.all
 
+beaches.each do |beach|
+  3.times do
+  r = Review.new(
+    beach_id: beach.id,
+    title: ["Melhor praia da vida!", "Praia mais suja que já visitei!", "Que espetáculo", "Sonhooooooo!", "Surf do bom", "Praia lotada! Nunca mais!"].sample,
+    content: ["Praia vazia, calma, ondas excelentes para quem procura um surf power, e sem muitos ambulantes.",
+    "Vista maravilhosa, brisa da boa, recomendo passar o dia inteiro", "Praia suja, ambulante berrando no seu ouvido, lotada...nunca mais"].sample,
+    parking: (1..10).to_a.sample,
+    restaurant: (1..10).to_a.sample,
+    public_transportation: (1..10).to_a.sample,
+    security: (1..10).to_a.sample,
+    cleaning: (1..10).to_a.sample,
+    rent_equipment: (1..10).to_a.sample,
+    wave: (1..10).to_a.sample,
+    wind: (1..10).to_a.sample,
+    accessibility: (1..10).to_a.sample,
+    sand_strip: (1..10).to_a.sample,
+  )
+  r.save!
+  end
+end
+
 date_time_past = []
 date_time_future = []
 c = 9

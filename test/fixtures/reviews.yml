@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  parking: 1
+  restaurant: 1
+  public_transportation: 1
+  security: 1
+  cleaning: 1
+  rent_equipment: 1
+  wave: 1
+  wind: 1
+  accessibility: 1
+  sand_strip: 1
+  beach: one
+
+two:
+  content: MyText
+  parking: 1
+  restaurant: 1
+  public_transportation: 1
+  security: 1
+  cleaning: 1
+  rent_equipment: 1
+  wave: 1
+  wind: 1
+  accessibility: 1
+  sand_strip: 1
+  beach: two
