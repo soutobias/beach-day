@@ -26,6 +26,7 @@ user_index = 1
   puts "Saving user #{user_index}"
   user_name.save!
   puts "User #{user_index} saved"
+  user_index += 1
 end
 
 # Create Beaches
