@@ -6,4 +6,6 @@ class BeachesController < ApplicationController
     # @beaches = Beach.all
   end
 
+  def traffic
+  end
 end
