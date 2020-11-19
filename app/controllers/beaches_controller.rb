@@ -3,7 +3,16 @@ class BeachesController < ApplicationController
 
   def index
     @beaches = policy_scope(Beach).order(created_at: :desc)
-    # @beaches = Beach.all
+    if params[:query].present?
+      @beaches = Beach.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      @beaches = Beach.all
+    end
   end
 
+  private
+
+  def beach_params
+    params.require(:beach).permit(:name, :lat, :lng, :overall_reviews, :overview)
+  end
 end
