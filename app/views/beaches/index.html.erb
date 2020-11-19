@@ -1,24 +1,14 @@
-
-<div class="container">
-  <div class="row">
-    <div class="col-sm-8 offset-sm-2">
-      <div id="beaches">
-        <%= form_tag beaches_path, method: :get do %>
-          <%= text_field_tag :query,
-            params[:query],
-            class: "form-control",
-            placeholder: "Ache uma praia"
-          %>
-          <%= submit_tag "Search", class: "btn btn-primary" %>
-        <% end %>
-      </div>
-      <div id="beaches">
-        <% @beaches.each do |beach| %>
-          <h4><%= beach.name %></h4>
-          <p>Descrição: <%= beach.overview %></p>
-          <p>Avaliação geral: <%= beach.overall_rating %></p>
-        <% end %>
-      </div>
-    </div>
+<header>
+  <h1>BEACH<span></span>DAY</h1>
+  <%= image_tag "banner_hide.png" %>
+</header>
+<main>
+  <div id="app" class="container">
+    <% @beaches.each do |beach| %>
+      <card data-image="https://images.unsplash.com/photo-1479660656269-197ebb83b540?dpr=2&auto=compress,format&fit=crop&w=1199&h=798&q=80&cs=tinysrgb&crop=">
+        <h1 slot="header"><%=beach.name %></h1>
+        <p slot="content"><%= beach.overall_rating %></p>
+      </card>
+    <% end %>
   </div>
-</div>
+</main>
