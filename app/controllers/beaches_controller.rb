@@ -13,6 +13,6 @@ class BeachesController < ApplicationController
   private
 
   def beach_params
-    params.require(:beach).permit(:name, :lat, :lng, :overall_reviews, :overview)
+    params.require(:beach).permit(:name, :lat, :lng, :overall_reviews, :overview, :photo)
   end
 end
