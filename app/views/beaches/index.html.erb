@@ -17,6 +17,7 @@
           <h4><%= beach.name %></h4>
           <p>Descrição: <%= beach.overview %></p>
           <p>Avaliação geral: <%= beach.overall_rating %></p>
+          <p><%= cl_image_tag beach.photo.key, height: 300, width: 400, crop: :fill %></p>
         <% end %>
       </div>
     </div>
