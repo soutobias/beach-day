@@ -27,7 +27,7 @@
       <% @beaches.each do |beach| %>
         <div class="col-6 m-0">
           <div class="flip">
-            <div class="front" style="background-image: url('<%= cl_image_path @article.photo.key%>')">
+            <div class="front" style="background-image: url('<%= cl_image_path beach.photo.key%>')">
               <h1 class="text-shadow"><%=beach.name %></h1>
               <p slot="content"><%= beach.overall_rating %></p>
             </div>
