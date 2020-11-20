@@ -1,25 +1,42 @@
-
-<div class="container">
-  <div class="row">
-    <div class="col-sm-8 offset-sm-2">
-      <div id="beaches">
-        <%= form_tag beaches_path, method: :get do %>
-          <%= text_field_tag :query,
-            params[:query],
-            class: "form-control",
-            placeholder: "Ache uma praia"
-          %>
-          <%= submit_tag "Search", class: "btn btn-primary" %>
-        <% end %>
-      </div>
-      <div id="beaches">
-        <% @beaches.each do |beach| %>
-          <h4><%= beach.name %></h4>
-          <p>Descrição: <%= beach.overview %></p>
-          <p>Avaliação geral: <%= beach.overall_rating %></p>
-          <p><%= cl_image_tag beach.photo.key, height: 300, width: 400, crop: :fill %></p>
-        <% end %>
+<header>
+  <h1>BEACH<span></span>DAY</h1>
+  <div class="container marg">
+    <p>Te ajudamos a escolher a melhor praia</p>
+  </div>
+  <%= image_tag "banner_hide.png" %>
+</header>
+<main>
+  <div class="container p-0">
+    <div class="row">
+      <div class="col-12">
+        <div class="card" style="background-image: url(https://i.pinimg.com/originals/79/81/64/798164e1c3692b4b29b94729ab5551e1.jpg)">
+          <h1>Melhores praias para sua família</h1>
+        </div>
       </div>
     </div>
+    <div id="beaches" class="search">
+      <%= form_tag beaches_path, method: :get do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control",
+          placeholder: "Ache uma praia"
+        %>
+      <% end %>
+    </div>
+    <div class="row">
+      <% @beaches.each do |beach| %>
+        <div class="col-6 m-0">
+          <div class="flip">
+            <div class="front" style="background-image: url('<%= cl_image_path @article.photo.key%>')">
+              <h1 class="text-shadow"><%=beach.name %></h1>
+              <p slot="content"><%= beach.overall_rating %></p>
+            </div>
+            <div class="back">
+              <p><%= beach.overview %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
+</main>

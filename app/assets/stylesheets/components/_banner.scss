@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url(//db.onlinewebfonts.com/c/467526db1f6b8c1f5f3b31f34bb1b8a7?family=Sucrose+Bold+Two);
+@font-face {
+  font-family: "Sucrose Bold Two";
+  src: url("//db.onlinewebfonts.com/t/467526db1f6b8c1f5f3b31f34bb1b8a7.eot");
+  src: url("//db.onlinewebfonts.com/t/467526db1f6b8c1f5f3b31f34bb1b8a7.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/467526db1f6b8c1f5f3b31f34bb1b8a7.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/467526db1f6b8c1f5f3b31f34bb1b8a7.woff") format("woff"), url("//db.onlinewebfonts.com/t/467526db1f6b8c1f5f3b31f34bb1b8a7.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/467526db1f6b8c1f5f3b31f34bb1b8a7.svg#Sucrose Bold Two") format("svg");
+}
+
+
+.marg{
+  margin-top: -50px;
+}
+body {
+  margin: 0;
+  background: rgb(225, 209, 209);
+
+}
+header {
+  background: url(banner_full.png) no-repeat;
+  padding-top: 61.93333333%;
+  background-size: cover;
+  font-family: 'Sucrose Bold Two';
+  height: 490px;
+
+}
+header img {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 57.6%;
+  height: 100%;
+}
+header h1 {
+  position: fixed;
+  font-family: 'Sucrose Bold Two';
+  top: 3rem;
+  right: 2rem;
+  font-size: 12vw;
+  line-height: .8;
+  margin-top: 0;
+  text-align: center;
+}
+header h1 span {
+  display: block;
+  font-size: 8.75vw;
+}
+
+header p{
+  text-align: center;
+  z-index: 1;
+  position: relative;
+  font-family: 'Anton', sans-serif;
+}
+
+main {
+  margin-top: -300px;
+  font-family: 'IM Fell French Canon Pro';
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+@media all and (max-width: 400px) {
+  main { padding: 2rem; }
+}
