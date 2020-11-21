@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  forecast: one
+  date_time: 2020-11-20 18:43:33
+  wind_speed: 1
+  wind_direction: 1
+  wave_height: 
+  wave_formation: 1
+  wave_direction: 1
+  air_temperature: 1
+  rain: 9.99
+
+two:
+  forecast: two
+  date_time: 2020-11-20 18:43:33
+  wind_speed: 1
+  wind_direction: 1
+  wave_height: 
+  wave_formation: 1
+  wave_direction: 1
+  air_temperature: 1
+  rain: 9.99

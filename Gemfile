@@ -28,11 +28,15 @@ gem 'faker'
 gem 'devise'
 gem 'pundit'
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'selenium-webdriver'
+gem 'haversine', '~> 0.3.0'
+
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass', '~> 5.6.1'
-
+gem 'nokogiri'
 gem 'cloudinary', '~> 1.16.0'
+gem 'rest-client'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -41,7 +45,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
-
+gem 'interactor'
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'

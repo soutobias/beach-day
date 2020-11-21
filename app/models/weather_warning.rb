@@ -1,0 +1,2 @@
+class WeatherWarning < ApplicationRecord
+end
