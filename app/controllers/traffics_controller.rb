@@ -1,11 +1,14 @@
 class TrafficsController < ApplicationController
+before_action :set_beach, only: [:index]
+
   def index
-    @beaches = policy_scope(Beach)
-    @makers = @beaches.geocoded.map do |beach|
-      {
-        lat: beach.lat,
-        lng: beach.lng
-      }
-    end
+    skip_authorization
+  end
+
+  private
+
+  def set_beach
+    @beach = Beach.find(params[:beach_id])
+    # authorize @beach
   end
 end

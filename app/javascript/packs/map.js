@@ -1,14 +1,23 @@
+let map;
+
 function initMap() {
-        // The location of Uluru
-        const prainha = { lat: -23.0423, lng: -43.5072 };
-        // The map, centered at Uluru
-        const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 4,
-          center: prainha,
-        });
-        // The marker, positioned at Uluru
-        const marker = new google.maps.Marker({
-          position: prainha,
-          map: map,
-        });
-      }
+  const mapElement = document.getElementById("map")
+  const marker = JSON.parse(mapElement.dataset.markers)
+  console.log(marker)
+  map = new google.maps.Map(mapElement,
+  {
+    center: {lat: parseFloat(marker.lat), lng: parseFloat(marker.lng)},
+    zoom: 8
+  });
+
+  new google.maps.Marker({
+    position: {lat: parseFloat(marker.lat), lng: parseFloat(marker.lng)},
+    map,
+    title: "Hello World!",
+  });
+
+  const trafficLayer = new google.maps.TrafficLayer();
+  trafficLayer.setMap(map);
+}
+
+export { initMap };
