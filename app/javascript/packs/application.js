@@ -12,7 +12,10 @@ import { initUpdateH1OnScroll } from '../components/init_h1';
 import { rangeBegin, rangeWeather0, rangeWeather1, rangeWeather2, changeWeatherDay1, changeWeatherDay0, changeWeatherDay2, changeWeatherDay3, changeWeatherDay4 } from '../components/init_range'; // <-- add this line
 
 
-document.addEventListener("turbolinks:load", () => {
+import { initMap } from 'packs/map';
+
+document.addEventListener('turbolinks:load', () => {
+  initMap();
   initUpdateH1OnScroll();
   rangeBegin();
   rangeWeather0();
