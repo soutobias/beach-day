@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cleaning_station: one
+  date_time: 2020-11-20 18:39:46
+  status: MyString
+
+two:
+  cleaning_station: two
+  date_time: 2020-11-20 18:39:46
+  status: MyString

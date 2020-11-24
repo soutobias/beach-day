@@ -2,6 +2,7 @@ class Beach < ApplicationRecord
   has_many :real_time_values, dependent: :destroy
   has_many :weather_forecast_values, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_one_attached :photo
 
   validates :name, presence: true, uniqueness: true
   validates :lat, presence: true

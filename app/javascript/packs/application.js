@@ -8,9 +8,13 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
+import { initUpdateH1OnScroll } from '../components/init_h1';
+
 import { initMap } from 'packs/map';
+
 document.addEventListener('turbolinks:load', () => {
   initMap();
+  initUpdateH1OnScroll();
 })
 
 // Uncomment to copy all static images under ../images to the output folder and reference
