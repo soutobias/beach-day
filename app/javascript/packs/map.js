@@ -3,11 +3,10 @@ let map;
 function initMap() {
   const mapElement = document.getElementById("map")
   const marker = JSON.parse(mapElement.dataset.markers)
-  console.log(marker)
   map = new google.maps.Map(mapElement,
   {
     center: {lat: parseFloat(marker.lat), lng: parseFloat(marker.lng)},
-    zoom: 8
+    zoom: 13
   });
 
   new google.maps.Marker({
@@ -18,6 +17,10 @@ function initMap() {
 
   const trafficLayer = new google.maps.TrafficLayer();
   trafficLayer.setMap(map);
+
+  const transitLayer = new google.maps.TransitLayer();
+  transitLayer.setMap(map);
 }
+
 
 export { initMap };
