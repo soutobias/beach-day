@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :beaches do
     resources :reviews, only: [:index, :new, :create]
     get "traffic", to: "traffics#index"
-    get "weather", to: "beaches#weather"
-    get "real_time", to: "beaches#real_time"
+    get "weather", to: "weathers#index"
+    get "real_time", to: "real_times#index"
   end
 end

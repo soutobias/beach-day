@@ -9,13 +9,24 @@ require("@rails/activestorage").start()
 require("channels")
 
 import { initUpdateH1OnScroll } from '../components/init_h1';
+import { rangeBegin, rangeWeather0, rangeWeather1, rangeWeather2, changeWeatherDay1, changeWeatherDay0, changeWeatherDay2, changeWeatherDay3, changeWeatherDay4 } from '../components/init_range'; // <-- add this line
+
 
 import { initMap } from 'packs/map';
 
 document.addEventListener('turbolinks:load', () => {
   initMap();
   initUpdateH1OnScroll();
-})
+  rangeBegin();
+  rangeWeather0();
+  rangeWeather1();
+  rangeWeather2();
+  changeWeatherDay1();
+  changeWeatherDay0();
+  changeWeatherDay2();
+  changeWeatherDay3();
+  changeWeatherDay4();
+});
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
