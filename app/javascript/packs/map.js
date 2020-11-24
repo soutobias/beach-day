@@ -20,6 +20,9 @@ function initMap() {
 
   const transitLayer = new google.maps.TransitLayer();
   transitLayer.setMap(map);
+
+  const bikeLayer = new google.maps.BicyclingLayer();
+  bikeLayer.setMap(map);
 }
 
 
