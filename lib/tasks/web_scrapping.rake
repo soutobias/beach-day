@@ -117,6 +117,7 @@ namespace :web_scrapping do
             )
             visual_value.visual_station = visual_station
             visual_value.save!
+            puts ("Success: Inserted #{visual_station.url}")
           end
         rescue
           puts ("error inserting #{visual_station.url}")
@@ -239,6 +240,7 @@ namespace :web_scrapping do
               value.weather_station = station
               value.save!
             end
+            p "Ok"
           end
         end
       end
@@ -444,7 +446,7 @@ namespace :web_scrapping do
   task get_ocean_forecasts: :environment do
     def ocean_forecast
       date = Time.now
-      date = Time.new(Time.now.year, Time.now.month, Time.now.day - 1).strftime("%Y-%m-%d")
+      date = Time.new(Time.now.year, Time.now.month, Time.now.day-1).strftime("%Y-%m-%d")
 
       # date = date.strftime("%Y-%m-%d")
 
@@ -572,7 +574,11 @@ namespace :web_scrapping do
 
         if beach.lng < -43.04 && beach.lng > -43.23
           wave_height = buoys[0].wave_height
-          wave_direction = direction_to_string(buoys[0].wave_direction)
+          begin
+            wave_direction = direction_to_string(buoys[0].wave_direction)
+          rescue
+            wave_direction = nil
+          end
           wave_formation = buoys[0].wave_formation
         else
           wave_height = visual_values[@index_visual].wave_height
@@ -584,7 +590,11 @@ namespace :web_scrapping do
         humidity = weather_values[@index_weather].humidity
         wind_speed = weather_values[@index_weather].wind_speed
 
-        wind_direction = direction_to_string(weather_values[@index_weather].wind_dir)
+        begin
+          wind_direction = direction_to_string(weather_values[@index_weather].wind_dir)
+        rescue
+          wind_direction = nil
+        end
 
         rain = weather_values[@index_weather].rain
         pressure = weather_values[@index_weather].pressure
@@ -651,7 +661,7 @@ namespace :web_scrapping do
   end
 
 
-  task feed_forecast: :environment do
+  task feed_ocean_forecast: :environment do
     def direction_to_string(value)
       if value > 45 / 2 && value <= 45 + 45 / 2
         direction = "Nordeste"
@@ -673,6 +683,7 @@ namespace :web_scrapping do
     end
 
     def feed_weather_forecast
+
       WeatherForecastValue.destroy_all
 
       beaches = Beach.all
@@ -718,15 +729,11 @@ namespace :web_scrapping do
             wind_direction = nil
           end
 
-          weather_forecast_value = WeatherForecastValue.new(
+          weather_forecast_value = OceanForecastValue.new(
             date_time: forecast_value.date_time,
             wave_height: forecast_value.wave_height,
             wave_direction: wave_direction,
             wave_formation: forecast_value.wave_formation.to_s,
-            wind_speed: forecast_value.wind_speed,
-            wind_direction: wind_direction,
-            rain: forecast_value.rain.to_s,
-            air_temperature: forecast_value.air_temperature,
           )
           weather_forecast_value.beach = beach
           weather_forecast_value.save!
@@ -737,7 +744,7 @@ namespace :web_scrapping do
         ocean_model_values = OceanModelValue.where("ocean_model_position_id = #{@ocean_model_position.id} AND date_time >= '#{date}'")
 
         ocean_model_values.each do |ocean_model_value|
-          weather_forecast_value = WeatherForecastValue.where("date_time = '#{ocean_model_value.date_time}' AND beach_id = #{beach.id}")
+          weather_forecast_value = OceanForecastValue.where("date_time = '#{ocean_model_value.date_time}' AND beach_id = #{beach.id}")
           unless weather_forecast_value.empty?
             weather_forecast_value[0].update(
               water_temperature: ocean_model_value.water_temperature
@@ -749,5 +756,110 @@ namespace :web_scrapping do
     end
 
     feed_weather_forecast
+  end
+
+  task feed_weather_forecast: :environment do
+    def direction_to_string(value)
+      if value > 45 / 2 && value <= 45 + 45 / 2
+        direction = "Nordeste"
+      elsif value > 45 + 45 / 2 && value <= 90 + 45 / 2
+        direction = "Leste"
+      elsif value > 90 + 45 / 2 && value <= 180 - 45 / 2
+        direction = "Sudeste"
+      elsif value > 180 - 45 / 2 && value <= 180 + 45 / 2
+        direction = "Sul"
+      elsif value > 180 + 45 / 2 && value <= 270 - 45 / 2
+        direction = "Sudoeste"
+      elsif value > 270 - 45 / 2 && value <= 270 + 45 / 2
+        direction = "Oeste"
+      elsif value > 270 + 45 / 2 && value <= 360 - 45 / 2
+        direction = "Noroeste"
+      else
+        direction = "Norte"
+      end
+    end
+
+
+    def open_weather_api
+      beaches = Beach.all
+      WeatherForecastValue.destroy_all
+      WeatherForecastDaily.destroy_all
+      beaches.each do |beach|
+        meteo_values = RestClient.get "https://api.openweathermap.org/data/2.5/onecall?lat=#{beach.lat}&lon=#{beach.lng}&exclude=minutely&appid=39352aa3ee983b59623430b39d23fe25"
+        meteo_values = JSON.parse(meteo_values)
+
+        hourly = meteo_values["hourly"]
+
+        hourly.each do |hour|
+          date_time = Time.at(hour["dt"]).strftime("%Y-%m-%d %H:00:00")
+          air_temperature = hour["temp"].to_f - 273
+          air_temperature_feels_like = hour["feels_like"].to_f - 273
+          pressure = hour["pressure"]
+          humidity = hour["humidity"]
+          wind_speed = hour["wind_speed"]
+          wind_direction = direction_to_string(hour["wind_deg"].to_f)
+          description = hour["weather"][0]["description"]
+          rain_probability = hour["pop"]
+          icon = hour["weather"][0]["icon"]
+
+          p date_time
+          weather_forecast_value = WeatherForecastValue.new(
+            date_time: date_time,
+            wind_speed: wind_speed,
+            wind_direction: wind_direction,
+            rain_probability: rain_probability,
+            description: description,
+            air_temperature: air_temperature,
+            air_temperature_feels_like: air_temperature_feels_like,
+            pressure: pressure,
+            humidity: humidity,
+            icon: icon
+          )
+
+          weather_forecast_value.beach = beach
+          weather_forecast_value.save!
+        end
+
+        daily = meteo_values["daily"]
+
+
+        daily.each do |day|
+          date_time = Time.at(day["dt"]).strftime("%Y-%m-%d %H:00:00")
+          air_temperature = day["temp"]["day"].to_f - 273
+          air_temperature_min = day["temp"]["min"].to_f - 273
+          air_temperature_max = day["temp"]["max"].to_f - 273
+          air_temperature_feels_like = day["feels_like"]["day"].to_f - 273
+          pressure = day["pressure"]
+          humidity = day["humidity"]
+          wind_speed = day["wind_speed"]
+          wind_direction = direction_to_string(day["wind_deg"].to_f)
+          description = day["weather"][0]["description"]
+          icon = day["weather"][0]["icon"]
+          rain_probability = day["pop"]
+          uv = day["uvi"]
+
+          weather_forecast_daily = WeatherForecastDaily.new(
+            date_time: date_time,
+            wind_speed: wind_speed,
+            wind_direction: wind_direction,
+            rain_probability: rain_probability,
+            description: description,
+            air_temperature: air_temperature,
+            air_temperature_feels_like: air_temperature_feels_like,
+            air_temperature_min: air_temperature_min,
+            air_temperature_max: air_temperature_max,
+            pressure: pressure,
+            humidity: humidity,
+            uv: uv,
+            icon: icon
+          )
+
+          weather_forecast_daily.beach = beach
+          weather_forecast_daily.save!
+        end
+      end
+    end
+
+    open_weather_api
   end
 end

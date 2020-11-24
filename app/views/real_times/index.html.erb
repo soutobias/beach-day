@@ -1,0 +1,27 @@
+<div class="banner m-0">
+  <h1><%= @beach.name  %></h1>
+  <p><%= @beach.overview %></p>
+</div>
+<div class="cont">
+  <ul class="list-inline tabs-underlined w-100 justify-content-between">
+    <li>
+      <%= link_to "Avaliações", beach_reviews_url(@beach), class: "tab-underlined"%>
+    </li>
+    <li>
+      <%= link_to "Tempo Real", beach_real_time_url(@beach), class: "tab-underlined active"%>
+    </li>
+    <li>
+      <%= link_to "Previsão do Tempo", beach_weather_url(@beach), class: "tab-underlined"%>
+    </li>
+    <li>
+      <%= link_to "Como Chegar", beach_traffic_url(@beach), class: "tab-underlined"%>
+    </li>
+  </ul>
+  <div id="my_babysitters">
+    <% @real_times.each do |real_time| %>
+      <p><%= real_time.date_time %> </p>
+      <p>Velocidade do vento: <%= real_time.wind_speed %> </p>
+      <p>Altura da onda: <%= real_time.wave_height %> </p>
+    <% end %>
+  </div>
+</div>
