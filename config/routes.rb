@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   root to: "beaches#index"
   resources :beaches do
     resources :reviews, only: [:index, :new, :create]
-    get "traffic", to: "beaches#traffic"
-    get "weather", to: "beaches#weather"
-    get "real_time", to: "beaches#real_time"
+    get "traffic", to: "traffics#index"
+    get "weather", to: "weathers#index"
+    get "real_time", to: "real_times#index"
   end
 end

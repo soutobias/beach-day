@@ -1,12 +1,14 @@
 <header>
-  <h1 class="scroll-hide">BEACH<span></span>DAY</h1>
-  <div class="container marg">
-    <p>Te ajudamos a escolher a melhor praia</p>
+  <div class="index">
+    <h1 class="scroll-hide">BEACH<span></span>DAY</h1>
+    <div class="container marg">
+      <p>Te ajudamos a escolher a melhor praia</p>
+    </div>
+    <%= image_tag "banner_hide.png" %>
   </div>
-  <%= image_tag "banner_hide.png" %>
 </header>
 <main>
-  <div class="m-0 p-0">
+  <div class="mr-3 ml-3">
     <div class="row">
       <div class="col-12">
         <div class="card" style="background-image: url(https://i.pinimg.com/originals/79/81/64/798164e1c3692b4b29b94729ab5551e1.jpg)">
@@ -26,15 +28,17 @@
     <div class="row">
       <% @beaches.each do |beach| %>
         <div class="col-6 m-0">
-          <div class="flip">
-            <div class="front" style="background-image: url('<%= cl_image_path beach.photo.key%>')">
-              <h1 class="text-shadow"><%=beach.name %></h1>
-              <p slot="content"><%= beach.overall_rating %></p>
+          <%= link_to beach_weather_url(beach) do %>
+            <div class="flip">
+              <div class="front" style="background-image: url('<%= cl_image_path beach.photo.key%>')">
+                <h1 class="text-shadow"><%=beach.name %></h1>
+                <p slot="content"><%= beach.overall_rating %></p>
+              </div>
+              <div class="back">
+                <p><%= beach.overview %></p>
+              </div>
             </div>
-            <div class="back">
-              <p><%= beach.overview %></p>
-            </div>
-          </div>
+          <% end %>
         </div>
       <% end %>
     </div>

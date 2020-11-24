@@ -1,5 +1,6 @@
 class BeachesController < ApplicationController
   skip_before_action :authenticate_user!, only: :index
+  before_action :set_beach, only: [:show]
 
   def index
     @beaches = policy_scope(Beach).order(created_at: :desc)
@@ -10,9 +11,17 @@ class BeachesController < ApplicationController
     end
   end
 
+  def show
+    @markers = {
+      lat: @beach.lat,
+      lng: @beach.lng
+    }
+  end
+
   private
 
-  def beach_params
-    params.require(:beach).permit(:name, :lat, :lng, :overall_reviews, :overview, :photo)
+  def set_beach
+    @beach = Beach.find(params[:id])
+    authorize @beach
   end
 end

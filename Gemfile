@@ -36,7 +36,10 @@ gem 'autoprefixer-rails'
 gem 'font-awesome-sass', '~> 5.6.1'
 gem 'nokogiri'
 gem 'cloudinary', '~> 1.16.0'
+gem 'geocoder'
+
 gem 'rest-client'
+
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false

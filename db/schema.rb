@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_231920) do
+
+ActiveRecord::Schema.define(version: 2020_11_21_193629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +122,18 @@ ActiveRecord::Schema.define(version: 2020_11_24_231920) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "ocean_forecast_values", force: :cascade do |t|
+    t.datetime "date_time"
+    t.decimal "water_temperature"
+    t.decimal "wave_height"
+    t.integer "wave_formation"
+    t.integer "wave_direction"
+    t.bigint "beach_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["beach_id"], name: "index_ocean_forecast_values_on_beach_id"
+  end
+
   create_table "ocean_model_positions", force: :cascade do |t|
     t.decimal "lat"
     t.decimal "lng"
@@ -223,23 +236,40 @@ ActiveRecord::Schema.define(version: 2020_11_24_231920) do
     t.index ["visual_station_id"], name: "index_visual_values_on_visual_station_id"
   end
 
+  create_table "weather_forecast_dailies", force: :cascade do |t|
+    t.datetime "date_time"
+    t.decimal "wind_speed"
+    t.string "wind_direction"
+    t.decimal "rain_probability"
+    t.string "description"
+    t.decimal "air_temperature"
+    t.decimal "air_temperature_feels_like"
+    t.decimal "pressure"
+    t.decimal "humidity"
+    t.decimal "uv"
+    t.bigint "beach_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.decimal "air_temperature_min"
+    t.decimal "air_temperature_max"
+    t.string "icon"
+    t.index ["beach_id"], name: "index_weather_forecast_dailies_on_beach_id"
+  end
+
   create_table "weather_forecast_values", force: :cascade do |t|
     t.bigint "beach_id", null: false
     t.datetime "date_time"
-    t.string "wave_direction"
-    t.decimal "wave_height"
-    t.integer "rain"
     t.integer "rain_probability"
     t.string "wind_direction"
     t.decimal "wind_speed"
-    t.decimal "water_temperature"
     t.decimal "air_temperature"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "description"
-    t.string "wave_formation"
-    t.integer "humidity"
+    t.decimal "humidity"
     t.decimal "pressure"
+    t.decimal "air_temperature_feels_like"
+    t.string "icon"
     t.index ["beach_id"], name: "index_weather_forecast_values_on_beach_id"
   end
 
@@ -277,10 +307,12 @@ ActiveRecord::Schema.define(version: 2020_11_24_231920) do
   add_foreign_key "buoys", "buoy_stations"
   add_foreign_key "cleaning_values", "cleaning_stations"
   add_foreign_key "forecast_values", "forecasts"
+  add_foreign_key "ocean_forecast_values", "beaches"
   add_foreign_key "ocean_model_values", "ocean_model_positions"
   add_foreign_key "real_time_values", "beaches"
   add_foreign_key "reviews", "beaches"
   add_foreign_key "visual_values", "visual_stations"
+  add_foreign_key "weather_forecast_dailies", "beaches"
   add_foreign_key "weather_forecast_values", "beaches"
   add_foreign_key "weather_values", "weather_stations"
 end

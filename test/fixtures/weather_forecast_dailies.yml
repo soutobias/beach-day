@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date_time: 2020-11-21 18:02:53
+  wind_speed: 
+  wind_direction: MyString
+  rain_probability: 
+  description: MyString
+  air_temperature: 
+  air_temperature_feels_like: 
+  pressure: 
+  humidity: 
+  uv: 
+  beach: one
+
+two:
+  date_time: 2020-11-21 18:02:53
+  wind_speed: 
+  wind_direction: MyString
+  rain_probability: 
+  description: MyString
+  air_temperature: 
+  air_temperature_feels_like: 
+  pressure: 
+  humidity: 
+  uv: 
+  beach: two

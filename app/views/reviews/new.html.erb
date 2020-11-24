@@ -1,0 +1,16 @@
+<h2>O que achou dessa praia? Deixe seu comentário!</h2>
+<%= simple_form_for [ @beach, @review ] do |f| %>
+  <%= f.input :title %>
+  <%= f.input :content %>
+  <%= f.input :parking %>
+  <%= f.input :restaurant %>
+  <%= f.input :public_transportation %>
+  <%= f.input :security %>
+  <%= f.input :cleaning %>
+  <%= f.input :rent_equipment %>
+  <%= f.input :wave %>
+  <%= f.input :wind %>
+  <%= f.input :accessibility %>
+  <%= f.input :sand_strip %>
+  <%= f.submit "Adicionar"%>
+<% end %>
