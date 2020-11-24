@@ -4,4 +4,7 @@ class BeachPolicy < ApplicationPolicy
       scope.all
     end
   end
+  def show?
+    true
+  end
 end
