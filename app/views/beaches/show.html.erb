@@ -5,24 +5,45 @@
 <div class="cont">
   <ul class="list-inline tabs-underlined w-100 justify-content-between">
     <li>
-      <%= link_to "Avaliações", beach_reviews_url(@beach), class: "tab-underlined"%>
+      <%= link_to "Avaliações", beach_reviews_url(@beach), class: "tab-underlined active"%>
     </li>
     <li>
       <%= link_to "Tempo Real", beach_real_time_url(@beach), class: "tab-underlined"%>
     </li>
     <li>
-      <%= link_to "Previsão do Tempo", beach_weather_url(@beach), class: "tab-underlined active"%>
+      <%= link_to "Previsão do Tempo", beach_weather_url(@beach), class: "tab-underlined"%>
     </li>
     <li>
       <%= link_to "Como Chegar", beach_traffic_url(@beach), class: "tab-underlined"%>
     </li>
   </ul>
-  <div class="container">
+
+
+
+  <div id="review" class="container inactive-tab">
+  </div>
+
+
+
+
+  <div id="realtime" class="container inactive-tab">
+  </div>
+
+
+
+
+  <div id="traffic" class="container ">
     <div id="map" data-markers="<%= @markers.to_json %>" >
     </div>
   </div>
-  <div class=inactive-tab>
-    <div class="card-weathers w-100">
+
+
+
+  <div id="weatherforecast" class="inactive-tab">
+
+
+
+<!--     <div class="card-weathers w-100">
       <div class="card-top w-100">
         <% @weathers_today.each do |hour| %>
           <div id="weather-day0-hour<%= hour.date_time.hour %>" class="d-flex justify-content-around inactive-tab all-cards">
@@ -203,6 +224,11 @@
           <p><%= @dailies[5].air_temperature_min.round()%>° / <%= @dailies[0].air_temperature_max.round()%>°</p>
         </div>
       </div>
-    </div>
+    </div> -->
+
+
+
+
+
   </div>
 </div>

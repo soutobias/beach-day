@@ -1,5 +1,5 @@
 class WeatherForecastValue < ApplicationRecord
-  belongs_to :beach
+  belongs_to :beach,
   validates :date_time, presence: true, allow_nil: true
   validates_inclusion_of :wind_direction, in: %w(Norte Nordeste Leste Sudeste Sul Sul-Sudeste Sudoeste Oeste Noroeste), allow_nil:true
   validates :wind_speed, numericality: true, allow_nil: true
