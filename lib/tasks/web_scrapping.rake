@@ -537,4 +537,75 @@ namespace :web_scrapping do
 
     open_weather_api
   end
+
+  task feed_ocean_forecast: :environment do
+    def feed_weather_forecast
+
+      OceanForecastValue.destroy_all
+
+      beaches = Beach.all
+
+
+      wave_forecast_stations = WaveForecastStation.all
+      water_forecast_stations = WaterForecastStation.all
+
+      date = Time.new(Time.now.year, Time.now.month, Time.now.day, Time.now.hour).strftime("%Y-%m-%d %H:00:00")
+
+      beaches.each do |beach|
+        distance = 9999
+        wave_forecast_stations.each do |forecast|
+          x = Haversine.distance(beach.lat, beach.lng, forecast.lat, forecast.lng).to_miles
+          if x < distance
+            distance = x
+            @forecast = forecast
+          end
+        end
+
+        distance = 9999
+        water_forecast_stations.each do |ocean_model_position|
+          x = Haversine.distance(beach.lat, beach.lng, ocean_model_position.lat, ocean_model_position.lng).to_miles
+          if x < distance
+            distance = x
+            @ocean_model_position = ocean_model_position
+          end
+        end
+
+        forecast_values = WaveForecastValue.where("wave_forecast_station_id = #{@forecast.id} AND date_time >= '#{date}'")
+
+        p "agora salvar"
+
+        forecast_values.each do |forecast_value|
+          begin
+            wave_direction = forecast_value.wave_direction
+          rescue
+            wave_direction = nil
+          end
+
+          ocean_forecast_value = OceanForecastValue.new(
+            date_time: forecast_value.date_time,
+            wave_height: forecast_value.wave_height,
+            wave_direction: wave_direction,
+          )
+          ocean_forecast_value.beach = beach
+          ocean_forecast_value.save!
+        end
+
+        p "agora salvar"
+
+        ocean_model_values = WaterForecastValue.where("water_forecast_station_id = #{@ocean_model_position.id} AND date_time >= '#{date}'")
+
+        ocean_model_values.each do |ocean_model_value|
+          ocean_forecast_value = OceanForecastValue.where("date_time = '#{ocean_model_value.date_time}' AND beach_id = #{beach.id}")
+          unless ocean_forecast_value.empty?
+            ocean_forecast_value[0].update(
+              water_temperature: ocean_model_value.water_temperature
+            )
+            p ocean_forecast_value
+          end
+        end
+        p "agora salvo"
+      end
+    end
+    feed_weather_forecast
+  end
 end

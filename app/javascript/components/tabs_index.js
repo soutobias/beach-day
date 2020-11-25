@@ -9,10 +9,10 @@ const toogleTab = () => {
 
   const tab1 = document.getElementById("review");
   const tab2 = document.getElementById("realtime");
-  const tab3 = document.getElementById("traffic");
-  const tab4 = document.getElementById("weatherforecast");
+  const tab3 = document.getElementById("weatherforecast");
+  const tab4 = document.getElementById("traffic");
 
-  if (clickButton1) => {
+  if (clickButton1) {
     clickButton1.addEventListener('click', (event) => {
       event.currentTarget.classList.add('active');
       clickButton2.classList.remove('active');

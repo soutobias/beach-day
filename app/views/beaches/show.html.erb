@@ -50,16 +50,13 @@
               <p class="p-0 m-0">Chuva: <%= (hour.rain_probability * 100).to_i %>%</p>
               <p class="p-0 m-0">Humidade: <%= (hour.humidity).to_i %>%</p>
               <p class="p-0 m-0">Vento: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction %>)</p>
-              <% wave = @waves_today.where("date_time = '#{hour.date_time}'") %>
-              <% unless wave.empty? %>
-                <% if wave[0].wave_height %>
-                  <p class="p-0 m-0">Ondas: <%= (wave[0].wave_height) %>m (<%=wave[0].wave_direction %>)</p>
+              <% ocean = @oceans_today.where("date_time = '#{hour.date_time}'") %>
+              <% unless ocean.empty? %>
+                <% if ocean[0].wave_height %>
+                  <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
                 <% end %>
-              <% end %>
-              <% water = @waters_today.where("date_time = '#{hour.date_time}'") %>
-              <% unless water.empty? %>
-                <% if water[0].water_temperature %>
-                  <p class="p-0 m-0">Temperatura da água: <%= (water[0].water_temperature).round() %>°C</p>
+                <% if ocean[0].water_temperature %>
+                  <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
                 <% end %>
               <% end %>
             </div>
@@ -79,16 +76,13 @@
               <p class="p-0 m-0">Chuva: <%= (hour.rain_probability * 100).to_i %>%</p>
               <p class="p-0 m-0">Humidade: <%= (hour.humidity).to_i %>%</p>
               <p class="p-0 m-0">Vento: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction %>)</p>
-              <% wave = @waves_today_1.where("date_time = '#{hour.date_time}'") %>
-              <% unless wave.empty? %>
-                <% if wave[0].wave_height %>
-                  <p class="p-0 m-0">Ondas: <%= (wave[0].wave_height) %>m (<%=wave[0].wave_direction %>)</p>
+              <% ocean = @oceans_today_1.where("date_time = '#{hour.date_time}'") %>
+              <% unless ocean.empty? %>
+                <% if ocean[0].wave_height %>
+                  <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
                 <% end %>
-              <% end %>
-              <% water = @waters_today_1.where("date_time = '#{hour.date_time}'") %>
-              <% unless water.empty? %>
-                <% if water[0].water_temperature %>
-                  <p class="p-0 m-0">Temperatura da água: <%= (water[0].water_temperature).round() %>°C</p>
+                <% if ocean[0].water_temperature %>
+                  <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
                 <% end %>
               <% end %>
             </div>
@@ -108,19 +102,15 @@
               <p class="p-0 m-0">Chuva: <%= (hour.rain_probability * 100).to_i %>%</p>
               <p class="p-0 m-0">Humidade: <%= (hour.humidity).to_i %>%</p>
               <p class="p-0 m-0">Vento: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction %>)</p>
-              <% wave = @waves_today_2.where("date_time = '#{hour.date_time}'") %>
-              <% unless wave.empty? %>
-                <% if wave[0].wave_height %>
-                  <p class="p-0 m-0">Ondas: <%= (wave[0].wave_height) %>m (<%=wave[0].wave_direction %>)</p>
+              <% ocean = @oceans_today_2.where("date_time = '#{hour.date_time}'") %>
+              <% unless ocean.empty? %>
+                <% if ocean[0].wave_height %>
+                  <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
+                <% end %>
+                <% if ocean[0].water_temperature %>
+                  <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
                 <% end %>
               <% end %>
-              <% water = @waters_today_2.where("date_time = '#{hour.date_time}'") %>
-              <% unless water.empty? %>
-                <% if water[0].water_temperature %>
-                  <p class="p-0 m-0">Temperatura da água: <%= (water[0].water_temperature).round(1) %>°C</p>
-                <% end %>
-              <% end %>
-
             </div>
           </div>
         <% end %>
@@ -140,11 +130,11 @@
             <p class="p-0 m-0">Chuva: <%= (daily.rain_probability * 100).to_i %>%</p>
             <p class="p-0 m-0">Humidade: <%= (daily.humidity).to_i %>%</p>
             <p class="p-0 m-0">Vento: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction %>)</p>
-            <% wave = @waves_today_3.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
-            <p class="p-0 m-0">Maior onda do dia: <%= wave[0].wave_height %> m</p>
-            <% water = @waters_today_3.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
-            <% unless water.empty? %>
-              <p class="p-0 m-0">Menor Temperatura da água do dia: <%= water[0].water_temperature.round(1) %>°C</p>
+            <% ocean = @oceans_today_3.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
+            <p class="p-0 m-0">Maior onda do dia: <%= ocean[0].wave_height %> m</p>
+            <% ocean = @oceans_today_3.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
+            <% unless ocean.empty? %>
+              <p class="p-0 m-0">Menor Temperatura da água do dia: <%= ocean[0].water_temperature.round(1) %>°C</p>
             <% end %>
             <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
           </div>
@@ -165,10 +155,10 @@
             <p class="p-0 m-0">Chuva: <%= (daily.rain_probability * 100).to_i %>%</p>
             <p class="p-0 m-0">Humidade: <%= (daily.humidity).to_i %>%</p>
             <p class="p-0 m-0">Vento: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction %>)</p>
-            <% wave = @waves_today_3.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
-            <p class="p-0 m-0">Maior onda do dia: <%= wave[0].wave_height %> m</p>
-            <% water = @waters_today_3.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
-            <% unless water.empty? %>
+            <% ocean = @oceans_today_4.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
+            <p class="p-0 m-0">Maior onda do dia: <%= ocean[0].wave_height %> m</p>
+            <% ocean = @oceans_today_4.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
+            <% unless ocean.empty? %>
               <p class="p-0 m-0">Menor Temperatura da água do dia: <%= ocean[0].water_temperature.round(1) %>°C</p>
             <% end %>
             <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
@@ -176,7 +166,7 @@
         </div>
 
         <form action="#" method="get" class="w-100 inactive-tab range-today"  id="ranges">
-          <input type="range" id="weather-range-0" name="weather-range" min='<%= @weathers_today[0].date_time.hour %>' max='<%= @weathers_today[-1].date_time.hour %>' class="w-100">
+          <input type="range" id="weather-range-0" name="weather-range" step="3" min='<%= @weathers_today[0].date_time.hour %>' max='<%= @weathers_today[-1].date_time.hour %>' class="w-100">
           <div class="d-flex justify-content-between">
             <% @weathers_today.each do |hour| %>
               <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
@@ -184,7 +174,7 @@
           </div>
         </form>
         <form action="#" method="get" class="w-100 inactive-tab range-today_1" id="ranges">
-          <input type="range" id="weather-range-1" name="weather-range" min='<%= @weathers_today_1[0].date_time.hour %>' max='<%= @weathers_today_1[-1].date_time.hour %>' class="w-100">
+          <input type="range" id="weather-range-1" name="weather-range" step="3"  min='<%= @weathers_today_1[0].date_time.hour %>' max='<%= @weathers_today_1[-1].date_time.hour %>' class="w-100">
           <div class="d-flex justify-content-between">
             <% @weathers_today_1.each do |hour| %>
               <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
@@ -192,7 +182,7 @@
           </div>
         </form>
         <form action="#" method="get" class="w-100 inactive-tab range-today_2" id="ranges">
-          <input type="range" id="weather-range-2" name="weather-range" min='<%= @weathers_today_2[0].date_time.hour %>' max='<%= @weathers_today_2[-1].date_time.hour %>' class="w-100">
+          <input type="range" id="weather-range-2" name="weather-range" step="3" min='<%= @weathers_today_2[0].date_time.hour %>' max='<%= @weathers_today_2[-1].date_time.hour %>' class="w-100">
           <div class="d-flex justify-content-between">
             <% @weathers_today_2.each do |hour| %>
               <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
