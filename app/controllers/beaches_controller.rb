@@ -16,34 +16,52 @@ class BeachesController < ApplicationController
       lat: @beach.lat,
       lng: @beach.lng
     }
-    # @weathers = policy_scope(WeatherForecastValue).where("beach_id = #{@beach.id}").order(date_time: :asc)
-    # query = "date_time <=  '#{DateTime.now.strftime('%Y-%m-%d 23:59:59')}'"
-    # @weathers_today = @weathers.where(query).order(date_time: :asc)
+    @weathers = WeatherForecastValue.where("beach_id = #{@beach.id}").order(date_time: :asc)
+    query = "date_time <=  '#{DateTime.now.strftime('%Y-%m-%d 23:59:59')}'"
+    @weathers_today = @weathers.where(query).order(date_time: :asc)
 
-    # query = "date_time <=  '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 00:00:00')}'"
-    # @weathers_today_1 = @weathers.where(query).order(date_time: :asc)
+    query = "date_time <=  '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 00:00:00')}'"
+    @weathers_today_1 = @weathers.where(query).order(date_time: :asc)
 
-    # query = "date_time <=  '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 00:00:00')}'"
-    # @weathers_today_2 = @weathers.where(query).order(date_time: :asc)
+    query = "date_time <=  '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 00:00:00')}'"
+    @weathers_today_2 = @weathers.where(query).order(date_time: :asc)
 
-    # @oceans = policy_scope(OceanForecastValue).where("beach_id = #{@beach.id}").order(date_time: :asc)
+    @waters = WaterForecastValue.where("beach_id = #{@beach.id}").order(date_time: :asc)
 
-    # query = "date_time <=  '#{DateTime.now.strftime('%Y-%m-%d 23:59:59')}'"
-    # @oceans_today = @oceans.where(query).order(date_time: :asc)
+    @waves = WaveForecastValue.where("beach_id = #{@beach.id}").order(date_time: :asc)
 
-    # query = "date_time <=  '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 00:00:00')}'"
-    # @oceans_today_1 = @oceans.where(query).order(date_time: :asc)
+    query = "date_time <=  '#{DateTime.now.strftime('%Y-%m-%d 23:59:59')}'"
+    @waves_today = @waves.where(query).order(date_time: :asc)
 
-    # query = "date_time <=  '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 00:00:00')}'"
-    # @oceans_today_2 = @oceans.where(query).order(date_time: :asc)
+    query = "date_time <=  '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 00:00:00')}'"
+    @waves_today_1 = @waves.where(query).order(date_time: :asc)
 
-    # query = "date_time <=  '#{DateTime.now.advance(days: 3).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 3).strftime('%Y-%m-%d 00:00:00')}'"
-    # @oceans_today_3 = @oceans.where(query).order(date_time: :asc)
+    query = "date_time <=  '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 00:00:00')}'"
+    @waves_today_2 = @waves.where(query).order(date_time: :asc)
 
-    # query = "date_time <=  '#{DateTime.now.advance(days: 4).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 4).strftime('%Y-%m-%d 00:00:00')}'"
-    # @oceans_today_4 = @oceans.where(query).order(date_time: :asc)
+    query = "date_time <=  '#{DateTime.now.advance(days: 3).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 3).strftime('%Y-%m-%d 00:00:00')}'"
+    @waves_today_3 = @waves.where(query).order(date_time: :asc)
 
-    # @dailies = policy_scope(WeatherForecastDaily).where("beach_id = #{@beach.id}").order(date_time: :asc)
+    query = "date_time <=  '#{DateTime.now.advance(days: 4).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 4).strftime('%Y-%m-%d 00:00:00')}'"
+    @waves_today_4 = @waves.where(query).order(date_time: :asc)
+
+
+    query = "date_time <=  '#{DateTime.now.strftime('%Y-%m-%d 23:59:59')}'"
+    @waters_today = @waters.where(query).order(date_time: :asc)
+
+    query = "date_time <=  '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 00:00:00')}'"
+    @waters_today_1 = @waters.where(query).order(date_time: :asc)
+
+    query = "date_time <=  '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 00:00:00')}'"
+    @waters_today_2 = @waters.where(query).order(date_time: :asc)
+
+    query = "date_time <=  '#{DateTime.now.advance(days: 3).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 3).strftime('%Y-%m-%d 00:00:00')}'"
+    @waters_today_3 = @waters.where(query).order(date_time: :asc)
+
+    query = "date_time <=  '#{DateTime.now.advance(days: 4).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 4).strftime('%Y-%m-%d 00:00:00')}'"
+    @waters_today_4 = @waters.where(query).order(date_time: :asc)
+
+    @dailies = WeatherForecastDaily.where("beach_id = #{@beach.id}").order(date_time: :asc)
   end
 
   private

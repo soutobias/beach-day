@@ -92,11 +92,12 @@ namespace :web_scrapping do
         value = html_doc.search("[class='h5 text-primary margin-xxs-bottom']")
 
         wave_height = value.text.strip.gsub(",", ".")[0...-1].to_f
-        value = html_doc.search("[class='h5 no-margin text-primary']")
+        value =  html_doc.search("[class='h5 no-margin text-primary']")
         wave_formation = value[0].text.strip.gsub(",", ".")[0...-1].to_f
         water_temperature = value[1].text[0...-2].to_f
         value = html_doc.search("[class='small line-height-xs']")
         wave_direction = value[0].text
+        p wave_direction
         date_time = Time.now
         date_time = date_time.strftime("%Y-%m-%d 00:00:00")
         visual_value = VisualValue.where("date_time = '#{date_time}' AND visual_station_id = #{visual_station.id}")
@@ -171,110 +172,77 @@ namespace :web_scrapping do
   end
 
   task get_forecasts: :environment do
-    def beach_forecasts(driver)
+    def wave_forecast_data
+      WaveForecastValue.destroy_all
+      visual_stations = WaveForecastStation.all
+      visual_stations.each do |visual_station|
+        html_file = open(visual_station.url).read
+        html_doc = Nokogiri::HTML(html_file)
+        values = html_doc.css('.contorno')[0].css("#prev_ond")
 
-      ForecastValue.destroy_all
-      stations = Forecast.all
-
-      stations.each do |station|
-        driver.navigate.to "https://www.windguru.cz/#{station.station}"
-        sleep(10)
-
-        driver.page_source
-        doc = Nokogiri::HTML(driver.page_source)
-
-        data_times = doc.css('#tabid_1_0_dates').css('td')
-        wind_speeds = doc.css('#tabid_1_0_WINDSPD').css('td')
-        wind_directions = doc.css('#tabid_1_0_SMER').css('td')
-        wave_heights = doc.css('#tabid_1_0_HTSGW').css('td')
-        wave_formations = doc.css('#tabid_1_0_PERPW').css('td')
-        wave_directions = doc.css('#tabid_1_0_DIRPW').css('td')
-        air_temperatures = doc.css('#tabid_1_0_TMPE').css('td')
-        rains = doc.css('#tabid_1_0_APCP1s').css('td')
-
-        data_times.each_with_index do |data_time, idx|
-          value = data_times[idx].text[2..].gsub('h','').split('.')
-
+        values.each_with_index do |value, idx|
           if idx == 0
-            date_time = DateTime.new(Time.now.year, Time.now.month, value[0].to_i, value[1].to_i)
+            date = value.css('#tit').text.strip.split(/\n/)[1].strip
           else
-            if data_times[idx - 1].text[2..].gsub('h','').split('.')[0] > value[0]
-              date_time = DateTime.new(Time.now.year, Time.now.month + 1, value[0].to_i, value[1].to_i)
-            else
-              date_time = DateTime.new(Time.now.year, Time.now.month, value[0].to_i, value[1].to_i)
+            date = value.css('#tit').text.strip[-10..-1]
+          end
+
+          days = value.css('#o1')
+          days.each do |day|
+            hour = day.text.split("Z")[0].strip[-2..-1].to_i - 1
+            date_time = DateTime.new(date[6..9].to_i, date[3..4].to_i, date[0..1].to_i, hour)
+            wind = day.css('b').text.split(" ")
+            wind_speed = wind[0].to_f
+            if wind[1] == "N"
+              wind_direction = "Norte"
+            elsif wind[1] == "NE" || wind[1] == "NNE"
+              wind_direction = "Nordeste"
+            elsif wind[1] == "E" || wind[1] == "ENE" || wind[1] == "ESE"
+              wind_direction = "Leste"
+            elsif wind[1] == "SE" || wind[1] == "SSE"
+              wind_direction = "Sudeste"
+            elsif wind[1] == "S"
+              wind_direction = "Sul"
+            elsif wind[1] == "SW" || wind[1] == "SSW"
+              wind_direction = "Sudoeste"
+            elsif wind[1] == "W" || wind[1] == "WNW" || wind[1] == "WNW"
+              wind_direction = "Oeste"
+            elsif wind[1] == "NW" || wind[1] == "NNW"
+              wind_direction = "Noroeste"
             end
-          end
-          wind_speed = wind_speeds[idx].text.to_i
 
-          wind_direction = wind_directions[idx].children[0].attributes["title"].value.split(/\W/)[2].to_i
-
-          begin
-            wave_height = wave_heights[idx].text.to_f
-            wave_formation = wave_formations[idx].text.to_i
-            wave_direction = wave_directions[idx].children[0].attributes["title"].value.split(/\W/)[2].to_i
-          rescue
-            wave_height = nil
-            wave_formation = nil
-            wave_direction = nil
-          end
-
-          air_temperature = air_temperatures[idx].text.to_i
-
-
-          rain = rains[idx].text
-          if rain == "" || rain == '-'
-            rain = nil
-          else
-            rain = rain.to_f
-          end
-
-          forecast_value = ForecastValue.where("date_time = '#{date_time.strftime("%Y-%m-%d %H:%M:%S")}' AND forecast_id = #{station.id}")
-          unless forecast_value.empty?
-            forecast_value[0].update(
+            w = WaveForecastValue.new(
               date_time: date_time,
-              wind_speed: wind_speed,
               wind_direction: wind_direction,
-              wave_height: wave_height,
-              wave_formation: wave_formation,
-              wave_direction: wave_direction,
-              air_temperature: air_temperature,
-              rain: rain
-            )
-            p "updated #{station.station}"
-          else
-            forecast_value = ForecastValue.new(
-              date_time: date_time,
-              wind_speed: wind_speed,
-              wind_direction: wind_direction,
-              wave_height: wave_height,
-              wave_formation: wave_formation,
-              wave_direction: wave_direction,
-              air_temperature: air_temperature,
-              rain: rain
-            )
-            forecast_value.forecast = station
-            forecast_value.save!
-            p "saved #{station.station}"
+              wind_speed: wind_speed
+              )
+            w.wave_forecast_station = visual_station
+            w.save!
 
+            p wind_direction
+            p wind_speed
+            p date_time
+            p hour
+            p w
           end
         end
       end
     end
 
-    beach_forecasts()
+    wave_forecast_data
   end
 
   task get_ocean_forecasts: :environment do
     def ocean_forecast
       date = Time.now
-      date = Time.new(Time.now.year, Time.now.month, Time.now.day-1).strftime("%Y-%m-%d")
+      date = Time.new(Time.now.year, Time.now.month, Time.now.day - 1).strftime("%Y-%m-%d")
 
       # date = date.strftime("%Y-%m-%d")
 
       date_now = Time.new(Time.now.year, Time.now.month, Time.now.day, 12)
 
       begin
-        x = OceanModelValue.first.date_time.strftime("%Y-%m-%d %H:00:00") == date_now.strftime("%Y-%m-%d %H:00:00")
+        x = WaterForecastValue.first.date_time.strftime("%Y-%m-%d %H:00:00") == date_now.strftime("%Y-%m-%d %H:00:00")
       rescue
         x = false
       end
@@ -282,8 +250,8 @@ namespace :web_scrapping do
         begin
           html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:60%5D%5B0:1:0%5D%5B1425:1:1425%5D%5B3954:1:3968%5D").read
           lines = html_file.split(/\n/)[13..-13]
-          positions = OceanModelPosition.all
-          OceanModelValue.destroy_all
+          positions = WaterForecastStation.all
+          WaterForecastValue.destroy_all
           t = 0
           lines.each do |line|
             date_model = (date_now + 3600 * t).strftime("%Y-%m-%d %H:00:00")
@@ -343,15 +311,7 @@ namespace :web_scrapping do
 
       buoys = []
       buoy_stations.each do |buoy_station|
-        buoys << Buoy.where("buoy_station_id = #{buoy_station.id}").last
-      end
-
-
-      weather_stations = WeatherStation.all
-
-      weather_values = []
-      weather_stations.each do |weather_station|
-        weather_values << WeatherValue.where("weather_station_id = #{weather_station.id}").last
+        buoys << BuoyValue.where("buoy_station_id = #{buoy_station.id}").last
       end
 
       cleaning_stations = CleaningStation.all
@@ -381,15 +341,6 @@ namespace :web_scrapping do
           if x < distance
             distance = x
             @index_cleaning = idx
-          end
-        end
-
-        distance = 9999
-        weather_values.each_with_index do |weather_value, idx|
-          x = Haversine.distance(beach.lat, beach.lng, weather_value.weather_station.lat, weather_value.weather_station.lng).to_miles
-          if x < distance
-            distance = x
-            @index_weather = idx
           end
         end
 
@@ -481,103 +432,6 @@ namespace :web_scrapping do
     feed_real_time_data
   end
 
-
-  task feed_ocean_forecast: :environment do
-    def direction_to_string(value)
-      if value > 45 / 2 && value <= 45 + 45 / 2
-        direction = "Nordeste"
-      elsif value > 45 + 45 / 2 && value <= 90 + 45 / 2
-        direction = "Leste"
-      elsif value > 90 + 45 / 2 && value <= 180 - 45 / 2
-        direction = "Sudeste"
-      elsif value > 180 - 45 / 2 && value <= 180 + 45 / 2
-        direction = "Sul"
-      elsif value > 180 + 45 / 2 && value <= 270 - 45 / 2
-        direction = "Sudoeste"
-      elsif value > 270 - 45 / 2 && value <= 270 + 45 / 2
-        direction = "Oeste"
-      elsif value > 270 + 45 / 2 && value <= 360 - 45 / 2
-        direction = "Noroeste"
-      else
-        direction = "Norte"
-      end
-    end
-
-    def feed_weather_forecast
-
-      WeatherForecastValue.destroy_all
-
-      beaches = Beach.all
-
-      forecasts = Forecast.all
-
-      ocean_model_positions = OceanModelPosition.all
-      date = Time.new(Time.now.year, Time.now.month, Time.now.day, Time.now.hour).strftime("%Y-%m-%d %H:00:00")
-
-      beaches.each do |beach|
-        distance = 9999
-        forecasts.each do |forecast|
-          x = Haversine.distance(beach.lat, beach.lng, forecast.lat, forecast.lng).to_miles
-          if x < distance
-            distance = x
-            @forecast = forecast
-          end
-        end
-
-        distance = 9999
-        ocean_model_positions.each do |ocean_model_position|
-          x = Haversine.distance(beach.lat, beach.lng, ocean_model_position.lat, ocean_model_position.lng).to_miles
-          if x < distance
-            distance = x
-            @ocean_model_position = ocean_model_position
-          end
-        end
-
-        forecast_values = ForecastValue.where("forecast_id = #{@forecast.id} AND date_time >= '#{date}'")
-
-        p "agora salvar"
-
-        forecast_values.each do |forecast_value|
-          begin
-            wave_direction = direction_to_string(forecast_value.wave_direction)
-          rescue
-            wave_direction = nil
-          end
-
-          begin
-            wind_direction = direction_to_string(forecast_value.wind_direction)
-          rescue
-            wind_direction = nil
-          end
-
-          weather_forecast_value = OceanForecastValue.new(
-            date_time: forecast_value.date_time,
-            wave_height: forecast_value.wave_height,
-            wave_direction: wave_direction,
-            wave_formation: forecast_value.wave_formation.to_s,
-          )
-          weather_forecast_value.beach = beach
-          weather_forecast_value.save!
-        end
-
-        p "agora salvar"
-
-        ocean_model_values = OceanModelValue.where("ocean_model_position_id = #{@ocean_model_position.id} AND date_time >= '#{date}'")
-
-        ocean_model_values.each do |ocean_model_value|
-          weather_forecast_value = OceanForecastValue.where("date_time = '#{ocean_model_value.date_time}' AND beach_id = #{beach.id}")
-          unless weather_forecast_value.empty?
-            weather_forecast_value[0].update(
-              water_temperature: ocean_model_value.water_temperature
-            )
-          end
-        end
-        p "agora salvo"
-      end
-    end
-
-    feed_weather_forecast
-  end
 
   task feed_weather_forecast: :environment do
     def direction_to_string(value)

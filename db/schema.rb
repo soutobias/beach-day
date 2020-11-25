@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_25_031049) do
+ActiveRecord::Schema.define(version: 2020_11_25_212535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,20 +40,20 @@ ActiveRecord::Schema.define(version: 2020_11_25_031049) do
     t.string "name"
     t.decimal "lat"
     t.decimal "lng"
-    t.decimal "overall_rating"
+    t.decimal "overall_rating", default: "0.0"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "overview"
-    t.decimal "overall_parking"
-    t.decimal "overall_restaurant"
-    t.decimal "overall_public_transportation"
-    t.decimal "overall_security"
-    t.decimal "overall_cleaning"
-    t.decimal "overall_rent_equipment"
-    t.decimal "overall_wave"
-    t.decimal "overall_wind"
-    t.decimal "overall_accessibility"
-    t.decimal "overall_sand_strip"
+    t.decimal "overall_parking", default: "0.0"
+    t.decimal "overall_restaurant", default: "0.0"
+    t.decimal "overall_public_transportation", default: "0.0"
+    t.decimal "overall_security", default: "0.0"
+    t.decimal "overall_cleaning", default: "0.0"
+    t.decimal "overall_rent_equipment", default: "0.0"
+    t.decimal "overall_wave", default: "0.0"
+    t.decimal "overall_wind", default: "0.0"
+    t.decimal "overall_accessibility", default: "0.0"
+    t.decimal "overall_sand_strip", default: "0.0"
   end
 
   create_table "buoy_stations", force: :cascade do |t|
@@ -214,11 +214,8 @@ ActiveRecord::Schema.define(version: 2020_11_25_031049) do
 
   create_table "wave_forecast_values", force: :cascade do |t|
     t.datetime "date_time"
-    t.decimal "wind_speed"
-    t.string "wind_direction"
     t.string "wave_direction"
     t.decimal "wave_height"
-    t.decimal "wave_formation"
     t.bigint "wave_forecast_station_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
