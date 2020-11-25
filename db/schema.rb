@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2020_11_21_193629) do
+ActiveRecord::Schema.define(version: 2020_11_24_231920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +44,16 @@ ActiveRecord::Schema.define(version: 2020_11_21_193629) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "overview"
+    t.decimal "overall_parking"
+    t.decimal "overall_restaurant"
+    t.decimal "overall_public_transportation"
+    t.decimal "overall_security"
+    t.decimal "overall_cleaning"
+    t.decimal "overall_rent_equipment"
+    t.decimal "overall_wave"
+    t.decimal "overall_wind"
+    t.decimal "overall_accessibility"
+    t.decimal "overall_sand_strip"
   end
 
   create_table "buoy_stations", force: :cascade do |t|
