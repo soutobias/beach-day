@@ -9,7 +9,4 @@ class Beach < ApplicationRecord
   validates :lng, presence: true
   validates :overall_rating, numericality: true, inclusion: { in: 0..10, message: 'Value should be between 0 and 10' }
   validates :overview, length: { minimum: 10, maximum: 254 }
-
-  # geocoded_by :name
-  # after_validation :geocode, if: :will_save_change_to_name?
 end
