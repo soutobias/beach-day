@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_231920) do
+ActiveRecord::Schema.define(version: 2020_11_25_031049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,21 +63,21 @@ ActiveRecord::Schema.define(version: 2020_11_24_231920) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "buoys", force: :cascade do |t|
+  create_table "buoy_values", force: :cascade do |t|
     t.bigint "buoy_station_id", null: false
     t.datetime "date_time"
     t.decimal "pressure"
     t.decimal "air_temperature"
     t.decimal "humidity"
     t.decimal "wind_speed"
-    t.decimal "wind_dir"
+    t.string "wind_direction"
     t.decimal "wave_height"
     t.decimal "wave_formation"
-    t.decimal "wave_direction"
+    t.string "wave_direction"
     t.decimal "water_temperature"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["buoy_station_id"], name: "index_buoys_on_buoy_station_id"
+    t.index ["buoy_station_id"], name: "index_buoy_values_on_buoy_station_id"
   end
 
   create_table "cleaning_stations", force: :cascade do |t|
@@ -92,33 +92,10 @@ ActiveRecord::Schema.define(version: 2020_11_24_231920) do
   create_table "cleaning_values", force: :cascade do |t|
     t.bigint "cleaning_station_id", null: false
     t.datetime "date_time"
-    t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "status"
     t.index ["cleaning_station_id"], name: "index_cleaning_values_on_cleaning_station_id"
-  end
-
-  create_table "forecast_values", force: :cascade do |t|
-    t.bigint "forecast_id", null: false
-    t.datetime "date_time"
-    t.integer "wind_speed"
-    t.integer "wind_direction"
-    t.decimal "wave_height"
-    t.integer "wave_formation"
-    t.integer "wave_direction"
-    t.integer "air_temperature"
-    t.decimal "rain"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["forecast_id"], name: "index_forecast_values_on_forecast_id"
-  end
-
-  create_table "forecasts", force: :cascade do |t|
-    t.integer "station"
-    t.decimal "lat"
-    t.decimal "lng"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "ocean_forecast_values", force: :cascade do |t|
@@ -126,27 +103,11 @@ ActiveRecord::Schema.define(version: 2020_11_24_231920) do
     t.decimal "water_temperature"
     t.decimal "wave_height"
     t.integer "wave_formation"
-    t.integer "wave_direction"
+    t.string "wave_direction"
     t.bigint "beach_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["beach_id"], name: "index_ocean_forecast_values_on_beach_id"
-  end
-
-  create_table "ocean_model_positions", force: :cascade do |t|
-    t.decimal "lat"
-    t.decimal "lng"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "ocean_model_values", force: :cascade do |t|
-    t.bigint "ocean_model_position_id", null: false
-    t.datetime "date_time"
-    t.decimal "water_temperature"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["ocean_model_position_id"], name: "index_ocean_model_values_on_ocean_model_position_id"
   end
 
   create_table "real_time_values", force: :cascade do |t|
@@ -192,13 +153,6 @@ ActiveRecord::Schema.define(version: 2020_11_24_231920) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "storms", force: :cascade do |t|
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -218,7 +172,6 @@ ActiveRecord::Schema.define(version: 2020_11_24_231920) do
     t.decimal "lat"
     t.decimal "lng"
     t.text "url"
-    t.boolean "place"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -226,13 +179,50 @@ ActiveRecord::Schema.define(version: 2020_11_24_231920) do
   create_table "visual_values", force: :cascade do |t|
     t.decimal "wave_height"
     t.string "wave_formation"
-    t.string "wave_dir"
+    t.string "wave_direction"
     t.decimal "water_temperature"
     t.bigint "visual_station_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "date_time"
     t.index ["visual_station_id"], name: "index_visual_values_on_visual_station_id"
+  end
+
+  create_table "water_forecast_stations", force: :cascade do |t|
+    t.decimal "lat"
+    t.decimal "lng"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "water_forecast_values", force: :cascade do |t|
+    t.datetime "date_time"
+    t.decimal "water_temperature"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "water_forecast_station_id"
+    t.index ["water_forecast_station_id"], name: "index_water_forecast_values_on_water_forecast_station_id"
+  end
+
+  create_table "wave_forecast_stations", force: :cascade do |t|
+    t.decimal "lat"
+    t.decimal "lng"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "wave_forecast_values", force: :cascade do |t|
+    t.datetime "date_time"
+    t.decimal "wind_speed"
+    t.string "wind_direction"
+    t.string "wave_direction"
+    t.decimal "wave_height"
+    t.decimal "wave_formation"
+    t.bigint "wave_forecast_station_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["wave_forecast_station_id"], name: "index_wave_forecast_values_on_wave_forecast_station_id"
   end
 
   create_table "weather_forecast_dailies", force: :cascade do |t|
@@ -272,46 +262,14 @@ ActiveRecord::Schema.define(version: 2020_11_24_231920) do
     t.index ["beach_id"], name: "index_weather_forecast_values_on_beach_id"
   end
 
-  create_table "weather_stations", force: :cascade do |t|
-    t.string "name"
-    t.decimal "lat"
-    t.decimal "lng"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "weather_values", force: :cascade do |t|
-    t.bigint "weather_station_id", null: false
-    t.datetime "date_time"
-    t.decimal "air_temperature"
-    t.decimal "humidity"
-    t.decimal "pressure"
-    t.decimal "wind_speed"
-    t.decimal "wind_dir"
-    t.decimal "rain"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["weather_station_id"], name: "index_weather_values_on_weather_station_id"
-  end
-
-  create_table "weather_warnings", force: :cascade do |t|
-    t.string "event"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "buoys", "buoy_stations"
+  add_foreign_key "buoy_values", "buoy_stations"
   add_foreign_key "cleaning_values", "cleaning_stations"
-  add_foreign_key "forecast_values", "forecasts"
   add_foreign_key "ocean_forecast_values", "beaches"
-  add_foreign_key "ocean_model_values", "ocean_model_positions"
   add_foreign_key "real_time_values", "beaches"
   add_foreign_key "reviews", "beaches"
   add_foreign_key "visual_values", "visual_stations"
+  add_foreign_key "wave_forecast_values", "wave_forecast_stations"
   add_foreign_key "weather_forecast_dailies", "beaches"
   add_foreign_key "weather_forecast_values", "beaches"
-  add_foreign_key "weather_values", "weather_stations"
 end

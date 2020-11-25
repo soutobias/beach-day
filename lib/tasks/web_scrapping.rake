@@ -1,6 +1,26 @@
 namespace :web_scrapping do
   desc "Connect to buoy api and get data"
   task buoy: :environment do
+    def direction_to_string(value)
+      if value > 45 / 2 && value <= 45 + 45 / 2
+        direction = "Nordeste"
+      elsif value > 45 + 45 / 2 && value <= 90 + 45 / 2
+        direction = "Leste"
+      elsif value > 90 + 45 / 2 && value <= 180 - 45 / 2
+        direction = "Sudeste"
+      elsif value > 180 - 45 / 2 && value <= 180 + 45 / 2
+        direction = "Sul"
+      elsif value > 180 + 45 / 2 && value <= 270 - 45 / 2
+        direction = "Sudoeste"
+      elsif value > 270 - 45 / 2 && value <= 270 + 45 / 2
+        direction = "Oeste"
+      elsif value > 270 + 45 / 2 && value <= 360 - 45 / 2
+        direction = "Noroeste"
+      else
+        direction = "Norte"
+      end
+    end
+
     def buoy_data
       time_start = Time.now.to_i - 3600 * 3
       time_end = Time.now.to_i
@@ -11,7 +31,7 @@ namespace :web_scrapping do
         meteo_values = JSON.parse(meteo_values)
         meteo_values.each do |value|
           date_time = DateTime.new(value["YEAR"], value["MONTH"], value["DAY"], value["HOUR"], value["MINUTE"].to_i - 5, 0)
-          buoy = Buoy.where("date_time = '#{date_time.strftime("%Y-%m-%d %H:%M:%S")}'")
+          buoy = BuoyValue.where("date_time = '#{date_time.strftime("%Y-%m-%d %H:%M:%S")}'")
           unless buoy.empty?
             buoy[0].update(
               date_time: date_time,
@@ -19,16 +39,16 @@ namespace :web_scrapping do
               air_temperature: value["Avg_Air_Tmp"],
               humidity: value["Avg_Hmt"],
               wind_speed: value["Avg_Wnd_Sp"],
-              wind_dir: value["Avg_Wnd_Dir_N"]
+              wind_direction: direction_to_string(value["Avg_Wnd_Dir_N"].to_f)
             )
           else
-            value = Buoy.new(
+            value = BuoyValue.new(
               date_time: date_time,
               pressure: value["Avg_Air_Press"],
               air_temperature: value["Avg_Air_Tmp"],
               humidity: value["Avg_Hmt"],
               wind_speed: value["Avg_Wnd_Sp"],
-              wind_dir: value["Avg_Wnd_Dir_N"]
+              wind_direction: direction_to_string(value["Avg_Wnd_Dir_N"].to_f)
             )
             value.buoy_station = buoy_station
             value.save!
@@ -38,7 +58,7 @@ namespace :web_scrapping do
         ocean_values = JSON.parse(ocean_values)
         ocean_values.each do |value|
           date_time = DateTime.new(value["YEAR"], value["MONTH"], value["DAY"], value["HOUR"], value["MINUTE"].to_i - 1, 0)
-          buoy = Buoy.where("date_time = '#{date_time.strftime("%Y-%m-%d %H:%M:%S")}'")
+          buoy = BuoyValue.where("date_time = '#{date_time.strftime("%Y-%m-%d %H:%M:%S")}'")
           unless buoy.empty?
             buoy[0].update(
               wave_height: value["Hsig"],
@@ -47,12 +67,12 @@ namespace :web_scrapping do
               wave_direction: value["Avg_Wv_Dir_N"]
             )
           else
-            value = Buoy.new(
+            value = BuoyValue.new(
               date_time: date_time,
               wave_height: value["Hsig"],
               water_temperature: value["Avg_W_Tmp1"],
               wave_formation: value["TP"],
-              wave_direction: value["Avg_Wv_Dir_N"]
+              wave_direction: direction_to_string(value["Avg_Wv_Dir_N"].to_f)
             )
             value.buoy_station = buoy_station
             value.save!
@@ -69,235 +89,40 @@ namespace :web_scrapping do
       visual_stations.each do |visual_station|
         html_file = open(visual_station.url).read
         html_doc = Nokogiri::HTML(html_file)
-        begin
-          if visual_station.place
-            value = html_doc.search("[class='h5 text-primary margin-xxs-bottom']")
+        value = html_doc.search("[class='h5 text-primary margin-xxs-bottom']")
 
-            wave_height = value.text.strip.gsub(",", ".")[0...-1].to_f
-            value = html_doc.search("[class='h5 no-margin text-primary']")
-            wave_formation = value[0].text.strip.gsub(",", ".")[0...-1].to_f
-            water_temperature = value[1].text[0...-2].to_f
-            value = html_doc.search("[class='small line-height-xs']")
-            wave_dir = value[0].text
-          else
-            unless html_doc.search("[class='alerta-pico-desatualizado']")
-              value = html_doc.search("[id='forecast_wave_size']")
-              begin
-                wave_height = value[0].split("m")[0].to_f
-              rescue
-                wave_height = 0
-              end
-              value = html_doc.search("[style='line-height: 14px;']")
-              wave_formation = value[2].text.strip
-              value = html_doc.search("[id='forecast_wave_direction']")
-              wave_dir = value.text.strip
-              water_temperature = nil
-            else
-              wave_height = nil
-            end
-          end
-          date_time = Time.now
-          date_time = date_time.strftime("%Y-%m-%d 00:00:00")
-          visual_value = VisualValue.where("date_time = '#{date_time}' AND visual_station_id = #{visual_station.id}")
-          unless visual_value.empty?
-            visual_value[0].update(
-              date_time: date_time,
-              wave_height: wave_height,
-              wave_dir: wave_dir,
-              wave_formation: wave_formation,
-              water_temperature: water_temperature
-            )
-          else
-            visual_value = VisualValue.new(
-              date_time: date_time,
-              wave_height: wave_height,
-              wave_dir: wave_dir,
-              wave_formation: wave_formation,
-              water_temperature: water_temperature
-            )
-            visual_value.visual_station = visual_station
-            visual_value.save!
-            puts ("Success: Inserted #{visual_station.url}")
-          end
-        rescue
-          puts ("error inserting #{visual_station.url}")
+        wave_height = value.text.strip.gsub(",", ".")[0...-1].to_f
+        value = html_doc.search("[class='h5 no-margin text-primary']")
+        wave_formation = value[0].text.strip.gsub(",", ".")[0...-1].to_f
+        water_temperature = value[1].text[0...-2].to_f
+        value = html_doc.search("[class='small line-height-xs']")
+        wave_direction = value[0].text
+        date_time = Time.now
+        date_time = date_time.strftime("%Y-%m-%d 00:00:00")
+        visual_value = VisualValue.where("date_time = '#{date_time}' AND visual_station_id = #{visual_station.id}")
+        unless visual_value.empty?
+          visual_value[0].update(
+            date_time: date_time,
+            wave_height: wave_height,
+            wave_direction: wave_direction,
+            wave_formation: wave_formation,
+            water_temperature: water_temperature
+          )
+        else
+          visual_value = VisualValue.new(
+            date_time: date_time,
+            wave_height: wave_height,
+            wave_direction: wave_direction,
+            wave_formation: wave_formation,
+            water_temperature: water_temperature
+          )
+          visual_value.visual_station = visual_station
+          visual_value.save!
+          puts ("Success: Inserted #{visual_station.url}")
         end
       end
     end
     visual_data
-  end
-
-  task get_storm_surge: :environment do
-    def storm_surge
-      url = "https://www.marinha.mil.br/chm/dados-do-smm-avisos-de-mau-tempo/avisos-de-mau-tempo"
-      html_file = open(url).read
-      html_doc = Nokogiri::HTML(html_file)
-
-      values = html_doc.css("[class='field-item even']").css('p')
-
-      flag = 1
-      values.each_with_index do |valu, idx|
-        x = valu.children[0].attributes
-        begin
-          if !x.empty?
-            if valu.children[0].attributes["style"].value == "color:#ff0000;"
-              if valu.text == "ÁREA CHARLIE"
-                @index_charlie = idx
-                flag = 0
-                break
-              end
-            end
-          end
-        rescue
-          p "error"
-        end
-      end
-      p @index_charlie
-
-      if @index_charlie
-        for i in @index_charlie + 1..@index_charlie + 3
-          if values[i].text.match(/.*RESSACA*/)
-            storm = values[i].text.split("A PARTIR DE")
-            storm = storm[1].split("HMG")
-            start_date = storm[0].strip
-            p start_date
-            start_date = DateTime.new(Time.now.year, Time.now.month, start_date[0..1].to_i, start_date[2..3].to_i, start_date[4..5].to_i)
-            storm = storm[1].split("VÁLIDO ATÉ")
-            end_date = storm[1].strip
-            end_date = DateTime.new(Time.now.year, Time.now.month, end_date[0..1].to_i, end_date[2..3].to_i, end_date[4..5].to_i)
-            storms = Storm.where("start_date = '#{start_date.strftime("%Y-%m-%d %H:%M:%S")}' AND end_date = '#{end_date.strftime("%Y-%m-%d %H:%M:%S")}'")
-            if storms.empty?
-              Storm.create(
-                start_date: start_date,
-                end_date: end_date
-              )
-            end
-          end
-        end
-      end
-    end
-    storm_surge
-  end
-
-  task get_weather_data: :environment do
-    def get_weather_station_data(driver)
-      weather_stations = WeatherStation.all
-
-      weather_stations.each do |station|
-        url = "https://tempo.inmet.gov.br/TabelaEstacoes/" + station.name
-
-        driver.navigate.to url
-
-        sleep(10)
-
-        elements = driver.find_element(:class, 'tbodyEstacoes').find_elements(:tag_name, 'tr')
-
-        elements.each do |element|
-          td = element.find_elements(:tag_name, 'td')
-          day = td[0].text[0..1].to_i
-          month = td[0].text[3..4].to_i
-          year = td[0].text[6..9].to_i
-          hour = td[1].text[0..1].to_i
-          minute = td[1].text[2..3].to_i
-
-          date_time = DateTime.new(year, month, day, hour, minute, 0)
-
-          if date_time <= DateTime.now
-
-            td[2].text == '' ? air_temperature = nil : air_temperature = td[2].text.gsub(",", ".").to_f
-
-            td[5].text == '' ? humidity = nil : humidity = td[5].text.gsub(",", ".").to_f
-
-            td[11].text == '' ? pressure = nil : pressure = td[11].text.gsub(",", ".").to_f
-
-            td[14].text == '' ? wind_speed = nil : wind_speed = td[14].text.gsub(",", ".").to_f
-
-            td[15].text == '' ? wind_dir = nil : wind_dir = td[15].text.gsub(",", ".").to_f
-
-            td[18].text == '' ? rain = nil : rain = td[18].text.gsub(",", ".").to_f
-
-            weather_value = WeatherValue.where("date_time = '#{date_time.strftime("%Y-%m-%d %H:%M:%S")}' AND weather_station_id = #{station.id}")
-            unless weather_value.empty?
-              weather_value[0].update(
-                date_time: date_time,
-                pressure: pressure,
-                air_temperature: air_temperature,
-                humidity: humidity,
-                wind_speed: wind_speed,
-                wind_dir: wind_dir,
-                rain: rain
-              )
-            else
-              value = WeatherValue.new(
-                date_time: date_time,
-                pressure: pressure,
-                air_temperature: air_temperature,
-                humidity: humidity,
-                wind_speed: wind_speed,
-                wind_dir: wind_dir,
-                rain: rain
-              )
-              value.weather_station = station
-              value.save!
-            end
-            p "Ok"
-          end
-        end
-      end
-    end
-    options = Selenium::WebDriver::Chrome::Options.new
-    options.add_argument('--headless')
-    driver = Selenium::WebDriver.for :chrome, options: options
-
-    get_weather_station_data(driver)
-  end
-
-  task get_weather_warn: :environment do
-    def get_weather_warning(driver)
-
-      driver.navigate.to "http://alert-as.inmet.gov.br/cv/"
-
-      sleep(8)
-
-      elements = driver.find_element(:id, 'estados_quadro2_barra_main3').find_elements(:id, 'estados_quadro2_barra_cinza1')
-
-      as = elements[1].find_elements(:tag_name, 'a')
-
-      urls = []
-      as.each do |a|
-        urls << a.attribute("href")
-      end
-
-      unless urls.empty?
-
-        urls.each do |url|
-          driver.navigate.to url
-          sleep(8)
-          event = driver.find_element(:id, 'capitais_quadro2_box1_txt2').text[6..].strip
-          start_date = driver.find_element(:id, 'capitais_quadro2_box1_txt3').text[6..].strip
-          start_date = start_date.gsub!(/((\/|\s)|(h|min))/, " ").split(" ")
-          p start_date
-          start_date = DateTime.new(start_date[2].to_i, start_date[1].to_i, start_date[0].to_i, start_date[3].to_i, start_date[4].to_i)
-
-          end_date = driver.find_element(:id, 'capitais_quadro2_box1_txt4').text[4..].strip
-          end_date = end_date.gsub!(/((\/|\s)|(h|min))/, " ").split(" ")
-          end_date = DateTime.new(end_date[2].to_i, end_date[1].to_i, end_date[0].to_i, end_date[3].to_i, end_date[4].to_i)
-          storms = WeatherWarning.where("start_date = '#{start_date.strftime("%Y-%m-%d %H:%M:%S")}' AND end_date = '#{end_date.strftime("%Y-%m-%d %H:%M:%S")}'")
-          if storms.empty?
-            WeatherWarning.create(
-              event: event,
-              start_date: start_date,
-              end_date: end_date
-            )
-          end
-        end
-      end
-    end
-    options = Selenium::WebDriver::Chrome::Options.new
-    options.add_argument('--headless')
-    driver = Selenium::WebDriver.for :chrome, options: options
-
-    get_weather_warning(driver)
   end
 
   task get_cleaning: :environment do
@@ -436,11 +261,7 @@ namespace :web_scrapping do
       end
     end
 
-    options = Selenium::WebDriver::Chrome::Options.new
-    options.add_argument('--headless')
-    driver = Selenium::WebDriver.for :chrome, options: options
-
-    beach_forecasts(driver)
+    beach_forecasts()
   end
 
   task get_ocean_forecasts: :environment do
