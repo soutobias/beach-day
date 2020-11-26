@@ -11,483 +11,68 @@
 require 'faker'
 require 'open-uri'
 
-User.destroy_all
+puts "Feed wave forecast stations"
 
-user_index = 1
-10.times do
-  puts "Creating user #{user_index}"
-  admin_priviledges = user_index == 1
-  user_name = User.new(
-    email: "#{user_index}@gmail.com",
-    password: '123abc',
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    admin: admin_priviledges
-  )
-  puts "Saving user #{user_index}"
-  user_name.save!
-  puts "User #{user_index} saved"
-  user_index += 1
+WaveForecastValue.destroy_all
+WaveForecastStation.destroy_all
+
+WaveForecastStation.create(lat: -22.95459506134477, lng: -43.093885405166375, url: "http://ondas.cptec.inpe.br/cidades/faces/cidade.jsp?idCid=3464")
+WaveForecastStation.create(lat: -22.964869106191138, lng: -43.16907308800976, url: "http://ondas.cptec.inpe.br/cidades/faces/cidade.jsp?idCid=241")
+
+puts "Feed water forecast stations"
+
+WaterForecastValue.destroy_all
+WaterForecastStation.destroy_all
+
+lons = [-43.6800537109375, -43.5999755859375, -43.52001953125, -43.43994140625, -43.3599853515625, -43.280029296875, -43.199951171875, -43.1199951171875, -43.0400390625, -42.9599609375, -42.8800048828125, -42.800048828125, -42.719970703125, -42.6400146484375, -42.56005859375]
+lons.each do |lng|
+  WaterForecastStation.create!(lat: -23, lng: lng)
 end
 
-# Create Beaches (26)
+RealTimeValue.destroy_all
+OceanForecastValue.destroy_all
 
-Beach.destroy_all
+WeatherForecastValue.destroy_all
+WeatherForecastDaily.destroy_all
 
-beach_index = 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Prainha - Canto Direito",
-  lat: "-23.0423",
-  lng: "-43.5072",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Macumba - CCB",
-  lat: "-23.0316",
-  lng: "-43.4761",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Recreio - Canto",
-  lat: "-23.0299",
-  lng: "-43.4673",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Barra - Posto 6 - Quiosque Piratas - BarraBela",
-  lat: "-23.011",
-  lng: "-43.3451",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Rico Point Barra direcao P5",
-  lat: "-23.0112",
-  lng: "-43.3387",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Prainha",
-  lat: "-23.0408",
-  lng: "-43.5048",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Macumba - Rico Point",
-  lat: "-23.0315",
-  lng: "-43.4761",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Recreio - Posto 11",
-  lat: "-23.0298",
-  lng: "-43.4666",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Barra - Rico Point - Posto 55",
-  lat: "-23.0112",
-  lng: "-43.3387",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Barra Posto 4 - Hotel WYNDHAM",
-  lat: "-23.0123",
-  lng: "-43.327",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Macumba - Secreto",
-  lat: "-23.0369",
-  lng: "-43.4954",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Macumba - 2W",
-  lat: "-23.0345",
-  lng: "-43.4883",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Recreio - Posto 10",
-  lat: "-23.0262",
-  lng: "-43.4579",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Rico Point Barra direcao P6",
-  lat: "-23.0113",
-  lng: "-43.3374",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Sao Conrado - Canto Esquerdo",
-  lat: "-22.9995",
-  lng: "-43.2561",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Ipanema - Posto 8",
-  lat: "-22.9881",
-  lng: "-43.1971",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Copacabana - Posto 6",
-  lat: "-22.985",
-  lng: "-43.1887",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Leblon - Canto",
-  lat: "-22.9881",
-  lng: "-43.2233",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Arpoador",
-  lat: "-22.9895",
-  lng: "-43.1919",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Copacabana - Posto 5",
-  lat: "-22.9806",
-  lng: "-43.1888",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Ipanema - Garcia davila",
-  lat: "-22.9873",
-  lng: "-43.2093",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Praia do Diabo",
-  lat: "-22.9886",
-  lng: "-43.1896",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Praia do Leme",
-  lat: "-22.9648",
-  lng: "-43.1688",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Itacoatiara - Pampo",
-  lat: "-22.9746",
-  lng: "-43.0364",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Itacoatiara - Meio",
-  lat: "-22.9748",
-  lng: "-43.0336",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
-beach = Beach.new(
-  name: "Itacoatiara - Costao",
-  lat: "-22.9758",
-  lng: "-43.0305",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample,
-  overall_rating: (0..10).to_a.sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
+puts "Feed visual stations"
 
 VisualValue.destroy_all
 VisualStation.destroy_all
 
 
-VisualStation.create(lat: -23.0369, lng: -43.4954, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-secreto', place: true)
-VisualStation.create(lat: -23.0345, lng: -43.4883, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-3w', place: true)
-VisualStation.create(lat: -23.0298, lng: -43.4666, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/recreio-posto-11', place: true)
-VisualStation.create(lat: -23.0123, lng: -43.327, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/barra-posto-4', place: true)
-VisualStation.create(lat: -23.0423, lng: -43.5072, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/prainha-canto-direito', place: true)
-VisualStation.create(lat: -23.0316, lng: -43.4761, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-ccb', place: true)
-VisualStation.create(lat: -23.0315, lng: -43.4761, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-rico-point', place: true)
-VisualStation.create(lat: -23.0262, lng: -43.4579, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/recreio-posto-10', place: true)
-VisualStation.create(lat: -23.0299, lng: -43.4673, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/recreio-canto', place: true)
-VisualStation.create(lat: -23.0408, lng: -43.5048, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/prainha', place: true)
-VisualStation.create(lat: -22.9746, lng: -43.0364, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/itacoatiara-pampo', place: true)
-VisualStation.create(lat: -22.9748, lng: -43.0336, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/itacoatiara-meio', place: true)
-VisualStation.create(lat: -22.9758, lng: -43.0305, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/itacoatiara-costao', place: true)
-VisualStation.create(lat: -22.9995, lng: -43.2561, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/sao-conrado-canto-esquerdo', place: true)
-VisualStation.create(lat: -22.9881, lng: -43.1971, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/ipanema-posto-8', place: true)
-VisualStation.create(lat: -22.985, lng: -43.1887, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/copacabana-posto-6', place: true)
-VisualStation.create(lat: -22.9881, lng: -43.2233, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/leblon-canto', place: true)
-VisualStation.create(lat: -22.9895, lng: -43.1919, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/arpoador', place: true)
-VisualStation.create(lat: -22.9806, lng: -43.1888, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/copacabana-posto-5', place: true)
-VisualStation.create(lat: -22.9873, lng: -43.2093, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/ipanema-garcia-davila', place: true)
-VisualStation.create(lat: -22.9886, lng: -43.1896, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/praia-diabo', place: true)
-VisualStation.create(lat: -22.9648, lng: -43.1688, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/praia-leme', place: true)
-VisualStation.create(lat: -23.048129, lng: -43.512599, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/grumari-canto-esquerdo', place: true)
-VisualStation.create(lat: -23.032061, lng: -43.472204, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-farofa-posto12', place: true)
-VisualStation.create(lat: -23.031458, lng: -43.476754, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-curvao', place: true)
+VisualStation.create(lat: -23.0369, lng: -43.4954, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-secreto')
+VisualStation.create(lat: -23.0345, lng: -43.4883, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-3w')
+VisualStation.create(lat: -23.0298, lng: -43.4666, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/recreio-posto-11')
+VisualStation.create(lat: -23.0123, lng: -43.327, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/barra-posto-4')
+VisualStation.create(lat: -23.0423, lng: -43.5072, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/prainha-canto-direito')
+VisualStation.create(lat: -23.0316, lng: -43.4761, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-ccb')
+VisualStation.create(lat: -23.0315, lng: -43.4761, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-rico-point')
+VisualStation.create(lat: -23.0262, lng: -43.4579, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/recreio-posto-10')
+VisualStation.create(lat: -23.0299, lng: -43.4673, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/recreio-canto')
+VisualStation.create(lat: -23.0408, lng: -43.5048, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/prainha')
+VisualStation.create(lat: -22.9746, lng: -43.0364, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/itacoatiara-pampo')
+VisualStation.create(lat: -22.9748, lng: -43.0336, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/itacoatiara-meio')
+VisualStation.create(lat: -22.9758, lng: -43.0305, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/itacoatiara-costao')
+VisualStation.create(lat: -22.9995, lng: -43.2561, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/sao-conrado-canto-esquerdo')
+VisualStation.create(lat: -22.9881, lng: -43.1971, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/ipanema-posto-8')
+VisualStation.create(lat: -22.985, lng: -43.1887, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/copacabana-posto-6')
+VisualStation.create(lat: -22.9881, lng: -43.2233, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/leblon-canto')
+VisualStation.create(lat: -22.9895, lng: -43.1919, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/arpoador')
+VisualStation.create(lat: -22.9806, lng: -43.1888, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/copacabana-posto-5')
+VisualStation.create(lat: -22.9873, lng: -43.2093, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/ipanema-garcia-davila')
+VisualStation.create(lat: -22.9886, lng: -43.1896, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/praia-diabo')
+VisualStation.create(lat: -22.9648, lng: -43.1688, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/praia-leme')
+VisualStation.create(lat: -23.048129, lng: -43.512599, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/grumari-canto-esquerdo')
+VisualStation.create(lat: -23.032061, lng: -43.472204, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-farofa-posto12')
+VisualStation.create(lat: -23.031458, lng: -43.476754, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-curvao')
 
-VisualStation.create(lat: -23.053, lng: -43.534, url: "http://www.waves.com.br/surf/ondas/picos/grumari/")
-VisualStation.create(lat: -23.043, lng: -43.505, url: "http://www.waves.com.br/surf/ondas/picos/prainha-7/")
-VisualStation.create(lat: -23.034, lng: -43.476, url: "http://www.waves.com.br/surf/ondas/picos/macumba/")
-VisualStation.create(lat: -23.0168, lng: -43.4048, url: "http://www.waves.com.br/surf/ondas/picos/reserva/")
-VisualStation.create(lat: -23.031, lng: -43.465, url: "http://www.waves.com.br/surf/ondas/picos/recreio/")
-VisualStation.create(lat: -23.0124, lng: -43.3277, url: "http://www.waves.com.br/surf/ondas/picos/postinho-da-barra/")
-VisualStation.create(lat: -22.99, lng: -43.226, url: "http://www.waves.com.br/surf/ondas/picos/leblon/")
-VisualStation.create(lat: -22.989, lng: -43.208, url: "http://www.waves.com.br/surf/ondas/picos/ipanema/")
-VisualStation.create(lat: -22.9899, lng: -43.1925, url: "http://www.waves.com.br/surf/ondas/picos/arpoador-2/")
-VisualStation.create(lat: -22.9886, lng: -43.1889, url: "http://www.waves.com.br/surf/ondas/picos/diabo/")
-VisualStation.create(lat: -22.9744, lng: -43.1835, url: "http://www.waves.com.br/surf/ondas/picos/copacabana/")
-VisualStation.create(lat: -22.9759, lng: -43.0364, url: "http://www.waves.com.br/surf/ondas/picos/itacoatiara-pampo/")
-VisualStation.create(lat: -22.9757, lng: -43.0335, url: "http://www.waves.com.br/surf/ondas/picos/itacoatiara-meio/")
-VisualStation.create(lat: -22.9769, lng: -43.0312, url: "http://www.waves.com.br/surf/ondas/picos/itacoatiara-costao/")
-VisualStation.create(lat: -22.936, lng: -42.496, url: "http://www.waves.com.br/surf/ondas/picos/praia-da-vila/")
-VisualStation.create(lat: -22.9403, lng: -42.4777, url: "http://www.waves.com.br/surf/ondas/picos/itauna/")
-VisualStation.create(lat: -22.886, lng: -42.011, url: "http://www.waves.com.br/surf/ondas/picos/praia-do-forte/")
-VisualStation.create(lat: -22.86, lng: -42.02, url: "http://www.waves.com.br/surf/ondas/picos/pero/")
-VisualStation.create(lat: -22.781, lng: -41.91, url: "http://www.waves.com.br/surf/ondas/picos/geriba-canto-direito/")
-VisualStation.create(lat: -22.788, lng: -41.921, url: "http://www.waves.com.br/surf/ondas/picos/geriba-meio/")
-VisualStation.create(lat: -22.972, lng: -42.038, url: "http://www.waves.com.br/surf/ondas/picos/praia-grande/")
-VisualStation.create(lat: -22.95, lng: -42.02, url: "http://www.waves.com.br/surf/ondas/picos/chamine/")
-VisualStation.create(lat: -22.95, lng: -42.02, url: "http://www.waves.com.br/surf/ondas/picos/estacionamento/")
-
-Buoy.destroy_all
+BuoyValue.destroy_all
 BuoyStation.destroy_all
 
 BuoyStation.create(lat: -22.971667, lng: -43.1502778)
 
-WeatherValue.destroy_all
-WeatherStation.destroy_all
-
-WeatherStation.create(name: "A652", lat: -22.99, lng: -43.19)
-WeatherStation.create(name: "A627", lat: -22.87, lng: -43.1)
+puts "Feed cleaning statios"
 
 
 CleaningValue.destroy_all
@@ -568,86 +153,875 @@ CleaningStation.create(name: "Piratininga", description: "Em frente à Rua Orest
 CleaningStation.create(name: "Piratininga", description: "Em frente à Rua João Gomes da Silva", lat: -22.95659373636382, lng: -43.073830134751304)
 
 
+puts "Feed beaches"
+
+Beach.destroy_all
+
+beach_index = 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Prainha - Canto Direito",
+  lat: "-23.0423",
+  lng: "-43.5072",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Macumba - CCB",
+  lat: "-23.0316",
+  lng: "-43.4761",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Recreio - Canto",
+  lat: "-23.0299",
+  lng: "-43.4673",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Barra - Posto 6 - Quiosque Piratas - BarraBela",
+  lat: "-23.011",
+  lng: "-43.3451",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Rico Point Barra direcao P5",
+  lat: "-23.0112",
+  lng: "-43.3387",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Prainha",
+  lat: "-23.0408",
+  lng: "-43.5048",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Macumba - Rico Point",
+  lat: "-23.0315",
+  lng: "-43.4761",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Recreio - Posto 11",
+  lat: "-23.0298",
+  lng: "-43.4666",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Barra - Rico Point - Posto 55",
+  lat: "-23.0112",
+  lng: "-43.3387",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Barra Posto 4 - Hotel WYNDHAM",
+  lat: "-23.0123",
+  lng: "-43.327",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Macumba - Secreto",
+  lat: "-23.0369",
+  lng: "-43.4954",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Macumba - 2W",
+  lat: "-23.0345",
+  lng: "-43.4883",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Recreio - Posto 10",
+  lat: "-23.0262",
+  lng: "-43.4579",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Rico Point Barra direcao P6",
+  lat: "-23.0113",
+  lng: "-43.3374",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Sao Conrado - Canto Esquerdo",
+  lat: "-22.9995",
+  lng: "-43.2561",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Ipanema - Posto 8",
+  lat: "-22.9881",
+  lng: "-43.1971",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Copacabana - Posto 6",
+  lat: "-22.985",
+  lng: "-43.1887",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Leblon - Canto",
+  lat: "-22.9881",
+  lng: "-43.2233",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Arpoador",
+  lat: "-22.9895",
+  lng: "-43.1919",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Copacabana - Posto 5",
+  lat: "-22.9806",
+  lng: "-43.1888",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Ipanema - Garcia davila",
+  lat: "-22.9873",
+  lng: "-43.2093",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Praia do Diabo",
+  lat: "-22.9886",
+  lng: "-43.1896",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Praia do Leme",
+  lat: "-22.9648",
+  lng: "-43.1688",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Itacoatiara - Pampo",
+  lat: "-22.9746",
+  lng: "-43.0364",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Itacoatiara - Meio",
+  lat: "-22.9748",
+  lng: "-43.0336",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+beach = Beach.new(
+  name: "Itacoatiara - Costao",
+  lat: "-22.9758",
+  lng: "-43.0305",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+puts "Feed users and reviews"
+
+
+Review.destroy_all
+User.destroy_all
+
 beaches = Beach.all
 
-beaches.each do |beach|
-  3.times do
-  r = Review.new(
-    beach_id: beach.id,
-    title: ["Melhor praia da vida!", "Praia mais suja que já visitei!", "Que espetáculo", "Sonhooooooo!", "Surf do bom", "Praia lotada! Nunca mais!"].sample,
-    content: ["Praia vazia, calma, ondas excelentes para quem procura um surf power, e sem muitos ambulantes.",
-    "Vista maravilhosa, brisa da boa, recomendo passar o dia inteiro", "Praia suja, ambulante berrando no seu ouvido, lotada...nunca mais"].sample,
-    parking: (1..10).to_a.sample,
-    restaurant: (1..10).to_a.sample,
-    public_transportation: (1..10).to_a.sample,
-    security: (1..10).to_a.sample,
-    cleaning: (1..10).to_a.sample,
-    rent_equipment: (1..10).to_a.sample,
-    wave: (1..10).to_a.sample,
-    wind: (1..10).to_a.sample,
-    accessibility: (1..10).to_a.sample,
-    sand_strip: (1..10).to_a.sample,
+user_index = 1
+8.times do
+  puts "Creating user #{user_index}"
+  admin_priviledges = user_index == 1
+  user_name = User.new(
+    email: "#{user_index}@gmail.com",
+    password: '123abc',
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    admin: admin_priviledges
   )
-  r.save!
+  puts "Saving user #{user_index}"
+  user_name.save!
+  puts "User #{user_index} saved"
+  user_index += 1
+  beaches.each do |beach|
+    2.times do
+      r = Review.new(
+        beach_id: beach.id,
+        title: ["Melhor praia da vida!", "Praia mais suja que já visitei!", "Que espetáculo", "Sonhooooooo!", "Surf do bom", "Praia lotada! Nunca mais!"].sample,
+        content: ["Praia vazia, calma, ondas excelentes para quem procura um surf power, e sem muitos ambulantes.",
+        "Vista maravilhosa, brisa da boa, recomendo passar o dia inteiro", "Praia suja, ambulante berrando no seu ouvido, lotada...nunca mais"].sample,
+        parking: (1..10).to_a.sample,
+        restaurant: (1..10).to_a.sample,
+        public_transportation: (1..10).to_a.sample,
+        security: (1..10).to_a.sample,
+        cleaning: (1..10).to_a.sample,
+        rent_equipment: (1..10).to_a.sample,
+        wave: (1..10).to_a.sample,
+        wind: (1..10).to_a.sample,
+        accessibility: (1..10).to_a.sample,
+        sand_strip: (1..10).to_a.sample
+      )
+      sum_all = (r.parking + r.restaurant + r.public_transportation + r.security + r.cleaning + r.rent_equipment + r.wave + r.wind + r.accessibility + r.sand_strip) / 10.0
+      r.user = user_name
+      p "review saved"
+      if r.save
+        beach.update(
+          overall_parking: ((r.parking + (beach.overall_parking * beach.reviews.size)) / (beach.reviews.size + 1.0).round(3)),
+          overall_restaurant: ((r.restaurant + (beach.overall_restaurant * beach.reviews.size)) / (beach.reviews.size + 1.0).round(3)),
+          overall_public_transportation: ((r.public_transportation + (beach.overall_public_transportation * beach.reviews.size)) / (beach.reviews.size + 1.0)).round(3),
+          overall_security: ((r.security + (beach.overall_security * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
+          overall_cleaning: ((r.cleaning + (beach.overall_cleaning * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
+          overall_rent_equipment: ((r.rent_equipment + (beach.overall_rent_equipment * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
+          overall_wave: ((r.wave + (beach.overall_wave * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
+          overall_wind: ((r.wind + (beach.overall_wind * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
+          overall_accessibility: ((r.accessibility + (beach.overall_accessibility * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
+          overall_sand_strip: ((r.sand_strip + (beach.overall_sand_strip * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
+          overall_rating: ((sum_all + (beach.overall_rating * beach.reviews.size)) / (beach.reviews.size + 1)).round(3)
+        )
+      end
+    end
   end
 end
 
-RealTimeValue.destroy_all
 
-WeatherForecastValue.destroy_all
 
-OceanModelPosition.destroy_all
 
-lons = [-43.6800537109375, -43.5999755859375, -43.52001953125, -43.43994140625, -43.3599853515625, -43.280029296875, -43.199951171875, -43.1199951171875, -43.0400390625, -42.9599609375, -42.8800048828125, -42.800048828125, -42.719970703125, -42.6400146484375, -42.56005859375]
+p "Scrapping and getting data inside the database"
 
-lons.each do |lng|
-  OceanModelPosition.create!(lat: -23, lng: lng)
+p "Feed buoy data"
+
+
+def direction_to_string(value)
+  if value > 45 / 2 && value <= 45 + 45 / 2
+    direction = "Nordeste"
+  elsif value > 45 + 45 / 2 && value <= 90 + 45 / 2
+    direction = "Leste"
+  elsif value > 90 + 45 / 2 && value <= 180 - 45 / 2
+    direction = "Sudeste"
+  elsif value > 180 - 45 / 2 && value <= 180 + 45 / 2
+    direction = "Sul"
+  elsif value > 180 + 45 / 2 && value <= 270 - 45 / 2
+    direction = "Sudoeste"
+  elsif value > 270 - 45 / 2 && value <= 270 + 45 / 2
+    direction = "Oeste"
+  elsif value > 270 + 45 / 2 && value <= 360 - 45 / 2
+    direction = "Noroeste"
+  else
+    direction = "Norte"
+  end
 end
 
-Forecast.destroy_all
+def buoy_data
+  time_start = Time.now.to_i - 3600 * 3
+  time_end = Time.now.to_i
+  buoy_stations = BuoyStation.all
+  buoy_stations.each do |buoy_station|
+    p buoy_station
+    meteo_values = RestClient.get "simcosta.furg.br/api/metereo_data?boiaID=12&type=json&time1=#{time_start}&time2=#{time_end}&params=Average_wind_direction_N,Last_sampling_interval_gust_speed,Average_Pressure,Average_Air_Temperature,Instantaneous_Humidity,Average_Humidity,Average_wind_speed"
+    meteo_values = JSON.parse(meteo_values)
+    meteo_values.each do |value|
+      date_time = DateTime.new(value["YEAR"], value["MONTH"], value["DAY"], value["HOUR"], value["MINUTE"].to_i - 5, 0)
+      buoy = BuoyValue.where("date_time = '#{date_time.strftime("%Y-%m-%d %H:%M:%S")}'")
+      unless buoy.empty?
+        buoy[0].update(
+          date_time: date_time,
+          pressure: value["Avg_Air_Press"],
+          air_temperature: value["Avg_Air_Tmp"],
+          humidity: value["Avg_Hmt"],
+          wind_speed: value["Avg_Wnd_Sp"],
+          wind_direction: direction_to_string(value["Avg_Wnd_Dir_N"].to_f)
+        )
+      else
+        value = BuoyValue.new(
+          date_time: date_time,
+          pressure: value["Avg_Air_Press"],
+          air_temperature: value["Avg_Air_Tmp"],
+          humidity: value["Avg_Hmt"],
+          wind_speed: value["Avg_Wnd_Sp"],
+          wind_direction: direction_to_string(value["Avg_Wnd_Dir_N"].to_f)
+        )
+        value.buoy_station = buoy_station
+        value.save!
+      end
+    end
+    ocean_values = RestClient.get "http://simcosta.furg.br/api/oceanic_data?boiaID=12&type=json&time1=#{time_start}&time2=#{time_end}&params=Hsig_Significant_Wave_Height_m,Mean_Wave_Direction_deg,Hmax_Maximum_Wave_Height_m,TP_Peak_Period_seconds,Average_Temperature_deg_C"
+    ocean_values = JSON.parse(ocean_values)
+    ocean_values.each do |value|
+      date_time = DateTime.new(value["YEAR"], value["MONTH"], value["DAY"], value["HOUR"], value["MINUTE"].to_i - 1, 0)
+      buoy = BuoyValue.where("date_time = '#{date_time.strftime("%Y-%m-%d %H:%M:%S")}'")
+      unless buoy.empty?
+        buoy[0].update(
+          wave_height: value["Hsig"],
+          water_temperature: value["Avg_W_Tmp1"],
+          wave_formation: value["TP"],
+          wave_direction: value["Avg_Wv_Dir_N"]
+        )
+      else
+        value = BuoyValue.new(
+          date_time: date_time,
+          wave_height: value["Hsig"],
+          water_temperature: value["Avg_W_Tmp1"],
+          wave_formation: value["TP"],
+          wave_direction: direction_to_string(value["Avg_Wv_Dir_N"].to_f)
+        )
+        value.buoy_station = buoy_station
+        value.save!
+      end
+    end
+  end
+end
+buoy_data
 
-Forecast.create(
-  station: 606653,
-  lat: -0.22883e2,
-  lng: -0.43149e2
-  )
-Forecast.create(
-  station: 926830,
-  lat: -0.228194e2,
-  lng: -0.431933e2,
-  )
-Forecast.create(
-  station: 606652,
-  lat: -0.22921e2,
-  lng: -0.43147e2,
-  )
-Forecast.create(
-  station: 606651,
-  lat: -0.22987e2,
-  lng: -0.43123e2,
-  )
-Forecast.create(
-  station: 579550,
-  lat: -0.229838e2,
-  lng: -0.432074e2,
-  )
-Forecast.create(
-  station: 589498,
-  lat: -0.230155e2,
-  lng: -0.43307e2,
-  )
-Forecast.create(
-  station: 586608,
-  lat: -0.230129e2,
-  lng: -0.433167e2,
-  )
-Forecast.create(
-  station: 378046,
-  lat: -0.230331e2,
-  lng: -0.434825e2,
-  )
-Forecast.create(
-  station: 378045,
-  lat: -0.230508e2,
-  lng: -0.435316e2,
-)
+
+
+p "Feed visual observations data"
+
+
+def visual_data
+  visual_stations = VisualStation.all
+  visual_stations.each do |visual_station|
+    html_file = open(visual_station.url).read
+    html_doc = Nokogiri::HTML(html_file)
+    value = html_doc.search("[class='h5 text-primary margin-xxs-bottom']")
+
+    wave_height = value.text.strip.gsub(",", ".")[0...-1].to_f
+    value = html_doc.search("[class='h5 no-margin text-primary']")
+    wave_formation = value[0].text.strip.gsub(",", ".")[0...-1].to_f
+    water_temperature = value[1].text[0...-2].to_f
+    value = html_doc.search("[class='small line-height-xs']")
+    wave_direction = value[0].text
+    date_time = Time.now
+    date_time = date_time.strftime("%Y-%m-%d 00:00:00")
+    visual_value = VisualValue.where("date_time = '#{date_time}' AND visual_station_id = #{visual_station.id}")
+    unless visual_value.empty?
+      visual_value[0].update(
+        date_time: date_time,
+        wave_height: wave_height,
+        wave_direction: wave_direction,
+        wave_formation: wave_formation,
+        water_temperature: water_temperature
+      )
+    else
+      visual_value = VisualValue.new(
+        date_time: date_time,
+        wave_height: wave_height,
+        wave_direction: wave_direction,
+        wave_formation: wave_formation,
+        water_temperature: water_temperature
+      )
+      visual_value.visual_station = visual_station
+      visual_value.save!
+      puts ("Success: Inserted #{visual_station.url}")
+    end
+  end
+end
+visual_data
+
+p "Feed cleaning values in the database"
+
+def cleaning_status
+  html_file = open("https://praialimpa.net/").read
+  html_doc = Nokogiri::HTML(html_file)
+
+  cities = html_doc.css("[class='main wrapper clearfix']").css('section')
+  places = ["Niterói", "Paquetá", "Rio de Janeiro"]
+  p cities
+  cities.each do |city|
+    place = city.css('h1').text
+    if places.include? place
+      p place
+      beaches = city.css("[class='beach']")
+      beaches.each do |beach|
+        date_time = Time.now
+        date_time = date_time.strftime("%Y-%m-%d 00:00:00")
+        name = beach.css("[class='name']")[0].text
+        description = beach.css("[class='location']")[0].text
+        status = beach.css(".status")[0].text
+        cleaning_station = CleaningStation.where("name = '#{name}' AND description = ?", description)[0]
+
+        cleaning_value = CleaningValue.where("date_time = '#{date_time}' AND cleaning_station_id = #{cleaning_station.id}")
+        unless cleaning_value.empty?
+          cleaning_value[0].update(
+            date_time: date_time,
+            status: status
+          )
+          p "updated"
+        else
+          cleaning_value = CleaningValue.new(
+            date_time: date_time,
+            status: status
+          )
+
+          cleaning_value.cleaning_station = cleaning_station
+          cleaning_value.save!
+          p "saved"
+        end
+      end
+    end
+  end
+end
+cleaning_status
+
+p "Feed wave forecast values"
+
+def wave_forecast_data
+  WaveForecastValue.destroy_all
+  visual_stations = WaveForecastStation.all
+  visual_stations.each do |visual_station|
+    html_file = open(visual_station.url).read
+    html_doc = Nokogiri::HTML(html_file)
+    values = html_doc.css('.contorno')[0].css("#prev_ond")
+
+    values.each_with_index do |value, idx|
+      if idx == 0
+        date = value.css('#tit').text.strip.split(/\n/)[1].strip
+      else
+        date = value.css('#tit').text.strip[-10..-1]
+      end
+
+      days = value.css('#o1')
+      days.each do |day|
+        hour = day.text.split("Z")[0].strip[-2..-1].to_i - 1
+        date_time = DateTime.new(date[6..9].to_i, date[3..4].to_i, date[0..1].to_i, hour)
+        wave = day.css('b').text.split(" ")
+        wave_height = wave[0].to_f
+        if wave[1] == "N"
+          wave_direction = "Norte"
+        elsif wave[1] == "NE" || wave[1] == "NNE"
+          wave_direction = "Nordeste"
+        elsif wave[1] == "E" || wave[1] == "ENE" || wave[1] == "ESE"
+          wave_direction = "Leste"
+        elsif wave[1] == "SE" || wave[1] == "SSE"
+          wave_direction = "Sudeste"
+        elsif wave[1] == "S"
+          wave_direction = "Sul"
+        elsif wave[1] == "SW" || wave[1] == "SSW"
+          wave_direction = "Sudoeste"
+        elsif wave[1] == "W" || wave[1] == "WNW" || wave[1] == "WNW"
+          wave_direction = "Oeste"
+        elsif wave[1] == "NW" || wave[1] == "NNW"
+          wave_direction = "Noroeste"
+        end
+
+        w = WaveForecastValue.new(
+          date_time: date_time,
+          wave_direction: wave_direction,
+          wave_height: wave_height
+          )
+        w.wave_forecast_station = visual_station
+        w.save!
+
+        p wave_height
+        p wave_direction
+        p date_time
+        p hour
+        p w
+      end
+    end
+  end
+end
+
+wave_forecast_data
+
+p "Feed water forecast values"
+
+def ocean_forecast
+  date1 = Time.now - 1.day
+  date = Time.new(date1.year, date1.month, date1.day).strftime("%Y-%m-%d")
+
+  # date = date.strftime("%Y-%m-%d")
+
+  date_now = Time.new(date1.year, date1.month, date1.day, 12)
+
+  begin
+    x = WaterForecastValue.first.date_time.strftime("%Y-%m-%d %H:00:00") == date_now.strftime("%Y-%m-%d %H:00:00")
+  rescue
+    x = false
+  end
+  unless x
+    begin
+      html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:60%5D%5B0:1:0%5D%5B1425:1:1425%5D%5B3954:1:3968%5D").read
+      lines = html_file.split(/\n/)[13..-13]
+      positions = WaterForecastStation.all
+      WaterForecastValue.destroy_all
+      t = 0
+      lines.each do |line|
+        date_model = (date_now + 3600 * t).strftime("%Y-%m-%d %H:00:00")
+        line = line.split(',')
+        line.each_with_index do |l, idx|
+          unless idx == 0
+            WaterForecastValue.create(water_forecast_station_id: positions[idx - 1].id, date_time: date_model, water_temperature: l.to_f)
+            p "saved #{positions[idx - 1].id}"
+          end
+        end
+        t += 1
+      end
+    rescue
+      puts "Não há dados novos"
+    end
+  end
+end
+
+ocean_forecast
+
+WeatherForecastValue.destroy_all
+WeatherForecastDaily.destroy_all
+
+def open_weather_api
+  beaches = Beach.all
+  date = Time.now
+  date = Time.new(Time.now.year, Time.now.month, Time.now.day - 1).strftime("%Y-%m-%d")
+  WeatherForecastValue.where("date_time >= '#{date}'").destroy_all
+  WeatherForecastDaily.where("date_time >= '#{date}'").destroy_all
+  beaches.each do |beach|
+    meteo_values = RestClient.get "https://api.openweathermap.org/data/2.5/onecall?lat=#{beach.lat}&lon=#{beach.lng}&exclude=minutely&appid=39352aa3ee983b59623430b39d23fe25"
+    meteo_values = JSON.parse(meteo_values)
+
+    hourly = meteo_values["hourly"]
+
+    hourly.each do |hour|
+      date_time = Time.at(hour["dt"])
+      times = [0, 3, 6, 9, 12, 15, 18, 21]
+      if times.include? date_time.hour
+        date_time = date_time.strftime("%Y-%m-%d %H:00:00")
+        air_temperature = hour["temp"].to_f - 273
+        air_temperature_feels_like = hour["feels_like"].to_f - 273
+        pressure = hour["pressure"]
+        humidity = hour["humidity"]
+        wind_speed = hour["wind_speed"]
+        wind_direction = direction_to_string(hour["wind_deg"].to_f)
+        description = hour["weather"][0]["description"]
+        rain_probability = hour["pop"]
+        icon = hour["weather"][0]["icon"]
+
+        p date_time
+        weather_forecast_value = WeatherForecastValue.new(
+          date_time: date_time,
+          wind_speed: wind_speed,
+          wind_direction: wind_direction,
+          rain_probability: rain_probability,
+          description: description,
+          air_temperature: air_temperature,
+          air_temperature_feels_like: air_temperature_feels_like,
+          pressure: pressure,
+          humidity: humidity,
+          icon: icon
+        )
+
+        weather_forecast_value.beach = beach
+        weather_forecast_value.save!
+      end
+    end
+
+    daily = meteo_values["daily"]
+
+    daily.each do |day|
+      date_time = Time.at(day["dt"]).strftime("%Y-%m-%d %H:00:00")
+      air_temperature = day["temp"]["day"].to_f - 273
+      air_temperature_min = day["temp"]["min"].to_f - 273
+      air_temperature_max = day["temp"]["max"].to_f - 273
+      air_temperature_feels_like = day["feels_like"]["day"].to_f - 273
+      pressure = day["pressure"]
+      humidity = day["humidity"]
+      wind_speed = day["wind_speed"]
+      wind_direction = direction_to_string(day["wind_deg"].to_f)
+      description = day["weather"][0]["description"]
+      icon = day["weather"][0]["icon"]
+      rain_probability = day["pop"]
+      uv = day["uvi"]
+
+      weather_forecast_daily = WeatherForecastDaily.new(
+        date_time: date_time,
+        wind_speed: wind_speed,
+        wind_direction: wind_direction,
+        rain_probability: rain_probability,
+        description: description,
+        air_temperature: air_temperature,
+        air_temperature_feels_like: air_temperature_feels_like,
+        air_temperature_min: air_temperature_min,
+        air_temperature_max: air_temperature_max,
+        pressure: pressure,
+        humidity: humidity,
+        uv: uv,
+        icon: icon
+      )
+
+      weather_forecast_daily.beach = beach
+      weather_forecast_daily.save!
+    end
+  end
+end
+
+open_weather_api
+
+
+def feed_weather_forecast
+
+  OceanForecastValue.destroy_all
+
+  beaches = Beach.all
+
+
+  wave_forecast_stations = WaveForecastStation.all
+  water_forecast_stations = WaterForecastStation.all
+
+  date = Time.new(Time.now.year, Time.now.month, Time.now.day, Time.now.hour).strftime("%Y-%m-%d %H:00:00")
+
+  beaches.each do |beach|
+    distance = 9999
+    wave_forecast_stations.each do |forecast|
+      x = Haversine.distance(beach.lat, beach.lng, forecast.lat, forecast.lng).to_miles
+      if x < distance
+        distance = x
+        @forecast = forecast
+      end
+    end
+
+    distance = 9999
+    water_forecast_stations.each do |ocean_model_position|
+      x = Haversine.distance(beach.lat, beach.lng, ocean_model_position.lat, ocean_model_position.lng).to_miles
+      if x < distance
+        distance = x
+        @ocean_model_position = ocean_model_position
+      end
+    end
+
+    forecast_values = WaveForecastValue.where("wave_forecast_station_id = #{@forecast.id} AND date_time >= '#{date}'")
+
+    p "agora salvar"
+
+    forecast_values.each do |forecast_value|
+      begin
+        wave_direction = forecast_value.wave_direction
+      rescue
+        wave_direction = nil
+      end
+
+      ocean_forecast_value = OceanForecastValue.new(
+        date_time: forecast_value.date_time,
+        wave_height: forecast_value.wave_height,
+        wave_direction: wave_direction,
+      )
+      ocean_forecast_value.beach = beach
+      ocean_forecast_value.save!
+    end
+
+    p "agora salvar"
+
+    ocean_model_values = WaterForecastValue.where("water_forecast_station_id = #{@ocean_model_position.id} AND date_time >= '#{date}'")
+
+    ocean_model_values.each do |ocean_model_value|
+      ocean_forecast_value = OceanForecastValue.where("date_time = '#{ocean_model_value.date_time}' AND beach_id = #{beach.id}")
+      unless ocean_forecast_value.empty?
+        ocean_forecast_value[0].update(
+          water_temperature: ocean_model_value.water_temperature
+        )
+        p ocean_forecast_value
+      end
+    end
+    p "agora salvo"
+  end
+end
+
+feed_weather_forecast

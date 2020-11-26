@@ -4,7 +4,7 @@ const rangeBegin = () => {
   if (range) {
     const d = new Date();
     const range1 = document.getElementById('weather-range-0')
-    range1.value = d.getHours();
+    range1.value = parseInt(d.getHours()/3) * 3;
     range.classList.remove('inactive-tab');
     const card = document.getElementById(`weather-day0-hour${range1.value}`)
     card.classList.remove('inactive-tab');
