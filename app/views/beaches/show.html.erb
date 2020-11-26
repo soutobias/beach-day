@@ -20,6 +20,29 @@
 
 
   <div id="review" class="container">
+    <h2><strong>Avaliação geral: <%= @beach.overall_rating.round(2) %></strong></h2>
+
+    <p>Estacionamento: <strong><%= @beach.overall_parking.round(2) %></strong></p>
+    <p>Restaurante: <strong><%= @beach.overall_restaurant.round(2) %></strong></p>
+    <p>Transporte Público: <strong><%= @beach.overall_public_transportation.round(2) %></strong></p>
+    <p>Segurança: <strong><%= @beach.overall_security.round(2) %></strong></p>
+    <p>Limpeza: <strong><%= @beach.overall_cleaning.round(2) %></strong></p>
+    <p>Aluguel de cadeiras e guarda-sol: <strong><%= @beach.overall_rent_equipment.round(2) %></strong></p>
+    <p>Ondas: <strong><%= @beach.overall_wave.round(2) %></strong></p>
+    <p>Vento: <strong><%= @beach.overall_wind.round(2) %></strong></p>
+    <p>Acessibilidade: <strong><%= @beach.overall_accessibility.round(2) %></strong></p>
+    <p>Faixa de areia: <strong><%= @beach.overall_sand_strip.round(2) %></strong></p>
+
+
+    <% if !@beach.reviews.empty? %>
+      <% @beach.reviews.each do |review| %>
+        <p><strong><%= review.title %></strong></p>
+        <p><%= review.content %></p>
+      <% end %>
+    <% else  %>
+      <p><strong>>Essa praia ainda possui avaliações</p>
+    <% end %>
+    <%= link_to "Adicionar avaliação", new_beach_review_path(@beach)%>
   </div>
 
 

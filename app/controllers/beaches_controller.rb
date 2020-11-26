@@ -12,10 +12,15 @@ class BeachesController < ApplicationController
   end
 
   def show
+    @reviews = policy_scope(Review).where("beach_id = #{@beach.id}").order(created_at: :desc)
+
     @markers = {
       lat: @beach.lat,
       lng: @beach.lng
     }
+
+
+
     @weathers = WeatherForecastValue.where("beach_id = #{@beach.id}").order(date_time: :asc)
     query = "date_time <=  '#{DateTime.now.strftime('%Y-%m-%d 23:59:59')}'"
     @weathers_today = @weathers.where(query).order(date_time: :asc)
