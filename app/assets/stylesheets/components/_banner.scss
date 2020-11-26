@@ -16,9 +16,9 @@ body {
 }
 
 .index {
-  background: url(banner_full.png) 50% 50% / 100% no-repeat;
-  padding-top: 140%;
-  background-size: 100% auto;
+  background: url(banner_full.png) 100% no-repeat;
+  padding-top: 100%;
+  background-position: top;
   background-size: 100% auto;
   font-family: 'Sucrose Bold Two';
   position: relative;
@@ -29,7 +29,7 @@ body {
   right: 0;
   top: 0;
   width: 61.4%;
-  height: 100%;
+  height: auto;
 }
 .index h1 {
   position: fixed;
@@ -62,7 +62,7 @@ body {
 }
 
 main {
-  margin-top: -1150px;
+  margin-top: -400px;
   font-family: 'IM Fell French Canon Pro';
   font-size: 1.4rem;
   line-height: 1.6;

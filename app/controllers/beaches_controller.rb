@@ -12,11 +12,16 @@ class BeachesController < ApplicationController
   end
 
   def show
+    @reviews = policy_scope(Review).where("beach_id = #{@beach.id}").order(created_at: :desc)
+
     @markers = {
       lat: @beach.lat,
       lng: @beach.lng
     }
-    @weathers = policy_scope(WeatherForecastValue).where("beach_id = #{@beach.id}").order(date_time: :asc)
+
+
+
+    @weathers = WeatherForecastValue.where("beach_id = #{@beach.id}").order(date_time: :asc)
     query = "date_time <=  '#{DateTime.now.strftime('%Y-%m-%d 23:59:59')}'"
     @weathers_today = @weathers.where(query).order(date_time: :asc)
 
@@ -26,7 +31,7 @@ class BeachesController < ApplicationController
     query = "date_time <=  '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 00:00:00')}'"
     @weathers_today_2 = @weathers.where(query).order(date_time: :asc)
 
-    @oceans = policy_scope(OceanForecastValue).where("beach_id = #{@beach.id}").order(date_time: :asc)
+    @oceans = OceanForecastValue.where("beach_id = #{@beach.id}").order(date_time: :asc)
 
     query = "date_time <=  '#{DateTime.now.strftime('%Y-%m-%d 23:59:59')}'"
     @oceans_today = @oceans.where(query).order(date_time: :asc)
@@ -43,7 +48,8 @@ class BeachesController < ApplicationController
     query = "date_time <=  '#{DateTime.now.advance(days: 4).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 4).strftime('%Y-%m-%d 00:00:00')}'"
     @oceans_today_4 = @oceans.where(query).order(date_time: :asc)
 
-    @dailies = policy_scope(WeatherForecastDaily).where("beach_id = #{@beach.id}").order(date_time: :asc)
+
+    @dailies = WeatherForecastDaily.where("beach_id = #{@beach.id}").order(date_time: :asc)
   end
 
   private

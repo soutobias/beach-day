@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ForecastTest < ActiveSupport::TestCase
+class WaveForecastValueTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

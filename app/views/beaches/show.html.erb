@@ -5,24 +5,61 @@
 <div class="cont">
   <ul class="list-inline tabs-underlined w-100 justify-content-between">
     <li>
-      <%= link_to "Avaliações", beach_reviews_url(@beach), class: "tab-underlined"%>
+      <p class="tab-underlined active" id="tab1">Avaliações</p>
     </li>
     <li>
-      <%= link_to "Tempo Real", beach_real_time_url(@beach), class: "tab-underlined"%>
+      <p class="tab-underlined" id="tab2">Tempo Real</p>
     </li>
     <li>
-      <%= link_to "Previsão do Tempo", beach_weather_url(@beach), class: "tab-underlined active"%>
+      <p class="tab-underlined" id="tab3">Previsão do Tempo</p>
     </li>
     <li>
-      <%= link_to "Como Chegar", beach_traffic_url(@beach), class: "tab-underlined"%>
+      <p class="tab-underlined" id="tab4">Como Chegar</p>
     </li>
   </ul>
-  <div class="container">
+
+
+  <div id="review" class="container">
+    <h2><strong>Avaliação geral: <%= @beach.overall_rating.round(2) %></strong></h2>
+
+    <p>Estacionamento: <strong><%= @beach.overall_parking.round(2) %></strong></p>
+    <p>Restaurante: <strong><%= @beach.overall_restaurant.round(2) %></strong></p>
+    <p>Transporte Público: <strong><%= @beach.overall_public_transportation.round(2) %></strong></p>
+    <p>Segurança: <strong><%= @beach.overall_security.round(2) %></strong></p>
+    <p>Limpeza: <strong><%= @beach.overall_cleaning.round(2) %></strong></p>
+    <p>Aluguel de cadeiras e guarda-sol: <strong><%= @beach.overall_rent_equipment.round(2) %></strong></p>
+    <p>Ondas: <strong><%= @beach.overall_wave.round(2) %></strong></p>
+    <p>Vento: <strong><%= @beach.overall_wind.round(2) %></strong></p>
+    <p>Acessibilidade: <strong><%= @beach.overall_accessibility.round(2) %></strong></p>
+    <p>Faixa de areia: <strong><%= @beach.overall_sand_strip.round(2) %></strong></p>
+
+
+    <% if !@beach.reviews.empty? %>
+      <% @beach.reviews.each do |review| %>
+        <p><strong><%= review.title %></strong></p>
+        <p><%= review.content %></p>
+      <% end %>
+    <% else  %>
+      <p><strong>>Essa praia ainda possui avaliações</p>
+    <% end %>
+    <%= link_to "Adicionar avaliação", new_beach_review_path(@beach)%>
+  </div>
+
+
+  <div id="realtime" class="container inactive-tab">
+  </div>
+
+
+
+  <div id="traffic" class="container inactive-tab">
     <div id="map" data-markers="<%= @markers.to_json %>" >
     </div>
   </div>
-  <div class=inactive-tab>
-    <div class="card-weathers w-100">
+
+
+
+  <div id="weatherforecast" class="inactive-tab">
+     <div class="card-weathers w-100">
       <div class="card-top w-100">
         <% @weathers_today.each do |hour| %>
           <div id="weather-day0-hour<%= hour.date_time.hour %>" class="d-flex justify-content-around inactive-tab all-cards">
@@ -42,7 +79,7 @@
                   <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
                 <% end %>
                 <% if ocean[0].water_temperature %>
-                  <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round() %>°C</p>
+                  <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
                 <% end %>
               <% end %>
             </div>
@@ -68,7 +105,7 @@
                   <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
                 <% end %>
                 <% if ocean[0].water_temperature %>
-                  <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round() %>°C</p>
+                  <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
                 <% end %>
               <% end %>
             </div>
@@ -94,7 +131,7 @@
                   <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
                 <% end %>
                 <% if ocean[0].water_temperature %>
-                  <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round() %>°C</p>
+                  <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
                 <% end %>
               <% end %>
             </div>
@@ -117,10 +154,10 @@
             <p class="p-0 m-0">Humidade: <%= (daily.humidity).to_i %>%</p>
             <p class="p-0 m-0">Vento: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction %>)</p>
             <% ocean = @oceans_today_3.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
-            <p class="p-0 m-0">Maior onda do dia: <%= ocean[0] %> m</p>
+            <p class="p-0 m-0">Maior onda do dia: <%= ocean[0].wave_height %> m</p>
             <% ocean = @oceans_today_3.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
             <% unless ocean.empty? %>
-              <p class="p-0 m-0">Menor Temperatura da água do dia: <%= (ocean[0]).round(1) %>°C</p>
+              <p class="p-0 m-0">Menor Temperatura da água do dia: <%= ocean[0].water_temperature.round(1) %>°C</p>
             <% end %>
             <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
           </div>
@@ -141,18 +178,18 @@
             <p class="p-0 m-0">Chuva: <%= (daily.rain_probability * 100).to_i %>%</p>
             <p class="p-0 m-0">Humidade: <%= (daily.humidity).to_i %>%</p>
             <p class="p-0 m-0">Vento: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction %>)</p>
-            <% ocean = @oceans_today_3.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
-            <p class="p-0 m-0">Maior onda do dia: <%= ocean[0] %> m</p>
-            <% ocean = @oceans_today_3.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
+            <% ocean = @oceans_today_4.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
+            <p class="p-0 m-0">Maior onda do dia: <%= ocean[0].wave_height %> m</p>
+            <% ocean = @oceans_today_4.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
             <% unless ocean.empty? %>
-              <p class="p-0 m-0">Menor Temperatura da água do dia: <%= (ocean[0]).round(1) %>°C</p>
+              <p class="p-0 m-0">Menor Temperatura da água do dia: <%= ocean[0].water_temperature.round(1) %>°C</p>
             <% end %>
             <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
           </div>
         </div>
 
         <form action="#" method="get" class="w-100 inactive-tab range-today"  id="ranges">
-          <input type="range" id="weather-range-0" name="weather-range" min='<%= @weathers_today[0].date_time.hour %>' max='<%= @weathers_today[-1].date_time.hour %>' class="w-100">
+          <input type="range" id="weather-range-0" name="weather-range" step="3" min='<%= @weathers_today[0].date_time.hour %>' max='<%= @weathers_today[-1].date_time.hour %>' class="w-100">
           <div class="d-flex justify-content-between">
             <% @weathers_today.each do |hour| %>
               <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
@@ -160,7 +197,7 @@
           </div>
         </form>
         <form action="#" method="get" class="w-100 inactive-tab range-today_1" id="ranges">
-          <input type="range" id="weather-range-1" name="weather-range" min='<%= @weathers_today_1[0].date_time.hour %>' max='<%= @weathers_today_1[-1].date_time.hour %>' class="w-100">
+          <input type="range" id="weather-range-1" name="weather-range" step="3"  min='<%= @weathers_today_1[0].date_time.hour %>' max='<%= @weathers_today_1[-1].date_time.hour %>' class="w-100">
           <div class="d-flex justify-content-between">
             <% @weathers_today_1.each do |hour| %>
               <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
@@ -168,7 +205,7 @@
           </div>
         </form>
         <form action="#" method="get" class="w-100 inactive-tab range-today_2" id="ranges">
-          <input type="range" id="weather-range-2" name="weather-range" min='<%= @weathers_today_2[0].date_time.hour %>' max='<%= @weathers_today_2[-1].date_time.hour %>' class="w-100">
+          <input type="range" id="weather-range-2" name="weather-range" step="3" min='<%= @weathers_today_2[0].date_time.hour %>' max='<%= @weathers_today_2[-1].date_time.hour %>' class="w-100">
           <div class="d-flex justify-content-between">
             <% @weathers_today_2.each do |hour| %>
               <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>

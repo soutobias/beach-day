@@ -1,2 +1,0 @@
-class WeatherWarning < ApplicationRecord
-end
