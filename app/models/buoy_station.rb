@@ -1,3 +1,3 @@
 class BuoyStation < ApplicationRecord
-  has_many :buoys
+  has_many :buoy_values, dependent: :destroy
 end
