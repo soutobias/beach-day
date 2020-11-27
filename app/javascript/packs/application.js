@@ -13,6 +13,7 @@ import { rangeBegin, rangeWeather0, rangeWeather1, rangeWeather2, changeWeatherD
 
 
 import { toogleTab } from '../components/tabs_index';
+import { initBar } from '../components/init_bar';
 
 
 
@@ -32,6 +33,7 @@ document.addEventListener('turbolinks:load', () => {
   changeWeatherDay4();
 
   toogleTab();
+  initBar();
 });
 
 // Uncomment to copy all static images under ../images to the output folder and reference
