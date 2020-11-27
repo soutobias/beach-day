@@ -6,5 +6,6 @@ class Beach < ApplicationRecord
   validates :lat, presence: true
   validates :lng, presence: true
   validates :overview, length: { minimum: 10, maximum: 254 }
+
   has_one_attached :photo
 end

@@ -10,7 +10,10 @@ require("channels")
 
 import { initUpdateH1OnScroll } from '../components/init_h1';
 import { rangeBegin, rangeWeather0, rangeWeather1, rangeWeather2, changeWeatherDay1, changeWeatherDay0, changeWeatherDay2, changeWeatherDay3, changeWeatherDay4 } from '../components/init_range'; // <-- add this line
+
+
 import { toogleTab } from '../components/tabs_index';
+
 
 
 import { initMap } from 'packs/map';
@@ -27,6 +30,7 @@ document.addEventListener('turbolinks:load', () => {
   changeWeatherDay2();
   changeWeatherDay3();
   changeWeatherDay4();
+
   toogleTab();
 });
 
