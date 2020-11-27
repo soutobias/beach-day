@@ -34,7 +34,7 @@ body {
 .index h1 {
   position: fixed;
   font-family: 'Sucrose Bold Two';
-  top: 6rem;
+  top: 16rem;
   right: 2rem;
   font-size: 12vw;
   line-height: .8;
@@ -53,8 +53,10 @@ body {
 }
 
 .index p{
-  margin-top: -1260px;
-  text-align: center;
+  margin-top: -1000px;
+  margin-left: 0;
+  padding-left: 0;
+  text-align: left;
   font-size: 60px;
   z-index: 1;
   position: relative;
@@ -62,7 +64,7 @@ body {
 }
 
 main {
-  margin-top: -400px;
+  margin-top: -900px;
   font-family: 'IM Fell French Canon Pro';
   font-size: 1.4rem;
   line-height: 1.6;
