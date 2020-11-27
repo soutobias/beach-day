@@ -70,7 +70,7 @@ main {
 
 
 .banner {
-  background-image: url(beach_test_picture.png);
+  background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url(beach_test_picture.png);
   background-size: cover;
   background-position: center;
   padding: 140px 0;
