@@ -1,0 +1,46 @@
+.barras {
+  width:320px;
+  margin: 5px;
+}
+.barra {
+  width:300px;
+  height:30px;
+  background:#CCC;
+  margin:10px;
+}
+.barra-nivel {
+  height:30px;
+  background:#3e6db5;
+  width:1px;
+  -webkit-transition: width 1s ease;
+  -moz-transition: width 1s ease;
+  transition: width 1s ease;
+}
+.valor-nivel {
+  line-height:30px;
+  color:#fff;
+  margin-left:10px;
+  font-size:12px;
+}
+
+
+.class-red{
+  background: red;
+}
+
+.class-yellow{
+  background: yellow;
+}
+
+.class-blue{
+  background: #3e6db5;
+}
+
+.checked {
+  color: orange;
+}
+
+.geral {
+  font-size: 40px;
+  font-weight: bold;
+}

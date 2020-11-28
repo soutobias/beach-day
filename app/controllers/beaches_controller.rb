@@ -48,7 +48,6 @@ class BeachesController < ApplicationController
     query = "date_time <=  '#{DateTime.now.advance(days: 4).strftime('%Y-%m-%d 23:59:59')}' AND date_time >=  '#{DateTime.now.advance(days: 4).strftime('%Y-%m-%d 00:00:00')}'"
     @oceans_today_4 = @oceans.where(query).order(date_time: :asc)
 
-
     @dailies = WeatherForecastDaily.where("beach_id = #{@beach.id}").order(date_time: :asc)
   end
 

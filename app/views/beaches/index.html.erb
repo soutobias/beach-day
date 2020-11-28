@@ -2,40 +2,78 @@
   <div class="index">
     <h1 class="scroll-hide">BEACH<span></span>DAY</h1>
     <div class="container marg">
-      <p>Te ajudamos a escolher a melhor praia</p>
     </div>
     <%= image_tag "banner_hide.png" %>
   </div>
 </header>
 <main>
   <div class="mr-3 ml-3">
-    <div class="row">
-      <div class="col-12">
-        <div class="card" style="background-image: url(https://i.pinimg.com/originals/79/81/64/798164e1c3692b4b29b94729ab5551e1.jpg)">
-          <h1>Melhores praias para sua família</h1>
-        </div>
-      </div>
-    </div>
-    <div id="beaches" class="search">
-      <%= form_tag beaches_path, method: :get do %>
+    <div id="beaches" class="search d-flex w-100">
+      <p class="pl-3">Qual a praia perfeita para você?</p>
+      <%= form_tag beaches_path, method: :get, class: "pl-3" do %>
         <%= text_field_tag :query,
           params[:query],
-          class: "form-control",
+          class: "form-control  pl-3",
           placeholder: "Ache uma praia"
         %>
       <% end %>
     </div>
     <div class="row">
       <% @beaches.each do |beach| %>
-        <div class="col-6 m-0">
+        <div class="col-4 m-0">
           <%= link_to beach_path(beach) do %>
-            <div class="flip">
-              <div class="front" style="background-image: url('<%= cl_image_path beach.photo.key%>')">
-                <h1 class="text-shadow"><%=beach.name %></h1>
-                <p slot="content"><%= beach.overall_rating %></p>
+            <div class="flip m-3">
+              <div class="front" style="background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url('<%= cl_image_path beach.photo.key%>')">
+                <h2 class="text-shadow pt-5"><%=beach.name %></h2>
+                <div class="d-flex">
+                  <p slot="content" class="p"><%= beach.overall_rating %></p>
+                </div>
               </div>
               <div class="back">
-                <p><%= beach.overview %></p>
+                <div class="barras text-align-center text-left">
+                  <div class="row">
+                    <div class="col-6 pt-2">
+                      <p class="pt-1">ESTACIONAMENTO</p>
+                    </div>
+                    <div class="col-6">
+                      <div class="barra">
+                         <div class="barra-nivel" data-nivel="<%= (beach.overall_parking.round(1)*10).to_i%>"></div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <p  class="pt-1">RESTAURANTES</p>
+                    </div>
+                    <div class="col-6">
+                      <div class="barra">
+                         <div class="barra-nivel" data-nivel="<%= (beach.overall_restaurant.round(1)*10).to_i%>"></div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <p class="pt-1">TRANSPORTE PÚBLICO</p>
+                    </div>
+                    <div class="col-6">
+                      <div class="barra">
+                         <div class="barra-nivel" data-nivel="<%= (beach.overall_public_transportation.round(1)*10).to_i%>"></div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <p class="pt-1">SEGURANÇA</p>
+                    </div>
+                    <div class="col-6">
+                      <div class="barra">
+                         <div class="barra-nivel" data-nivel="<%= (beach.overall_security.round(1)*10).to_i%>"></div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <p class="pt-1">ONDAS</p>
+                    </div>
+                    <div class="col-6">
+                      <div class="barra">
+                         <div class="barra-nivel" data-nivel="<%= (beach.overall_wave.round(1)*10).to_i%>"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           <% end %>

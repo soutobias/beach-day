@@ -34,7 +34,7 @@ body {
 .index h1 {
   position: fixed;
   font-family: 'Sucrose Bold Two';
-  top: 6rem;
+  top: 16rem;
   right: 2rem;
   font-size: 12vw;
   line-height: .8;
@@ -52,17 +52,20 @@ body {
   font-size: 8.75vw;
 }
 
-.index p{
-  margin-top: -1260px;
-  text-align: center;
-  font-size: 60px;
-  z-index: 1;
-  position: relative;
+#beaches p{
+  vertical-align: center;
+  font-size: 30px;
   font-family: 'Anton', sans-serif;
+  padding-left: 20px;
+}
+
+.icon-click{
+  width: 60px;
+  height: 100%;
 }
 
 main {
-  margin-top: -400px;
+  margin-top: -930px;
   font-family: 'IM Fell French Canon Pro';
   font-size: 1.4rem;
   line-height: 1.6;
@@ -70,7 +73,7 @@ main {
 
 
 .banner {
-  background-image: url(beach_test_picture.png);
+  background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url(beach_test_picture.png);
   background-size: cover;
   background-position: center;
   padding: 140px 0;
