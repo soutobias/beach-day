@@ -19,8 +19,6 @@ class BeachesController < ApplicationController
       lng: @beach.lng
     }
 
-
-
     @weathers = WeatherForecastValue.where("beach_id = #{@beach.id}").order(date_time: :asc)
     query = "date_time <=  '#{DateTime.now.strftime('%Y-%m-%d 23:59:59')}'"
     @weathers_today = @weathers.where(query).order(date_time: :asc)
@@ -49,6 +47,12 @@ class BeachesController < ApplicationController
     @oceans_today_4 = @oceans.where(query).order(date_time: :asc)
 
     @dailies = WeatherForecastDaily.where("beach_id = #{@beach.id}").order(date_time: :asc)
+
+    @portuguese = []
+    @dailies.each do |day|
+      @portuguese << week_day_portuguese(day.date_time.strftime("%A").downcase)
+    end
+
   end
 
   private
@@ -56,5 +60,24 @@ class BeachesController < ApplicationController
   def set_beach
     @beach = Beach.find(params[:id])
     authorize @beach
+  end
+
+  def week_day_portuguese(english)
+    case english
+    when "sunday"
+      return "Domingo"
+    when "monday"
+      "Segunda-feira"
+    when "tuesday"
+      return "Terça-feira"
+    when "wednesday"
+      return "Quarta-feira"
+    when "thrusday"
+      return "Quinta-feira"
+    when "friday"
+      return "Sexta-feira"
+    when "saturday"
+      return "Sábado"
+    end
   end
 end
