@@ -15,6 +15,10 @@ body {
   background: rgb(225, 209, 209);
 }
 
+header {
+  background: linear-gradient(rgba(200,200,200,0.2),rgba(200,200,200,0.2));
+}
+
 .index {
   background: url(banner_full.png) 100% no-repeat;
   padding-top: 100%;
@@ -73,7 +77,7 @@ main {
 
 
 .banner {
-  background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url(beach_test_picture.png);
+  // background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url(beach_test_picture.png);
   background-size: cover;
   background-position: center;
   padding: 140px 0;

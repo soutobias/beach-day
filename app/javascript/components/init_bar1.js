@@ -8,13 +8,13 @@ const initBar1 = () => {
           width: valorLargura * 3
       });
     if(valorLargura < 50 ) {
-      $(this).addClass("class-red")
+      $(this).addClass("class-blue1")
     }
     if (valorLargura >= 50 ) {
-      $(this).addClass("class-yellow")
+      $(this).addClass("class-blue2")
     }
     if (valorLargura >= 60 ) {
-      $(this).addClass("class-blue")
+      $(this).addClass("class-blue3")
     }
   });
 };

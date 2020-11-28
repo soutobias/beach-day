@@ -1,4 +1,4 @@
-<div class="banner m-0">
+<div class="banner m-0" style="background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url('<%= cl_image_path @beach.photo.key%>');">
   <h1><%= @beach.name  %></h1>
 </div>
 <div class="cont">
@@ -122,6 +122,32 @@
   </div>
 
   <div id="realtime" class="container inactive-tab">
+    <% hour = @weathers_today[0] %>
+    <div id="weather-day00-hour<%= hour.date_time.hour %>" class="">
+      <h3><%= @portuguese[0] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
+      <h3><%= hour.description.capitalize%></h3>
+      <div class="d-flex justify-content-around">
+        <div>
+          <%= image_tag "weather_icons/#{hour.icon}.png", class: "image-medium" %>
+        </div>
+        <h2><%= hour.air_temperature.round(1) %>°C</h2>
+        <div>
+          <p class="p-0 m-0">Sensação Térmica: <%= (hour.air_temperature_feels_like.round(1)) %>°C</p>
+          <p class="p-0 m-0">Chuva: <%= (hour.rain_probability * 100).to_i %>%</p>
+          <p class="p-0 m-0">Humidade: <%= (hour.humidity).to_i %>%</p>
+          <p class="p-0 m-0">Vento: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction %>)</p>
+          <% ocean = @oceans_today.where("date_time = '#{hour.date_time}'") %>
+          <% unless ocean.empty? %>
+            <% if ocean[0].wave_height %>
+              <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
+            <% end %>
+            <% if ocean[0].water_temperature %>
+              <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 
 
@@ -138,7 +164,7 @@
       <div class="card-top w-100">
         <% @weathers_today.each do |hour| %>
           <div id="weather-day0-hour<%= hour.date_time.hour %>" class="inactive-tab all-cards hourly">
-            <h3><%= @dailies[0].date_time.strftime("%A") %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
+            <h3><%= @portuguese[0] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
             <h3><%= hour.description.capitalize%></h3>
             <div class="d-flex justify-content-around">
               <div>
@@ -167,7 +193,7 @@
 
         <% @weathers_today_1.each do |hour| %>
           <div id="weather-day1-hour<%= hour.date_time.hour %>" class="inactive-tab all-cards hourly">
-            <h3><%= @dailies[1].date_time.strftime("%A") %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
+            <h3><%= @portuguese[1] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
             <h3><%= hour.description.capitalize%></h3>
             <div class="d-flex justify-content-around">
               <div>
@@ -194,7 +220,7 @@
         <% end %>
         <% @weathers_today_2.each do |hour| %>
           <div id="weather-day2-hour<%= hour.date_time.hour %>" class="inactive-tab all-cards hourly">
-            <h3><%= @dailies[2].date_time.strftime("%A") %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
+            <h3><%= @portuguese[2]%>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
             <h3><%= hour.description.capitalize%></h3>
             <div class="d-flex justify-content-around">
               <div>
@@ -222,7 +248,7 @@
 
         <div id="weather-day3" class="inactive-tab all-cards daily">
           <% daily = @dailies[3] %>
-          <h3><%= daily.date_time.strftime("%A") %>, <%= daily.date_time.strftime("%d/%m/%Y")%></h3>
+          <h3><%= @portuguese[3] %>, <%= daily.date_time.strftime("%d/%m/%Y")%></h3>
           <h3><%= daily.description.capitalize%></h3>
           <div class="d-flex justify-content-around">
             <div>
@@ -251,7 +277,7 @@
 
         <div id="weather-day4" class="inactive-tab all-cards daily">
           <% daily = @dailies[4] %>
-          <h3><%= daily.date_time.strftime("%A") %>, <%= daily.date_time.strftime("%d/%m/%Y")%></h3>
+          <h3><%= @portuguese[4] %>, <%= daily.date_time.strftime("%d/%m/%Y")%></h3>
           <h3><%= daily.description.capitalize%></h3>
           <div class="d-flex justify-content-around">
             <div>
