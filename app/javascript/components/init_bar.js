@@ -7,6 +7,15 @@ const initBar = () => {
       $(this).animate({
           width: valorLargura * 3
       });
+    if(valorLargura < 50 ) {
+      $(this).addClass("class-blue1")
+    }
+    if (valorLargura >= 50 ) {
+      $(this).addClass("class-blue2")
+    }
+    if (valorLargura >= 60 ) {
+      $(this).addClass("class-blue3")
+    }
   });
 };
 

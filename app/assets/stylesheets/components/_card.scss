@@ -138,3 +138,20 @@
 .daily{
   height: 350px;
 }
+
+
+.location-bottom-right{
+  position: absolute;
+  right: 13px;
+  bottom: 5px;
+  font-size: 1.7rem !important;
+  line-height: 100% !important;
+  color: rgb(10,10,10) !important;
+}
+
+.location-bottom-left{
+  width: 60px;
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}

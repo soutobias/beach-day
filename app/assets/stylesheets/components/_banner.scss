@@ -16,7 +16,7 @@ body {
 }
 
 .index {
-  background: url(banner_full.png) 100% no-repeat;
+  background: linear-gradient(rgba(200,200,200,0.9),rgba(200,200,200,0.9)), url(banner_full.png) 100% no-repeat;
   padding-top: 100%;
   background-position: top;
   background-size: 100% auto;

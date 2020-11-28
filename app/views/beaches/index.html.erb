@@ -26,13 +26,14 @@
               <div class="front" style="background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url('<%= cl_image_path beach.photo.key%>')">
                 <h2 class="text-shadow pt-5"><%=beach.name %></h2>
                 <div class="d-flex">
-                  <p slot="content" class="p"><%= beach.overall_rating %></p>
+                  <p class="p location-bottom-right"><%= beach.overall_rating.round(1) %></p>
+                  <%= image_tag "weather_icons/#{beach.weather_forecast_dailies[0].icon}.png", class: "location-bottom-left" %>
                 </div>
               </div>
-              <div class="back">
-                <div class="barras text-align-center text-left pt-3">
-                  <div class="row">
-                    <div class="col-6 pt-2">
+              <div class="back" >
+                <div class="barras text-align-center text-left pt-4">
+                  <div class="row align-middle">
+                    <div class="col-6">
                       <p class="pt-1">ESTACIONAMENTO</p>
                     </div>
                     <div class="col-6">
