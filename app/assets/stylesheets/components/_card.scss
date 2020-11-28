@@ -46,6 +46,7 @@
     >.front,
     >.back {
         display: block;
+        background-size: cover;
         transition-timing-function: cubic-bezier(.175, .885, .32, 1.275);
         transition-duration: .2s;
         transition-property: transform, opacity;

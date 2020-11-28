@@ -73,7 +73,7 @@ main {
 
 
 .banner {
-  background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url(beach_test_picture.png);
+  // background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url(beach_test_picture.png);
   background-size: cover;
   background-position: center;
   padding: 140px 0;
@@ -82,7 +82,8 @@ main {
 }
 .banner h1 {
   font-family: 'Sucrose Bold Two';
-  font-size: 12vw;
+  font-size: 9vw;
+  padding-top: 5%;
   text-align: center;
 }
 
