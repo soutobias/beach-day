@@ -927,6 +927,53 @@ def open_weather_api
       wind_speed = day["wind_speed"]
       wind_direction = direction_to_string(day["wind_deg"].to_f)
       description = day["weather"][0]["description"]
+
+      if description == "clear sky"
+        description = "Céu Limpo"
+      elsif description == "few clouds"
+        description = "Poucas Nuvens"
+      elsif description == "scattered clouds"
+        description = "Nuvens Esparsas"
+      elsif description == "broken clouds"
+        description = "Nuvens Esparsas"
+      elsif description == "shower rain"
+        description = "Chuva Forte"
+      elsif description == "rain"
+        description = "Chuva"
+      elsif description == "thunderstorm"
+        description = "Trovões"
+      elsif description == "thunderstorm with light rain"
+        description = "Trovões com chuva"
+      elsif description == "thunderstorm with rain"
+        description = "Trovões com chuva"
+      elsif description == "thunderstorm with heavy rain"
+        description = "Trovões com chuva"
+      elsif description == "light thunderstorm"
+        description = "Trovões"
+      elsif description == "heavy thunderstorm"
+        description = "Trovões"
+      elsif description == "ragged thunderstorm"
+        description = "Trovões"
+      elsif description == "light rain" || description == "light intensity shower rain"
+        description = "Chuva Fraca"
+      elsif description == "moderate rain" || description == "shower shower rain"
+        description = "Chuva Moderada"
+      elsif description == "heavy intensity rain" || description == "heavy intensity shower rain"
+        description = "Chuva Forte"
+      elsif description == "very heavy rain" || description == "ragged intensity shower rain"
+        description = "Chuva Muito Forte"
+      elsif description == "extreme rain"
+        description = "Temporal"
+      elsif description == "few clouds: 11-25%"
+        description = "Poucas Nuvens"
+      elsif description == "few clouds: 25-50%"
+        description = "Nuvens Esparsas"
+      elsif description == "few clouds: 51-84%"
+        description = "Nuvens Esparsas"
+      elsif description == "few clouds: 85-100%"
+        description = "Céu Nublado"
+      end
+
       icon = day["weather"][0]["icon"]
       rain_probability = day["pop"]
       uv = day["uvi"]

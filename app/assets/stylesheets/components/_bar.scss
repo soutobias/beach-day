@@ -10,7 +10,7 @@
 }
 .barra-nivel {
   height:30px;
-  background:#444;
+  background:#3e6db5;
   width:1px;
   -webkit-transition: width 1s ease;
   -moz-transition: width 1s ease;
@@ -21,4 +21,26 @@
   color:#fff;
   margin-left:10px;
   font-size:12px;
+}
+
+
+.class-red{
+  background: red;
+}
+
+.class-yellow{
+  background: yellow;
+}
+
+.class-blue{
+  background: #3e6db5;
+}
+
+.checked {
+  color: orange;
+}
+
+.geral {
+  font-size: 40px;
+  font-weight: bold;
 }
