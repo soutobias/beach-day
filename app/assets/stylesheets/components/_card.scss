@@ -97,6 +97,7 @@
       background: #313131;
       border-radius: 4px;
       margin: 4px 0px;
+      padding-left: 25px;
       p {
         font-family: 'Anton', sans-serif;
         font-size: 1.1rem;
@@ -115,7 +116,7 @@
   }
 
 .image-medium{
-  width: 150px;
+  width: 190px;
   height: auto;
 }
 
@@ -150,7 +151,7 @@
   bottom: 5px;
   font-size: 1.9rem !important;
   line-height: 100% !important;
-  color: rgb(10,10,10) !important;
+  color: #daa520 !important;
 }
 
 .location-bottom-left{
@@ -158,4 +159,26 @@
   position: absolute;
   left: 10px;
   bottom: 10px;
+}
+
+.h3-overview{
+  font-size: 30px;
+  text-align: center;
+}
+
+.h3-weather{
+  font-size: 20px;
+  font-style: bold;
+}
+
+.padding-t{
+  padding-top: 70px;
+}
+
+.padding-t1{
+  padding-top: 40px;
+}
+
+.padding-l{
+  padding-left: 110px;
 }

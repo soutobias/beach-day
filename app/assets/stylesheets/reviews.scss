@@ -8,6 +8,10 @@
   margin-bottom: 20px;
   padding: 10px;
   box-shadow: 3px 3px #ccc5b9;
+  .p-card{
+    font-size: 20px;
+  }
+
 }
 
 .add {
@@ -21,4 +25,8 @@
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+}
+
+.btn-blue{
+  background-color: #59929e !important;
 }

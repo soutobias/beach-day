@@ -1,4 +1,5 @@
 .tabs-underlined {
+  font-family: "Work Sans", "Helvetica", "sans-serif";
   display: flex;
   align-items: center;
 }
@@ -41,4 +42,24 @@
   .cont {
     padding: 0px;
   }
+}
+
+#grades{
+  font-family: "Work Sans", "Helvetica", "sans-serif" !important;
+}
+
+#reviews{
+  font-family: "Work Sans", "Helvetica", "sans-serif" !important;
+}
+
+#realtime{
+  font-family: "Work Sans", "Helvetica", "sans-serif" !important;
+}
+
+#traffic{
+  font-family: "Work Sans", "Helvetica", "sans-serif" !important;
+}
+
+#weatherforecast{
+  font-family: "Work Sans", "Helvetica", "sans-serif" !important;
 }
