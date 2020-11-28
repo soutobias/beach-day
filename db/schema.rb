@@ -98,6 +98,29 @@ ActiveRecord::Schema.define(version: 2020_11_25_212535) do
     t.index ["cleaning_station_id"], name: "index_cleaning_values_on_cleaning_station_id"
   end
 
+  create_table "forecast_values", force: :cascade do |t|
+    t.bigint "forecast_id", null: false
+    t.datetime "date_time"
+    t.integer "wind_speed"
+    t.integer "wind_direction"
+    t.decimal "wave_height"
+    t.integer "wave_formation"
+    t.integer "wave_direction"
+    t.integer "air_temperature"
+    t.decimal "rain"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["forecast_id"], name: "index_forecast_values_on_forecast_id"
+  end
+
+  create_table "forecasts", force: :cascade do |t|
+    t.integer "station"
+    t.decimal "lat"
+    t.decimal "lng"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "ocean_forecast_values", force: :cascade do |t|
     t.datetime "date_time"
     t.decimal "water_temperature"
@@ -262,6 +285,7 @@ ActiveRecord::Schema.define(version: 2020_11_25_212535) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "buoy_values", "buoy_stations"
   add_foreign_key "cleaning_values", "cleaning_stations"
+  add_foreign_key "forecast_values", "forecasts"
   add_foreign_key "ocean_forecast_values", "beaches"
   add_foreign_key "real_time_values", "beaches"
   add_foreign_key "reviews", "beaches"

@@ -1,6 +1,5 @@
 <div class="banner m-0" style="background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url('<%= cl_image_path @beach.photo.key%>');">
   <h1><%= @beach.name  %></h1>
-  <p><%= @beach.overview %></p>
 </div>
 <div class="cont">
   <ul class="list-inline tabs-underlined w-100 justify-content-between pb-5">
@@ -22,6 +21,9 @@
   </ul>
 
 
+  <div id="overview" class="d-flex justify-content-center pb-4">
+    <h3><%= @beach.overview %></h3>
+  </div>
   <div id="grades" class="container">
     <div class="row">
       <div class="col-6 d-flex justify-content-between">
@@ -108,13 +110,15 @@
   <div id="reviews" class="container inactive-tab">
     <% if !@beach.reviews.empty? %>
       <% @beach.reviews.each do |review| %>
+      <div id="card-review">
         <p><strong><%= review.title %></strong></p>
         <p><%= review.content %></p>
+      </div>
       <% end %>
     <% else  %>
       <p><strong>>Essa praia ainda possui avaliações</p>
     <% end %>
-    <%= link_to "Adicionar avaliação", new_beach_review_path(@beach)%>
+    <%= link_to "Adicionar avaliação", new_beach_review_path(@beach), class: "add"%>
   </div>
 
   <div id="realtime" class="container inactive-tab">
