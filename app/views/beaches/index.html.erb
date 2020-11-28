@@ -9,11 +9,11 @@
 <main>
   <div class="mr-3 ml-3">
     <div id="beaches" class="search d-flex w-100">
-      <p>Qual a praia perfeita para você?</p>
-      <%= form_tag beaches_path, method: :get do %>
+      <p class="pl-3">Qual a praia perfeita para você?</p>
+      <%= form_tag beaches_path, method: :get, class: "pl-3" do %>
         <%= text_field_tag :query,
           params[:query],
-          class: "form-control",
+          class: "form-control  pl-3",
           placeholder: "Ache uma praia"
         %>
       <% end %>
@@ -32,8 +32,8 @@
               <div class="back">
                 <div class="barras text-align-center text-left">
                   <div class="row">
-                    <div class="col-6">
-                      <p>Estacionamento</p>
+                    <div class="col-6 pt-2">
+                      <p class="pt-1">ESTACIONAMENTO</p>
                     </div>
                     <div class="col-6">
                       <div class="barra">
@@ -41,7 +41,7 @@
                       </div>
                     </div>
                     <div class="col-6">
-                      <p>Restaurantes</p>
+                      <p  class="pt-1">RESTAURANTES</p>
                     </div>
                     <div class="col-6">
                       <div class="barra">
@@ -49,7 +49,7 @@
                       </div>
                     </div>
                     <div class="col-6">
-                      <p>Transporte Público</p>
+                      <p class="pt-1">TRANSPORTE PÚBLICO</p>
                     </div>
                     <div class="col-6">
                       <div class="barra">
@@ -57,7 +57,7 @@
                       </div>
                     </div>
                     <div class="col-6">
-                      <p>Segurança</p>
+                      <p class="pt-1">SEGURANÇA</p>
                     </div>
                     <div class="col-6">
                       <div class="barra">
@@ -65,7 +65,7 @@
                       </div>
                     </div>
                     <div class="col-6">
-                      <p>Ondas</p>
+                      <p class="pt-1">ONDAS</p>
                     </div>
                     <div class="col-6">
                       <div class="barra">
@@ -82,4 +82,3 @@
     </div>
   </div>
 </main>
-

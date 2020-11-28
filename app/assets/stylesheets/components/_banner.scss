@@ -52,19 +52,20 @@ body {
   font-size: 8.75vw;
 }
 
-.index p{
-  margin-top: -1000px;
-  margin-left: 0;
-  padding-left: 0;
-  text-align: left;
-  font-size: 60px;
-  z-index: 1;
-  position: relative;
+#beaches p{
+  vertical-align: center;
+  font-size: 30px;
   font-family: 'Anton', sans-serif;
+  padding-left: 20px;
+}
+
+.icon-click{
+  width: 60px;
+  height: 100%;
 }
 
 main {
-  margin-top: -900px;
+  margin-top: -930px;
   font-family: 'IM Fell French Canon Pro';
   font-size: 1.4rem;
   line-height: 1.6;
