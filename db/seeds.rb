@@ -159,7 +159,7 @@ Beach.destroy_all
 
 beach_index = 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://media-cdn.tripadvisor.com/media/photo-s/0f/62/5d/87/prainha-no-canto-direito.jpg')
 beach = Beach.new(
   name: "Prainha - Canto Direito",
   lat: "-23.0423",
@@ -173,7 +173,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/cccb3_1.jpg')
 beach = Beach.new(
   name: "Macumba - CCB",
   lat: "-23.0316",
@@ -187,7 +187,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/canto3_0.jpg')
 beach = Beach.new(
   name: "Recreio - Canto",
   lat: "-23.0299",
@@ -201,7 +201,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://media-cdn.tripadvisor.com/media/photo-s/0d/11/d8/24/praia-da-barra-na-altura.jpg')
 beach = Beach.new(
   name: "Barra - Posto 6 - Quiosque Piratas - BarraBela",
   lat: "-23.011",
@@ -215,7 +215,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Rico Point Barra direcao P5",
   lat: "-23.0112",
@@ -229,7 +229,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Prainha",
   lat: "-23.0408",
@@ -243,7 +243,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/rico2_0.jpg')
 beach = Beach.new(
   name: "Macumba - Rico Point",
   lat: "-23.0315",
@@ -257,7 +257,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/posto114_2.jpg')
 beach = Beach.new(
   name: "Recreio - Posto 11",
   lat: "-23.0298",
@@ -271,7 +271,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Barra - Rico Point - Posto 55",
   lat: "-23.0112",
@@ -285,7 +285,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Barra Posto 4 - Hotel WYNDHAM",
   lat: "-23.0123",
@@ -299,7 +299,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/ccb4_2.jpg')
 beach = Beach.new(
   name: "Macumba - Secreto",
   lat: "-23.0369",
@@ -313,7 +313,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Macumba - 2W",
   lat: "-23.0345",
@@ -327,7 +327,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/posto102_1.jpg')
 beach = Beach.new(
   name: "Recreio - Posto 10",
   lat: "-23.0262",
@@ -341,7 +341,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Rico Point Barra direcao P6",
   lat: "-23.0113",
@@ -355,7 +355,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Sao Conrado - Canto Esquerdo",
   lat: "-22.9995",
@@ -369,7 +369,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Ipanema - Posto 8",
   lat: "-22.9881",
@@ -383,7 +383,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Copacabana - Posto 6",
   lat: "-22.985",
@@ -397,7 +397,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Leblon - Canto",
   lat: "-22.9881",
@@ -411,7 +411,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Arpoador",
   lat: "-22.9895",
@@ -425,7 +425,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Copacabana - Posto 5",
   lat: "-22.9806",
@@ -439,7 +439,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Ipanema - Garcia davila",
   lat: "-22.9873",
@@ -453,7 +453,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Praia do Diabo",
   lat: "-22.9886",
@@ -467,7 +467,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Praia do Leme",
   lat: "-22.9648",
@@ -481,7 +481,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Itacoatiara - Pampo",
   lat: "-22.9746",
@@ -495,7 +495,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Itacoatiara - Meio",
   lat: "-22.9748",
@@ -509,7 +509,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://s3.glbimg.com/v1/AUTH_e23cd0767cb84b2c865c204683cba493/bulletins/67216f1a-b2cd-42d7-bc77-12bbe4214565.jpg')
+file = URI.open('https://www.nasa.gov/images/content/407251main_image_1529_800-600.jpg')
 beach = Beach.new(
   name: "Itacoatiara - Costao",
   lat: "-22.9758",

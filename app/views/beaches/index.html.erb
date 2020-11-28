@@ -27,7 +27,7 @@
     </div>
     <div class="row">
       <% @beaches.each do |beach| %>
-        <div class="col-6 m-0">
+        <div class="col-4 m-0">
           <%= link_to beach_path(beach) do %>
             <div class="flip">
               <div class="front" style="background-image: url('<%= cl_image_path beach.photo.key%>')">
