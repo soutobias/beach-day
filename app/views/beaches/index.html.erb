@@ -24,7 +24,7 @@
           <%= link_to beach_path(beach) do %>
             <div class="flip m-3">
               <div class="front" style="background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url('<%= cl_image_path beach.photo.key%>')">
-                <h2 class="text-shadow pt-5"><%=beach.name %></h2>
+                <h2 class="text-shadow align-middle h2flip"><%=beach.name %></h2>
                 <div class="d-flex">
                   <p class="p location-bottom-right"><%= beach.overall_rating.round(1) %></p>
                   <%= image_tag "weather_icons/#{beach.weather_forecast_dailies[0].icon}.png", class: "location-bottom-left" %>
