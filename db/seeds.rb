@@ -813,7 +813,7 @@ WeatherForecastDaily.destroy_all
 def open_weather_api
   beaches = Beach.all
   date = Time.now
-  date = Time.new(Time.now.year, Time.now.month, Time.now.day - 1).strftime("%Y-%m-%d")
+  date = Time.new(Time.now.year, Time.now.month, Time.now.day).strftime("%Y-%m-%d")
   WeatherForecastValue.where("date_time >= '#{date}'").destroy_all
   WeatherForecastDaily.where("date_time >= '#{date}'").destroy_all
   beaches.each do |beach|
