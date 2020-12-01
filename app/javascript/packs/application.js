@@ -20,6 +20,7 @@ import { initBar1 } from '../components/init_bar1';
 
 import { initMap } from 'packs/map';
 
+
 document.addEventListener('turbolinks:load', () => {
   initMap();
   initUpdateH1OnScroll();

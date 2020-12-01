@@ -1,10 +1,9 @@
-let map;
 
 function initMap() {
   const mapElement = document.getElementById("map")
   if (mapElement) {
     const marker = JSON.parse(mapElement.dataset.markers)
-    map = new google.maps.Map(mapElement,
+    let map = new google.maps.Map(mapElement,
     {
       center: {lat: parseFloat(marker.lat), lng: parseFloat(marker.lng)},
       zoom: 13

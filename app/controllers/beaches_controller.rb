@@ -1,6 +1,7 @@
 class BeachesController < ApplicationController
-  skip_before_action :authenticate_user!, only: :index
+  skip_before_action :authenticate_user!, only: [:index, :map]
   before_action :set_beach, only: [:show]
+  before_action :skip_authorization, only: [:map]
 
   def index
     @beaches = policy_scope(Beach).order(created_at: :desc)
@@ -53,6 +54,18 @@ class BeachesController < ApplicationController
       @portuguese << week_day_portuguese(day.date_time.strftime("%A").downcase)
     end
 
+  end
+
+  def map
+    @beaches = policy_scope(Beach).order(created_at: :desc)
+    if params[:query].present?
+      @beaches = Beach.where("name ILIKE ?", "%#{params[:query]}%")
+    else
+      @beaches = Beach.all
+    end
+    @markers = @beaches.map do |beach|
+      { lat: beach.lat, lng: beach.lng, id: beach.id, name: beach.name, rating: beach.overall_rating, icon: beach.weather_forecast_dailies[0].icon }
+    end
   end
 
   private
