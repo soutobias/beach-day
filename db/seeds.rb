@@ -453,7 +453,11 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
+<<<<<<< HEAD
 file = URI.open('https://i0.wp.com/vidasemparedes.com.br/wp-content/uploads/2017/10/Vida-sem-Paredes-praias-selvagens-do-Rio-1.jpg?fit=800%2C600&ssl=1')
+=======
+file = URI.open('https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Concei%C3%A7%C3%A3o_de_Jacare%C3%AD_%28praia%29.jpg/800px-Concei%C3%A7%C3%A3o_de_Jacare%C3%AD_%28praia%29.jpg')
+>>>>>>> f25498c2c3ccef38a48e36f3f76d1319088f49e5
 beach = Beach.new(
   name: "Praia do Diabo",
   lat: "-22.9886",
