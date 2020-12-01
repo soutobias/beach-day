@@ -453,7 +453,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://lh3.googleusercontent.com/proxy/mOoWzwgFMFnzy6zE5w5dQx1txrIrr5YpEd_H39iPUU5lyl9NemYEFil4JhMP9xrrgCj0gx9gDHBua_MAbW76_Qo9tCqovJq4W-5zgFb16C3eYl-rwQRVUkBzc1BRx6KA7A3piBM')
+file = URI.open('https://i0.wp.com/vidasemparedes.com.br/wp-content/uploads/2017/10/Vida-sem-Paredes-praias-selvagens-do-Rio-1.jpg?fit=800%2C600&ssl=1')
 beach = Beach.new(
   name: "Praia do Diabo",
   lat: "-22.9886",
@@ -813,7 +813,7 @@ WeatherForecastDaily.destroy_all
 def open_weather_api
   beaches = Beach.all
   date = Time.now
-  date = Time.new(Time.now.year, Time.now.month, Time.now.day - 1).strftime("%Y-%m-%d")
+  date = Time.new(Time.now.year, Time.now.month , Time.now.day ).strftime("%Y-%m-%d")
   WeatherForecastValue.where("date_time >= '#{date}'").destroy_all
   WeatherForecastDaily.where("date_time >= '#{date}'").destroy_all
   beaches.each do |beach|
