@@ -453,7 +453,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://lh3.googleusercontent.com/proxy/mOoWzwgFMFnzy6zE5w5dQx1txrIrr5YpEd_H39iPUU5lyl9NemYEFil4JhMP9xrrgCj0gx9gDHBua_MAbW76_Qo9tCqovJq4W-5zgFb16C3eYl-rwQRVUkBzc1BRx6KA7A3piBM')
+file = URI.open('https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Concei%C3%A7%C3%A3o_de_Jacare%C3%AD_%28praia%29.jpg/800px-Concei%C3%A7%C3%A3o_de_Jacare%C3%AD_%28praia%29.jpg')
 beach = Beach.new(
   name: "Praia do Diabo",
   lat: "-22.9886",
