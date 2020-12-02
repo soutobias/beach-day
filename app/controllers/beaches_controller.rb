@@ -4,6 +4,7 @@ class BeachesController < ApplicationController
 
   def index
     @beaches = policy_scope(Beach).order(created_at: :desc)
+raise
     if params[:query].present?
       @beaches = Beach.where("name ILIKE ?", "%#{params[:query]}%")
     else

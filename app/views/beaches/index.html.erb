@@ -17,7 +17,16 @@
           placeholder: "Ache uma praia"
         %>
       <% end %>
+      <%= form_tag beaches_path, method: :get, class: 'form-horizontal d-flex justify-content-start vertical-align-center' do %>
+        <%= select_tag :search,
+        raw("<option>Melhor praia</option><option>Praia para surfe</option><option>Praia calma</option>"),
+        class: "form-control w-100" %>
+          <%= button_tag :submit, class: "non-btn" do %>
+            <i class="fas fa-search h2"></i>
+          <% end %>
+      <% end %>
     </div>
+
     <div class="row">
       <% @beaches.each do |beach| %>
         <div class="col-4 m-0">
