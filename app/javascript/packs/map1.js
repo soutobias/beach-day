@@ -74,10 +74,6 @@ if (mapElement) { // don't try to build a map if there's no div#map to inject in
         window.open(`/beaches/${marker.id}`,'_self');
       }
     });
-    // let marker
-    // marker.addEventListener("click", () => {
-    //   infowindow.open(map, marker);
-    // });
   });
 
   if (markers.length === 0) {
