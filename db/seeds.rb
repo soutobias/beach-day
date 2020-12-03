@@ -40,7 +40,6 @@ puts "Feed visual stations"
 VisualValue.destroy_all
 VisualStation.destroy_all
 
-
 VisualStation.create(lat: -23.0369, lng: -43.4954, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-secreto')
 VisualStation.create(lat: -23.0345, lng: -43.4883, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-3w')
 VisualStation.create(lat: -23.0298, lng: -43.4666, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/recreio-posto-11')
@@ -73,7 +72,6 @@ BuoyStation.destroy_all
 BuoyStation.create(lat: -22.971667, lng: -43.1502778)
 
 puts "Feed cleaning statios"
-
 
 CleaningValue.destroy_all
 CleaningStation.destroy_all
@@ -121,7 +119,6 @@ CleaningStation.create(name: "Grossa", description: "Em frente à Igreja Matriz 
 CleaningStation.create(name: "Tamoios", description: "À esquerda da Ladeira do Vicente", lat: -22.757363533667384, lng: -43.108478928749264)
 CleaningStation.create(name: "Catimbau", description: "Em frente à Travessa Dois Irmãos n° 195", lat: -22.749804606795927, lng: -43.10544803259033)
 CleaningStation.create(name: "J. Bonifácio", description: "Em frente à ETE Paquetá CEDAE", lat: -22.761172520508854, lng: -43.11105921380682)
-
 CleaningStation.create(name: "Adão", description: "Centro da praia", lat: -22.92773303773431, lng: -43.12289080465795)
 CleaningStation.create(name: "Camboinhas", description: "Centro da praia", lat: -22.962056778661623, lng: -43.056578166471)
 CleaningStation.create(name: "Camboinhas", description: "À 100m do Canal da Lagoa de Itaipu", lat: -22.96677872425047, lng: -43.048402793398196)
@@ -129,7 +126,6 @@ CleaningStation.create(name: "Charitas", description: "Em frente à Travessa San
 CleaningStation.create(name: "Charitas", description: "Lado direito do Clube Naval de Charitas", lat: -22.935479696790207, lng: -43.104630325813844)
 CleaningStation.create(name: "Charitas", description: "Em frente à Avenida Quintino Bocaiúva n° 355", lat: -22.92546025169957, lng: -43.09579547613986)
 CleaningStation.create(name: "Eva", description: "Centro da praia", lat: -22.929699387253148, lng: -43.12280497397102)
-
 CleaningStation.create(name: "Boa Viagem", description: "Centro da praia", lat: -22.90804989048639, lng: -43.12888871521811)
 CleaningStation.create(name: "Flechas", description: "Em frente à Rua Nilo Peçanha", lat: -22.90572744536363, lng: -43.124940503525984)
 CleaningStation.create(name: "Flechas", description: "Em frente à Rua Praia de Icaraí n° 163", lat: -22.905579202836517, lng: -43.121088851391235)
@@ -151,7 +147,6 @@ CleaningStation.create(name: "Piratininga", description: "Em frente à Avenida D
 CleaningStation.create(name: "Piratininga", description: "Em frente à Rua General Rubens Rosado Teixeira", lat: -22.95411333880743, lng: -43.09458813521258)
 CleaningStation.create(name: "Piratininga", description: "Em frente à Rua Orestes Barbosa", lat: -22.954909336136677, lng: -43.08775079957785)
 CleaningStation.create(name: "Piratininga", description: "Em frente à Rua João Gomes da Silva", lat: -22.95659373636382, lng: -43.073830134751304)
-
 
 puts "Feed beaches"
 
@@ -551,16 +546,16 @@ user_index = 1
         title: ["Melhor praia da vida!", "Praia mais suja que já visitei!", "Que espetáculo", "Sonhooooooo!", "Surf do bom", "Praia lotada! Nunca mais!"].sample,
         content: ["Praia vazia, calma, ondas excelentes para quem procura um surf power, e sem muitos ambulantes.",
         "Vista maravilhosa, brisa da boa, recomendo passar o dia inteiro", "Praia suja, ambulante berrando no seu ouvido, lotada...nunca mais"].sample,
-        parking: (1..10).to_a.sample,
-        restaurant: (1..10).to_a.sample,
-        public_transportation: (1..10).to_a.sample,
-        security: (1..10).to_a.sample,
-        cleaning: (1..10).to_a.sample,
-        rent_equipment: (1..10).to_a.sample,
-        wave: (1..10).to_a.sample,
-        wind: (1..10).to_a.sample,
-        accessibility: (1..10).to_a.sample,
-        sand_strip: (1..10).to_a.sample
+        parking: (1..5).to_a.sample,
+        restaurant: (1..5).to_a.sample,
+        public_transportation: (1..5).to_a.sample,
+        security: (2..5).to_a.sample,
+        cleaning: (2..5).to_a.sample,
+        rent_equipment: (2..5).to_a.sample,
+        wave: (3..5).to_a.sample,
+        wind: (3..5).to_a.sample,
+        accessibility: (3..5).to_a.sample,
+        sand_strip: (4..5).to_a.sample
       )
       sum_all = (r.parking + r.restaurant + r.public_transportation + r.security + r.cleaning + r.rent_equipment + r.wave + r.wind + r.accessibility + r.sand_strip) / 10.0
       r.user = user_name
