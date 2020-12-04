@@ -17,6 +17,16 @@
           placeholder: "Ache uma praia"
         %>
       <% end %>
+
+      <%= form_tag beaches_path, method: :get, class: "pl-3" do %>
+        hidden_field_tag 'tags_list'
+        <%= button_tag :submit, class: "non-btn" do %>
+            <i class="fas fa-search h2"></i>
+          <% end %>
+      <% end %>
+
+
+
     </div>
     <div class="row">
       <% @beaches.each do |beach| %>

@@ -183,3 +183,48 @@
 .padding-l{
   padding-left: 110px;
 }
+
+
+.card-transit{
+  margin: auto;
+  background-color: rgb(240,240,240);
+  border-color: #28b4d1;
+  border-radius: 10px;
+  width: 300px;
+  vertical-align: middle;
+  height: 100%;
+  h3{
+    font-size: 25px;
+  }
+  p{
+    font-size: 15px;
+  }
+  .image-smalls{
+    height: 40px;
+  }
+  .image-smallss{
+    height: 40px;
+  }
+}
+
+
+.card-transit-public{
+  margin: auto;
+  background-color: rgb(240,240,240);
+  border-color: #28b4d1;
+  border-radius: 10px;
+  width: 75%;
+  vertical-align: middle;
+  h3{
+    font-size: 25px;
+  }
+  p{
+    font-size: 15px;
+  }
+  .image-smalls{
+    height: 40px;
+  }
+  .image-smallss{
+    height: 40px;
+  }
+}

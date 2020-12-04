@@ -16,8 +16,7 @@ class BeachesController < ApplicationController
     @reviews = policy_scope(Review).where("beach_id = #{@beach.id}").order(created_at: :desc)
 
     @markers = {
-      lat: @beach.lat,
-      lng: @beach.lng
+      lat: @beach.lat, lng: @beach.lng, id: @beach.id, name: @beach.name, rating: @beach.overall_rating
     }
 
     @weathers = WeatherForecastValue.where("beach_id = #{@beach.id}").order(date_time: :asc)

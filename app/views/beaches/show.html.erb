@@ -153,13 +153,14 @@
 
 
 
-  <div id="traffic" class="container inactive-tab">
+  <div id="traffic" class="container2 inactive-tab">
     <div id="map" data-markers="<%= @markers.to_json %>" data-ok="<%= ENV['GOOGLEMAP_API_KEY'] %>" >
     </div>
-    <div id="transit">
-    </div>
-    <div id="uber" class="p-5">
-      <%= image_tag "uber.png", class: "rounded image-medium" %>
+    <div id="transit" class="d-flex justify-content-around pt-3">
+      <div id="car" class="card-transit m-2">
+      </div>
+      <div id="public-transportation"  class="card-transit-public">
+      </div>
     </div>
   </div>
 

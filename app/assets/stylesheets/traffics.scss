@@ -1,15 +1,16 @@
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-#map {
-  height: 300px !important;
-  width: 100% !important;
-}
 
 /* Optional: Makes the sample page fill the window. */
 .container1 {
   height: 400px;
   width: 100%;
   padding-top: 70px;
+}
+
+.container2 {
+  width: 75%;
+  margin: auto;
 }
 
 .custom-map-control-button {
