@@ -3,15 +3,24 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 #card-review {
   width: 100%;
-  height: 85px;
+  height: 100%;
   background-color: #F0EFEB;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 5px;
   box-shadow: 3px 3px #ccc5b9;
-  .p-card{
-    font-size: 20px;
+  .p-card {
+    font-size: 12px;
   }
-
+  .p-card2 {
+    font-size: 14px;
+  }
+  .p-card3 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .p-card4 {
+    font-size: 16px;
+  }
 }
 
 .add {
