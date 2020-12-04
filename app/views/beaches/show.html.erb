@@ -1,5 +1,5 @@
 <div class="banner m-0" style="background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url('<%= cl_image_path @beach.photo.key%>');">
-  <h1><%= @beach.name  %></h1>
+  <h1><%= @beach.name %></h1>
 </div>
 <div class="cont">
   <ul class="list-inline tabs-underlined w-100 justify-content-between pb-5">
@@ -19,8 +19,6 @@
       <p class="tab-underlined" id="tab4">COMO CHEGAR</p>
     </li>
   </ul>
-
-
   <div id="grades" class="container">
     <div class="row">
       <div class="col-12 d-flex justify-content-center">
@@ -34,9 +32,9 @@
             <span class="fas fa-star-half-alt checked geral pl-2 pt-1"></span>
           <% else %>
             <span class="far fa-star checked geral pl-2 pt-1"></span>
-          <% end  %>
+          <% end %>
           <% c += 1 %>
-        <% end  %>
+        <% end %>
       </div>
     </div>
     <div class="barras w-100">
@@ -111,10 +109,23 @@
     </div>
     <% if !@beach.reviews.empty? %>
       <% @beach.reviews.each do |review| %>
-      <div id="card-review">
-        <p class="p-card"><strong><%= review.title %></strong></p>
-        <p><%= review.content %></p>
-      </div>
+        <div id="card-review">
+        <p class="p-card"><%= "#{review.user.first_name} #{review.user.last_name} escreveu uma avaliação em #{review.user.created_at.strftime("%Y-%m-%d %H:%M:%S")}" %></p>
+        <% user_rating = ( review.parking + review.restaurant + review.public_transportation + review.security + review.cleaning + review.rent_equipment + review.wave + review.wind + review.accessibility + review.sand_strip ) / 10 %>
+        <% c = 1 %>
+        <% 5.times do %>
+          <% if c <= user_rating %>
+            <span class="fas fa-star checked p-card2"></span>
+          <% elsif c - user_rating == 0.5%>
+            <span class="fas fa-star-half-alt checked p-card2"></span>
+          <% else %>
+            <span class="far fa-star checked p-card2"></span>
+          <% end  %>
+          <% c += 1 %>
+        <% end %>
+        <p class="p-card3"><%= review.title %></p>
+        <p class="p-card4"><%= review.content %></p>
+        </div>
       <% end %>
     <% else  %>
       <p><strong>>Essa praia ainda possui avaliações</p>
