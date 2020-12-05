@@ -590,8 +590,6 @@ user_index = 1
 end
 
 
-
-
 p "Scrapping and getting data inside the database"
 
 p "Feed buoy data"
@@ -615,6 +613,58 @@ def direction_to_string(value)
     direction = "Norte"
   end
 end
+
+def translate_description(description)
+  if description == "clear sky"
+    description = "Céu Limpo"
+  elsif description == "few clouds"
+    description = "Poucas Nuvens"
+  elsif description == "overclast clouds"
+    description = "Poucas Nuvens"
+  elsif description == "scattered clouds"
+    description = "Nuvens Esparsas"
+  elsif description == "broken clouds"
+    description = "Nuvens Esparsas"
+  elsif description == "shower rain"
+    description = "Chuva Forte"
+  elsif description == "rain"
+    description = "Chuva"
+  elsif description == "thunderstorm"
+    description = "Trovões"
+  elsif description == "thunderstorm with light rain"
+    description = "Trovões com chuva"
+  elsif description == "thunderstorm with rain"
+    description = "Trovões com chuva"
+  elsif description == "thunderstorm with heavy rain"
+    description = "Trovões com chuva"
+  elsif description == "light thunderstorm"
+    description = "Trovões"
+  elsif description == "heavy thunderstorm"
+    description = "Trovões"
+  elsif description == "ragged thunderstorm"
+    description = "Trovões"
+  elsif description == "light rain" || description == "light intensity shower rain"
+    description = "Chuva Fraca"
+  elsif description == "moderate rain" || description == "shower shower rain"
+    description = "Chuva Moderada"
+  elsif description == "heavy intensity rain" || description == "heavy intensity shower rain"
+    description = "Chuva Forte"
+  elsif description == "very heavy rain" || description == "ragged intensity shower rain"
+    description = "Chuva Muito Forte"
+  elsif description == "extreme rain"
+    description = "Temporal"
+  elsif description == "few clouds: 11-25%"
+    description = "Poucas Nuvens"
+  elsif description == "few clouds: 25-50%"
+    description = "Nuvens Esparsas"
+  elsif description == "few clouds: 51-84%"
+    description = "Nuvens Esparsas"
+  elsif description == "few clouds: 85-100%"
+    description = "Céu Nublado"
+  end
+  return description
+end
+
 
 def buoy_data
   time_start = Time.now.to_i - 3600 * 3
@@ -870,57 +920,6 @@ ocean_forecast
 WeatherForecastValue.destroy_all
 WeatherForecastDaily.destroy_all
 
-def translate_description(description)
-  if description == "clear sky"
-    description = "Céu Limpo"
-  elsif description == "few clouds"
-    description = "Poucas Nuvens"
-  elsif description == "overclast clouds"
-    description = "Poucas Nuvens"
-  elsif description == "scattered clouds"
-    description = "Nuvens Esparsas"
-  elsif description == "broken clouds"
-    description = "Nuvens Esparsas"
-  elsif description == "shower rain"
-    description = "Chuva Forte"
-  elsif description == "rain"
-    description = "Chuva"
-  elsif description == "thunderstorm"
-    description = "Trovões"
-  elsif description == "thunderstorm with light rain"
-    description = "Trovões com chuva"
-  elsif description == "thunderstorm with rain"
-    description = "Trovões com chuva"
-  elsif description == "thunderstorm with heavy rain"
-    description = "Trovões com chuva"
-  elsif description == "light thunderstorm"
-    description = "Trovões"
-  elsif description == "heavy thunderstorm"
-    description = "Trovões"
-  elsif description == "ragged thunderstorm"
-    description = "Trovões"
-  elsif description == "light rain" || description == "light intensity shower rain"
-    description = "Chuva Fraca"
-  elsif description == "moderate rain" || description == "shower shower rain"
-    description = "Chuva Moderada"
-  elsif description == "heavy intensity rain" || description == "heavy intensity shower rain"
-    description = "Chuva Forte"
-  elsif description == "very heavy rain" || description == "ragged intensity shower rain"
-    description = "Chuva Muito Forte"
-  elsif description == "extreme rain"
-    description = "Temporal"
-  elsif description == "few clouds: 11-25%"
-    description = "Poucas Nuvens"
-  elsif description == "few clouds: 25-50%"
-    description = "Nuvens Esparsas"
-  elsif description == "few clouds: 51-84%"
-    description = "Nuvens Esparsas"
-  elsif description == "few clouds: 85-100%"
-    description = "Céu Nublado"
-  end
-  return description
-end
-
 def open_weather_api
   beaches = Beach.all
   date = Time.now
@@ -1106,7 +1105,6 @@ end
 # puts "Feed Tides"
 # tidal_data
 
-
 def feed_real_time_data
   beaches = Beach.all
 
@@ -1132,7 +1130,6 @@ def feed_real_time_data
   end
 
   water_forecast_stations = WaterForecastStation.all
-
 
   beaches.each do |beach|
     p beach
@@ -1183,36 +1180,22 @@ def feed_real_time_data
     s = Time.now.hour % 3
     if s == 0
       date_time_1 = date_time
-    elsif Time.now.hour == 1
-      date_time_1 = DateTime.new(Time.now.year, Time.now.month, Time.now.day, Time.now.hour + 2).strftime("%Y-%m-%d %H:00:00")
     else
-      date_time_1 = DateTime.new(Time.now.year, Time.now.month, Time.now.day, Time.now.hour - s).strftime("%Y-%m-%d %H:00:00")
+      date_time_1 = DateTime.new(Time.now.year, Time.now.month, Time.now.day, Time.now.hour).advance(hours: 3 - s).strftime("%Y-%m-%d %H:00:00")
     end
     water_temperature = OceanForecastValue.where("beach_id = #{beach.id} AND date_time = '#{date_time_1}'")[0]
-    cleaning = cleaning_values[@index_cleaning].status == "Própria"
+    cleaning = cleaning_values[@index_cleaning].status
 
-
+    p beach.name
     forecast_value = WeatherForecastValue.where("beach_id = #{beach.id} AND date_time = '#{date_time_1}'")
-    air_temperature_feels_like = forecast_value[0].air_temperature_feels_like
     air_temperature = forecast_value[0].air_temperature
+    air_temperature_feels_like = forecast_value[0].air_temperature_feels_like
+    icon = forecast_value[0].icon
     description = translate_description(forecast_value[0].description)
 
     p "agora salvar"
 
     real_time_value = RealTimeValue.where("date_time = '#{date_time}' AND beach_id = #{beach.id}")
-    p date_time
-    p wave_height
-    p wave_direction
-    p wave_formation.to_s
-    p wind_speed
-    p wind_direction
-    p water_temperature
-    p cleaning
-    p humidity
-    p pressure
-    p air_temperature
-    p air_temperature_feels_like
-    p description
 
     unless real_time_value.empty?
       real_time_value[0].update(
@@ -1229,6 +1212,7 @@ def feed_real_time_data
         air_temperature: air_temperature,
         air_temperature_feels_like: air_temperature_feels_like,
         description: description,
+        icon: icon,
       )
     else
       real_time_value = RealTimeValue.new(
@@ -1245,6 +1229,7 @@ def feed_real_time_data
         air_temperature: air_temperature,
         air_temperature_feels_like: air_temperature_feels_like,
         description: description,
+        icon: icon,
       )
 
       real_time_value.beach = beach
@@ -1257,5 +1242,3 @@ def feed_real_time_data
 end
 
 feed_real_time_data
-
-

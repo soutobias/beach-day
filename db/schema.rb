@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_002902) do
+ActiveRecord::Schema.define(version: 2020_12_05_024148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 2020_12_04_002902) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "description"
     t.decimal "air_temperature_feels_like"
+    t.string "icon"
     t.index ["beach_id"], name: "index_real_time_values_on_beach_id"
   end
 
