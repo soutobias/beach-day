@@ -1095,9 +1095,9 @@ def tidal_data
   end
 end
 
-# Tide.destroy_all
-# puts "Feed Tides"
-# tidal_data
+Tide.destroy_all
+puts "Feed Tides"
+tidal_data
 
 def feed_real_time_data
   beaches = Beach.all
