@@ -105,7 +105,7 @@
 
   <div id="reviews" class="container inactive-tab">
     <div id="overview" class="d-flex justify-content-center pb-4">
-      <h3 class="h3-overview w-100"><%= @beach.overview %></h3>
+      <h3 class="h3-overview w-100"><%= @beach.overview.upcase %></h3>
     </div>
     <% if !@beach.reviews.empty? %>
       <% @beach.reviews.each do |review| %>

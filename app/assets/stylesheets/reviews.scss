@@ -8,18 +8,26 @@
   margin-bottom: 20px;
   padding: 5px;
   box-shadow: 3px 3px #ccc5b9;
+  opacity: 0.5;
   .p-card {
     font-size: 12px;
+    z-index: 1;
   }
   .p-card2 {
     font-size: 14px;
+    z-index: 1;
+
   }
   .p-card3 {
     font-size: 16px;
     font-weight: bold;
+    z-index: 1;
+
   }
   .p-card4 {
     font-size: 16px;
+    z-index: 1;
+
   }
 }
 

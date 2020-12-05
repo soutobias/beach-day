@@ -9,13 +9,11 @@
 <main>
   <div class="mr-3 ml-3">
     <div id="beaches" class="search d-flex w-100">
-      <p class="pl-3">Qual a praia perfeita para você?</p>
-      <%= form_tag beaches_path, method: :get, class: "pl-3" do %>
-        <%= text_field_tag :query,
-          params[:query],
-          class: "form-control  pl-3",
-          placeholder: "Ache uma praia"
-        %>
+      <p class="pl-3" >Qual a praia perfeita para você?</p>
+      <%= form_tag beaches_path, method: :get, class: "form-inline pl-3" do %>
+        <div id= "search-data" class="form-search search-data" data-skills="<%= @names.to_json %>">
+          <%= text_field_tag :query, nil, autocomplete: :off, class: "form-control pl-3 search-input", placeholder: "Ache uma praia" %>
+        </div>
       <% end %>
 
       <%= form_tag beaches_path, method: :get, class: "pl-3" do %>
@@ -28,7 +26,7 @@
 
     </div>
     <div class="row">
-      <% @beaches.each do |beach| %>
+      <% @beaches.each_with_index do |beach, idx| %>
         <div class="col-4 m-0">
           <%= link_to beach_path(beach) do %>
             <div class="flip m-3">
@@ -55,42 +53,42 @@
               <div class="back" >
                 <div class="barras text-align-center text-left pt-4">
                   <div class="row align-middle">
-                    <div class="col-6">
+                    <div class="col-4">
                       <p class="pt-1">ESTACIONAMENTO</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                       <div class="barra">
                          <div class="barra-nivel" data-nivel="<%= (beach.overall_parking.round(1)*10).to_i%>"></div>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                       <p  class="pt-1">RESTAURANTES</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                       <div class="barra">
                          <div class="barra-nivel" data-nivel="<%= (beach.overall_restaurant.round(1)*10).to_i%>"></div>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                       <p class="pt-1">TRANSPORTE PÚBLICO</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                       <div class="barra">
                          <div class="barra-nivel" data-nivel="<%= (beach.overall_public_transportation.round(1)*10).to_i%>"></div>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                       <p class="pt-1">SEGURANÇA</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                       <div class="barra">
                          <div class="barra-nivel" data-nivel="<%= (beach.overall_security.round(1)*10).to_i%>"></div>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                       <p class="pt-1">ONDAS</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                       <div class="barra">
                          <div class="barra-nivel" data-nivel="<%= (beach.overall_wave.round(1)*10).to_i%>"></div>
                       </div>

@@ -21,7 +21,7 @@ if (mapElement) { // don't try to build a map if there's no div#map to inject in
   const mapElement = document.getElementById("map1")
   footer.classList.add('inactive-tab')
   navbar.classList.add('inactive-tab')
-  const map = new GMaps({ el: '#map1', lat: 0, lng: 0, mapTypeId: 'satellite', disableDefaultUI: true });
+  const map = new GMaps({ el: '#map1', lat: 0, lng: 0, disableDefaultUI: true });
   const markers = JSON.parse(mapElement.dataset.markers);
 
   const icon = {

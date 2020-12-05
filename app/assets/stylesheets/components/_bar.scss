@@ -1,9 +1,9 @@
 .barras {
-  width:320px;
+  width:90%;
   margin: 5px;
 }
 .barra {
-  width:300px;
+  width:100%;
   height:30px;
   background:#CCC;
   margin:10px;
@@ -11,7 +11,7 @@
 .barra-nivel {
   height:30px;
   background:#3e6db5;
-  width:1px;
+  width:1%;
   -webkit-transition: width 1s ease;
   -moz-transition: width 1s ease;
   transition: width 1s ease;
