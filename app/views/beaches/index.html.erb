@@ -17,13 +17,38 @@
           placeholder: "Ache uma praia"
         %>
       <% end %>
-      <%= form_tag beaches_path, method: :get, class: 'form-horizontal d-flex justify-content-start vertical-align-center' do %>
-        <%= select_tag :search,
-        raw("<option>Melhor praia</option><option>Praia para surfe</option><option>Praia calma</option>"),
-        class: "form-control w-100" %>
-          <%= button_tag :submit, class: "non-btn" do %>
+      <%= button_tag :submit, class: "non-btn" do %>
             <i class="fas fa-search h2"></i>
           <% end %>
+      <%= form_tag beaches_path, method: :get, class: 'form-vertical d-flex justify-content-start vertical-align-center' do %>
+        <%= hidden_field_tag 'search', "Melhor praia" %>
+        <%= button_tag :submit, class: "non-btn" do %>
+          <i class="fas fa-umbrella-beach"></i>
+        <% end %>
+      <% end %>
+      <%= form_tag beaches_path, method: :get, class: 'form-vertical d-flex justify-content-start vertical-align-center' do %>
+        <%= hidden_field_tag 'search', "Melhor praia para surfe" %>
+        <%= button_tag :submit, class: "non-btn" do %>
+          <i class="fas fa-snowboarding"></i>
+        <% end %>
+      <% end %>
+      <%= form_tag beaches_path, method: :get, class: 'form-horizontal d-flex justify-content-start vertical-align-center' do %>
+        <%= hidden_field_tag 'search', "Praia mais segura" %>
+        <%= button_tag :submit, class: "non-btn" do %>
+          <i class="fas fa-user-ninja"></i>
+        <% end %>
+      <% end %>
+      <%= form_tag beaches_path, method: :get, class: 'form-horizontal d-flex justify-content-start vertical-align-center' do %>
+        <%= hidden_field_tag 'search', "Praia mais acessível" %>
+        <%= button_tag :submit, class: "non-btn" do %>
+          <i class="fas fa-car-side"></i>
+        <% end %>
+      <% end %>
+      <%= form_tag beaches_path, method: :get, class: 'form-horizontal d-flex justify-content-start vertical-align-center' do %>
+        <%= hidden_field_tag 'search', "Praia mais limpa" %>
+        <%= button_tag :submit, class: "non-btn" do %>
+          <i class="fas fa-trash"></i>
+        <% end %>
       <% end %>
     </div>
 
