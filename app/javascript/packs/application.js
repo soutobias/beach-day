@@ -17,6 +17,7 @@ import { rangeBegin, rangeWeather0, rangeWeather1, rangeWeather2, changeWeatherD
 import { toogleTab } from '../components/tabs_index';
 import { initBar } from '../components/init_bar';
 import { initBar1 } from '../components/init_bar1';
+import { autocompleteSearch } from '../components/autocomplete';
 
 
 
@@ -34,6 +35,7 @@ document.addEventListener('turbolinks:load', () => {
   toogleTab();
   initBar();
   initBar1();
+  autocompleteSearch();
 });
 
 // Uncomment to copy all static images under ../images to the output folder and reference

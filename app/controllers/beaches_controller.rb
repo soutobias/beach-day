@@ -10,6 +10,8 @@ class BeachesController < ApplicationController
     else
       @beaches = Beach.all
     end
+
+    @names = Beach.pluck(:name).sort
   end
 
   def show
