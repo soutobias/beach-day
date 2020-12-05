@@ -40,7 +40,6 @@ puts "Feed visual stations"
 VisualValue.destroy_all
 VisualStation.destroy_all
 
-
 VisualStation.create(lat: -23.0369, lng: -43.4954, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-secreto')
 VisualStation.create(lat: -23.0345, lng: -43.4883, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/macumba-3w')
 VisualStation.create(lat: -23.0298, lng: -43.4666, url: 'https://ricosurf.com.br/boletim-das-ondas/rio-janeiro/recreio-posto-11')
@@ -72,8 +71,11 @@ BuoyStation.destroy_all
 
 BuoyStation.create(lat: -22.971667, lng: -43.1502778)
 
-puts "Feed cleaning statios"
 
+
+
+
+puts "Feed cleaning statios"
 
 CleaningValue.destroy_all
 CleaningStation.destroy_all
@@ -121,7 +123,6 @@ CleaningStation.create(name: "Grossa", description: "Em frente à Igreja Matriz 
 CleaningStation.create(name: "Tamoios", description: "À esquerda da Ladeira do Vicente", lat: -22.757363533667384, lng: -43.108478928749264)
 CleaningStation.create(name: "Catimbau", description: "Em frente à Travessa Dois Irmãos n° 195", lat: -22.749804606795927, lng: -43.10544803259033)
 CleaningStation.create(name: "J. Bonifácio", description: "Em frente à ETE Paquetá CEDAE", lat: -22.761172520508854, lng: -43.11105921380682)
-
 CleaningStation.create(name: "Adão", description: "Centro da praia", lat: -22.92773303773431, lng: -43.12289080465795)
 CleaningStation.create(name: "Camboinhas", description: "Centro da praia", lat: -22.962056778661623, lng: -43.056578166471)
 CleaningStation.create(name: "Camboinhas", description: "À 100m do Canal da Lagoa de Itaipu", lat: -22.96677872425047, lng: -43.048402793398196)
@@ -129,7 +130,6 @@ CleaningStation.create(name: "Charitas", description: "Em frente à Travessa San
 CleaningStation.create(name: "Charitas", description: "Lado direito do Clube Naval de Charitas", lat: -22.935479696790207, lng: -43.104630325813844)
 CleaningStation.create(name: "Charitas", description: "Em frente à Avenida Quintino Bocaiúva n° 355", lat: -22.92546025169957, lng: -43.09579547613986)
 CleaningStation.create(name: "Eva", description: "Centro da praia", lat: -22.929699387253148, lng: -43.12280497397102)
-
 CleaningStation.create(name: "Boa Viagem", description: "Centro da praia", lat: -22.90804989048639, lng: -43.12888871521811)
 CleaningStation.create(name: "Flechas", description: "Em frente à Rua Nilo Peçanha", lat: -22.90572744536363, lng: -43.124940503525984)
 CleaningStation.create(name: "Flechas", description: "Em frente à Rua Praia de Icaraí n° 163", lat: -22.905579202836517, lng: -43.121088851391235)
@@ -151,7 +151,6 @@ CleaningStation.create(name: "Piratininga", description: "Em frente à Avenida D
 CleaningStation.create(name: "Piratininga", description: "Em frente à Rua General Rubens Rosado Teixeira", lat: -22.95411333880743, lng: -43.09458813521258)
 CleaningStation.create(name: "Piratininga", description: "Em frente à Rua Orestes Barbosa", lat: -22.954909336136677, lng: -43.08775079957785)
 CleaningStation.create(name: "Piratininga", description: "Em frente à Rua João Gomes da Silva", lat: -22.95659373636382, lng: -43.073830134751304)
-
 
 puts "Feed beaches"
 
@@ -555,16 +554,16 @@ user_index = 1
         title: ["Melhor praia da vida!", "Praia mais suja que já visitei!", "Que espetáculo", "Sonhooooooo!", "Surf do bom", "Praia lotada! Nunca mais!"].sample,
         content: ["Praia vazia, calma, ondas excelentes para quem procura um surf power, e sem muitos ambulantes.",
         "Vista maravilhosa, brisa da boa, recomendo passar o dia inteiro", "Praia suja, ambulante berrando no seu ouvido, lotada...nunca mais"].sample,
-        parking: (1..10).to_a.sample,
-        restaurant: (1..10).to_a.sample,
-        public_transportation: (1..10).to_a.sample,
-        security: (1..10).to_a.sample,
-        cleaning: (1..10).to_a.sample,
-        rent_equipment: (1..10).to_a.sample,
-        wave: (1..10).to_a.sample,
-        wind: (1..10).to_a.sample,
-        accessibility: (1..10).to_a.sample,
-        sand_strip: (1..10).to_a.sample
+        parking: (1..5).to_a.sample,
+        restaurant: (1..5).to_a.sample,
+        public_transportation: (1..5).to_a.sample,
+        security: (2..5).to_a.sample,
+        cleaning: (2..5).to_a.sample,
+        rent_equipment: (2..5).to_a.sample,
+        wave: (3..5).to_a.sample,
+        wind: (3..5).to_a.sample,
+        accessibility: (3..5).to_a.sample,
+        sand_strip: (4..5).to_a.sample
       )
       sum_all = (r.parking + r.restaurant + r.public_transportation + r.security + r.cleaning + r.rent_equipment + r.wave + r.wind + r.accessibility + r.sand_strip) / 10.0
       r.user = user_name
@@ -589,12 +588,9 @@ user_index = 1
 end
 
 
-
-
 p "Scrapping and getting data inside the database"
 
 p "Feed buoy data"
-
 
 def direction_to_string(value)
   if value > 45 / 2 && value <= 45 + 45 / 2
@@ -616,10 +612,118 @@ def direction_to_string(value)
   end
 end
 
-# def buoy_data
-  #
+def translate_description(description)
+  if description == "clear sky"
+    description = "Céu Limpo"
+  elsif description == "few clouds"
+    description = "Poucas Nuvens"
+  elsif description == "overclast clouds"
+    description = "Poucas Nuvens"
+  elsif description == "scattered clouds"
+    description = "Nuvens Esparsas"
+  elsif description == "broken clouds"
+    description = "Nuvens Esparsas"
+  elsif description == "shower rain"
+    description = "Chuva Forte"
+  elsif description == "rain"
+    description = "Chuva"
+  elsif description == "thunderstorm"
+    description = "Trovões"
+  elsif description == "thunderstorm with light rain"
+    description = "Trovões com chuva"
+  elsif description == "thunderstorm with rain"
+    description = "Trovões com chuva"
+  elsif description == "thunderstorm with heavy rain"
+    description = "Trovões com chuva"
+  elsif description == "light thunderstorm"
+    description = "Trovões"
+  elsif description == "heavy thunderstorm"
+    description = "Trovões"
+  elsif description == "ragged thunderstorm"
+    description = "Trovões"
+  elsif description == "light rain" || description == "light intensity shower rain"
+    description = "Chuva Fraca"
+  elsif description == "moderate rain" || description == "shower shower rain"
+    description = "Chuva Moderada"
+  elsif description == "heavy intensity rain" || description == "heavy intensity shower rain"
+    description = "Chuva Forte"
+  elsif description == "very heavy rain" || description == "ragged intensity shower rain"
+    description = "Chuva Muito Forte"
+  elsif description == "extreme rain"
+    description = "Temporal"
+  elsif description == "few clouds: 11-25%"
+    description = "Poucas Nuvens"
+  elsif description == "few clouds: 25-50%"
+    description = "Nuvens Esparsas"
+  elsif description == "few clouds: 51-84%"
+    description = "Nuvens Esparsas"
+  elsif description == "few clouds: 85-100%"
+    description = "Céu Nublado"
+  end
+  return description
+end
 
 
+def buoy_data
+  time_start = Time.now.to_i - 3600 * 3
+  time_end = Time.now.to_i
+  buoy_stations = BuoyStation.all
+  buoy_stations.each do |buoy_station|
+    p buoy_station
+    meteo_values = RestClient.get "simcosta.furg.br/api/metereo_data?boiaID=12&type=json&time1=#{time_start}&time2=#{time_end}&params=Average_wind_direction_N,Last_sampling_interval_gust_speed,Average_Pressure,Average_Air_Temperature,Instantaneous_Humidity,Average_Humidity,Average_wind_speed"
+    meteo_values = JSON.parse(meteo_values)
+    meteo_values.each do |value|
+      date_time = DateTime.new(value["YEAR"], value["MONTH"], value["DAY"], value["HOUR"], value["MINUTE"].to_i - 5, 0)
+      buoy = BuoyValue.where("date_time = '#{date_time.strftime("%Y-%m-%d %H:%M:%S")}'")
+      unless buoy.empty?
+        buoy[0].update(
+          date_time: date_time,
+          pressure: value["Avg_Air_Press"],
+          air_temperature: value["Avg_Air_Tmp"],
+          humidity: value["Avg_Hmt"],
+          wind_speed: value["Avg_Wnd_Sp"],
+          wind_direction: direction_to_string(value["Avg_Wnd_Dir_N"].to_f)
+        )
+      else
+        value = BuoyValue.new(
+          date_time: date_time,
+          pressure: value["Avg_Air_Press"],
+          air_temperature: value["Avg_Air_Tmp"],
+          humidity: value["Avg_Hmt"],
+          wind_speed: value["Avg_Wnd_Sp"],
+          wind_direction: direction_to_string(value["Avg_Wnd_Dir_N"].to_f)
+        )
+        value.buoy_station = buoy_station
+        value.save!
+      end
+    end
+    ocean_values = RestClient.get "http://simcosta.furg.br/api/oceanic_data?boiaID=12&type=json&time1=#{time_start}&time2=#{time_end}&params=Hsig_Significant_Wave_Height_m,Mean_Wave_Direction_deg,Hmax_Maximum_Wave_Height_m,TP_Peak_Period_seconds,Average_Temperature_deg_C"
+    ocean_values = JSON.parse(ocean_values)
+    ocean_values.each do |value|
+      date_time = DateTime.new(value["YEAR"], value["MONTH"], value["DAY"], value["HOUR"], value["MINUTE"].to_i - 1, 0)
+      buoy = BuoyValue.where("date_time = '#{date_time.strftime("%Y-%m-%d %H:%M:%S")}'")
+      unless buoy.empty?
+        buoy[0].update(
+          wave_height: value["Hsig"],
+          water_temperature: value["Avg_W_Tmp1"],
+          wave_formation: value["TP"],
+          wave_direction: value["Avg_Wv_Dir_N"]
+        )
+      else
+        value = BuoyValue.new(
+          date_time: date_time,
+          wave_height: value["Hsig"],
+          water_temperature: value["Avg_W_Tmp1"],
+          wave_formation: value["TP"],
+          wave_direction: direction_to_string(value["Avg_Wv_Dir_N"].to_f)
+        )
+        value.buoy_station = buoy_station
+        value.save!
+      end
+    end
+  end
+end
+buoy_data
 
 p "Feed visual observations data"
 
@@ -821,7 +925,7 @@ def open_weather_api
   WeatherForecastValue.where("date_time >= '#{date}'").destroy_all
   WeatherForecastDaily.where("date_time >= '#{date}'").destroy_all
   beaches.each do |beach|
-    meteo_values = RestClient.get "https://api.openweathermap.org/data/2.5/onecall?lat=#{beach.lat}&lon=#{beach.lng}&exclude=minutely&appid=39352aa3ee983b59623430b39d23fe25"
+    meteo_values = RestClient.get "https://api.openweathermap.org/data/2.5/onecall?lat=#{beach.lat}&lon=#{beach.lng}&exclude=minutely&appid=#{ENV['OPENWEATHER_URL']}"
     meteo_values = JSON.parse(meteo_values)
 
     hourly = meteo_values["hourly"]
@@ -837,55 +941,9 @@ def open_weather_api
         humidity = hour["humidity"]
         wind_speed = hour["wind_speed"]
         wind_direction = direction_to_string(hour["wind_deg"].to_f)
-        description = hour["weather"][0]["description"]
+        description = translate_description(hour["weather"][0]["description"])
         rain_probability = hour["pop"]
         icon = hour["weather"][0]["icon"]
-
-        if description == "clear sky"
-          description = "Céu Limpo"
-        elsif description == "few clouds"
-          description = "Poucas Nuvens"
-        elsif description == "scattered clouds"
-          description = "Nuvens Esparsas"
-        elsif description == "broken clouds"
-          description = "Nuvens Esparsas"
-        elsif description == "shower rain"
-          description = "Chuva Forte"
-        elsif description == "rain"
-          description = "Chuva"
-        elsif description == "thunderstorm"
-          description = "Trovões"
-        elsif description == "thunderstorm with light rain"
-          description = "Trovões com chuva"
-        elsif description == "thunderstorm with rain"
-          description = "Trovões com chuva"
-        elsif description == "thunderstorm with heavy rain"
-          description = "Trovões com chuva"
-        elsif description == "light thunderstorm"
-          description = "Trovões"
-        elsif description == "heavy thunderstorm"
-          description = "Trovões"
-        elsif description == "ragged thunderstorm"
-          description = "Trovões"
-        elsif description == "light rain" || description == "light intensity shower rain"
-          description = "Chuva Fraca"
-        elsif description == "moderate rain" || description == "shower shower rain"
-          description = "Chuva Moderada"
-        elsif description == "heavy intensity rain" || description == "heavy intensity shower rain"
-          description = "Chuva Forte"
-        elsif description == "very heavy rain" || description == "ragged intensity shower rain"
-          description = "Chuva Muito Forte"
-        elsif description == "extreme rain"
-          description = "Temporal"
-        elsif description == "few clouds: 11-25%"
-          description = "Poucas Nuvens"
-        elsif description == "few clouds: 25-50%"
-          description = "Nuvens Esparsas"
-        elsif description == "few clouds: 51-84%"
-          description = "Nuvens Esparsas"
-        elsif description == "few clouds: 85-100%"
-          description = "Céu Nublado"
-        end
 
         p date_time
         weather_forecast_value = WeatherForecastValue.new(
@@ -918,53 +976,8 @@ def open_weather_api
       humidity = day["humidity"]
       wind_speed = day["wind_speed"]
       wind_direction = direction_to_string(day["wind_deg"].to_f)
-      description = day["weather"][0]["description"]
+      description = translate_description(day["weather"][0]["description"])
 
-      if description == "clear sky"
-        description = "Céu Limpo"
-      elsif description == "few clouds"
-        description = "Poucas Nuvens"
-      elsif description == "scattered clouds"
-        description = "Nuvens Esparsas"
-      elsif description == "broken clouds"
-        description = "Nuvens Esparsas"
-      elsif description == "shower rain"
-        description = "Chuva Forte"
-      elsif description == "rain"
-        description = "Chuva"
-      elsif description == "thunderstorm"
-        description = "Trovões"
-      elsif description == "thunderstorm with light rain"
-        description = "Trovões com chuva"
-      elsif description == "thunderstorm with rain"
-        description = "Trovões com chuva"
-      elsif description == "thunderstorm with heavy rain"
-        description = "Trovões com chuva"
-      elsif description == "light thunderstorm"
-        description = "Trovões"
-      elsif description == "heavy thunderstorm"
-        description = "Trovões"
-      elsif description == "ragged thunderstorm"
-        description = "Trovões"
-      elsif description == "light rain" || description == "light intensity shower rain"
-        description = "Chuva Fraca"
-      elsif description == "moderate rain" || description == "shower shower rain"
-        description = "Chuva Moderada"
-      elsif description == "heavy intensity rain" || description == "heavy intensity shower rain"
-        description = "Chuva Forte"
-      elsif description == "very heavy rain" || description == "ragged intensity shower rain"
-        description = "Chuva Muito Forte"
-      elsif description == "extreme rain"
-        description = "Temporal"
-      elsif description == "few clouds: 11-25%"
-        description = "Poucas Nuvens"
-      elsif description == "few clouds: 25-50%"
-        description = "Nuvens Esparsas"
-      elsif description == "few clouds: 51-84%"
-        description = "Nuvens Esparsas"
-      elsif description == "few clouds: 85-100%"
-        description = "Céu Nublado"
-      end
 
       icon = day["weather"][0]["icon"]
       rain_probability = day["pop"]
@@ -1064,3 +1077,166 @@ def feed_weather_forecast
 end
 
 feed_weather_forecast
+
+def tidal_data
+
+  tides_values = RestClient.get "https://www.worldtides.info/api/v2?extremes&date=2020-12-03&lat=-22.9068&lon=-43.1729&days=7&station=UKHO:2201a&key=#{ENV['WORLDTIDE_API']}"
+  tides_values = JSON.parse(tides_values)
+  tides_values["extremes"].each do |value|
+    tide = value["height"]
+    if value["type"] == "Low"
+      tide_situation = "Maré baixa"
+    else
+      tide_situation = "Maré alta"
+    end
+    date_time = Time.at(value["dt"]).strftime("%Y-%m-%d %H:00:00")
+
+    Tide.create(
+      date_time: date_time,
+      tide: tide,
+      tide_situation: tide_situation
+      )
+  end
+end
+
+# Tide.destroy_all
+# puts "Feed Tides"
+# tidal_data
+
+def feed_real_time_data
+  beaches = Beach.all
+
+  visual_stations = VisualStation.all
+
+  visual_values = []
+  visual_stations.each do |visual_station|
+    visual_values << VisualValue.where("visual_station_id = #{visual_station.id}").last
+  end
+
+  buoy_stations = BuoyStation.all
+
+  buoys = []
+  buoy_stations.each do |buoy_station|
+    buoys << BuoyValue.where("buoy_station_id = #{buoy_station.id}").last
+  end
+
+  cleaning_stations = CleaningStation.all
+
+  cleaning_values = []
+  cleaning_stations.each do |cleaning_station|
+    cleaning_values << CleaningValue.where("cleaning_station_id = #{cleaning_station.id}").last
+  end
+
+  water_forecast_stations = WaterForecastStation.all
+
+  beaches.each do |beach|
+    p beach
+    date_time = DateTime.new(Time.now.year, Time.now.month, Time.now.day, Time.now.hour).strftime("%Y-%m-%d %H:00:00")
+
+    distance = 9999
+    visual_values.each_with_index do |visual_value, idx|
+      x = Haversine.distance(beach.lat, beach.lng, visual_value.visual_station.lat, visual_value.visual_station.lng).to_miles
+      if x < distance
+        distance = x
+        @index_visual = idx
+      end
+    end
+
+    distance = 9999
+    water_forecast_stations.each_with_index do |ocean_model_position, idx|
+      x = Haversine.distance(beach.lat, beach.lng, ocean_model_position.lat, ocean_model_position.lng).to_miles
+      if x < distance
+        distance = x
+        @index_water = idx
+      end
+    end
+
+    distance = 9999
+    cleaning_values.each_with_index do |cleaning_value, idx|
+      x = Haversine.distance(beach.lat, beach.lng, cleaning_value.cleaning_station.lat, cleaning_value.cleaning_station.lng).to_miles
+      if x < distance
+        distance = x
+        @index_cleaning = idx
+      end
+    end
+
+    if beach.lng < -43.04 && beach.lng > -43.23
+      wave_height = buoys[0].wave_height
+      wave_direction = direction_to_string(buoys[0].wave_direction.to_f)
+      wave_formation = buoys[0].wave_formation
+    else
+      wave_height = visual_values[@index_visual].wave_height
+      wave_formation = visual_values[@index_visual].wave_formation
+      wave_direction = visual_values[@index_visual].wave_direction
+    end
+
+    wind_speed = buoys[0].wind_speed
+    wind_direction = buoys[0].wind_direction
+    humidity = buoys[0].humidity
+    pressure = buoys[0].pressure
+
+    s = Time.now.hour % 3
+    if s == 0
+      date_time_1 = date_time
+    else
+      date_time_1 = DateTime.new(Time.now.year, Time.now.month, Time.now.day, Time.now.hour).advance(hours: 3 - s).strftime("%Y-%m-%d %H:00:00")
+    end
+    water_temperature = OceanForecastValue.where("beach_id = #{beach.id} AND date_time = '#{date_time_1}'")[0]
+    cleaning = cleaning_values[@index_cleaning].status
+
+    p beach.name
+    forecast_value = WeatherForecastValue.where("beach_id = #{beach.id} AND date_time = '#{date_time_1}'")
+    air_temperature = forecast_value[0].air_temperature
+    air_temperature_feels_like = forecast_value[0].air_temperature_feels_like
+    icon = forecast_value[0].icon
+    description = translate_description(forecast_value[0].description)
+
+    p "agora salvar"
+
+    real_time_value = RealTimeValue.where("date_time = '#{date_time}' AND beach_id = #{beach.id}")
+
+    unless real_time_value.empty?
+      real_time_value[0].update(
+        date_time: date_time,
+        wave_height: wave_height,
+        wave_direction: wave_direction,
+        wave_formation: wave_formation.to_s,
+        wind_speed: wind_speed,
+        wind_direction: wind_direction,
+        water_temperature: water_temperature,
+        cleaning: cleaning,
+        humidity: humidity,
+        pressure: pressure,
+        air_temperature: air_temperature,
+        air_temperature_feels_like: air_temperature_feels_like,
+        description: description,
+        icon: icon,
+      )
+    else
+      real_time_value = RealTimeValue.new(
+        date_time: date_time,
+        wave_height: wave_height,
+        wave_direction: wave_direction,
+        wave_formation: wave_formation.to_s,
+        wind_speed: wind_speed,
+        wind_direction: wind_direction,
+        water_temperature: water_temperature,
+        cleaning: cleaning,
+        humidity: humidity,
+        pressure: pressure,
+        air_temperature: air_temperature,
+        air_temperature_feels_like: air_temperature_feels_like,
+        description: description,
+        icon: icon,
+      )
+
+      real_time_value.beach = beach
+
+      real_time_value.save!
+    end
+
+    p "agora salvo"
+  end
+end
+
+feed_real_time_data

@@ -46,6 +46,7 @@
         transition-timing-function: cubic-bezier(.175, .885, .32, 1.275);
         transition-duration: .2s;
         transition-property: transform, opacity;
+        transition-duration:1.5s;
     }
     >.front {
         transform: rotateY(0deg);
@@ -147,8 +148,8 @@
 
 .location-bottom-right{
   position: absolute;
-  right: 16px;
-  bottom: 5px;
+  right: 10px;
+  bottom: 10px;
   font-size: 1.9rem !important;
   line-height: 100% !important;
   color: #daa520 !important;
@@ -156,7 +157,7 @@
 }
 
 .location-bottom-left{
-  width: 70px;
+  width: 60px;
   position: absolute;
   left: 10px;
   bottom: 10px;
@@ -182,4 +183,49 @@
 
 .padding-l{
   padding-left: 110px;
+}
+
+
+.card-transit{
+  margin: auto;
+  background-color: rgb(240,240,240);
+  border-color: #28b4d1;
+  border-radius: 10px;
+  width: 300px;
+  vertical-align: middle;
+  height: 100%;
+  h3{
+    font-size: 25px;
+  }
+  p{
+    font-size: 15px;
+  }
+  .image-smalls{
+    height: 40px;
+  }
+  .image-smallss{
+    height: 40px;
+  }
+}
+
+
+.card-transit-public{
+  margin: auto;
+  background-color: rgb(240,240,240);
+  border-color: #28b4d1;
+  border-radius: 10px;
+  width: 75%;
+  vertical-align: middle;
+  h3{
+    font-size: 25px;
+  }
+  p{
+    font-size: 15px;
+  }
+  .image-smalls{
+    height: 40px;
+  }
+  .image-smallss{
+    height: 40px;
+  }
 }

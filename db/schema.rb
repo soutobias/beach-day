@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_25_212535) do
+ActiveRecord::Schema.define(version: 2020_12_05_024148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,17 +118,16 @@ ActiveRecord::Schema.define(version: 2020_11_25_212535) do
     t.string "wave_formation"
     t.decimal "wind_speed"
     t.string "wind_direction"
-    t.string "rain"
     t.integer "humidity"
     t.decimal "pressure"
     t.decimal "air_temperature"
     t.decimal "water_temperature"
     t.boolean "cleaning"
-    t.decimal "tide"
-    t.string "tide_situation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "description"
+    t.decimal "air_temperature_feels_like"
+    t.string "icon"
     t.index ["beach_id"], name: "index_real_time_values_on_beach_id"
   end
 
@@ -151,6 +150,14 @@ ActiveRecord::Schema.define(version: 2020_11_25_212535) do
     t.bigint "user_id"
     t.index ["beach_id"], name: "index_reviews_on_beach_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "tides", force: :cascade do |t|
+    t.datetime "date_time"
+    t.decimal "tide"
+    t.string "tide_situation"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
