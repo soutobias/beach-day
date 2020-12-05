@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: "beaches#index"
   resources :beaches do
+    collection do
+      get :map
+    end
     resources :reviews, only: [:index, :new, :create]
     get "traffic", to: "traffics#index"
     get "weather", to: "weathers#index"

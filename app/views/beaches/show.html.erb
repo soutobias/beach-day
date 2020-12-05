@@ -133,80 +133,86 @@
     <%= link_to "Adicionar avaliação", new_beach_review_path(@beach), class: "btn btn-primary btn-blue align-middle h-75 button"%>
   </div>
 
-  <div id="realtime" class="container inactive-tab">
-    <% hour = @weathers_today[0] %>
-    <div id="weather-day00-hour<%= hour.date_time.hour %>" class="all-cards hourly">
-      <div class="d-flex justify-content-between align-middle">
-        <div class="padding-t">
-          <h3 class="h3-weather"><%= @portuguese[0] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
-          <h4><%= hour.description.capitalize%></h4>
-        </div>
-        <div>
-          <%= image_tag "weather_icons/#{hour.icon}.png", class: "image-medium" %>
-          <h2 class="pl-5"><%= hour.air_temperature.round(1) %>°C</h2>
-        </div>
-        <div class="padding-t1">
-          <p class="p-0 m-0">Sensação Térmica: <%= (hour.air_temperature_feels_like.round(1)) %>°C</p>
-          <p class="p-0 m-0">Chuva: <%= (hour.rain_probability * 100).to_i %>%</p>
-          <p class="p-0 m-0">Humidade: <%= (hour.humidity).to_i %>%</p>
-          <p class="p-0 m-0">Vento: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction %>)</p>
-          <% ocean = @oceans_today.where("date_time = '#{hour.date_time}'") %>
-          <% unless ocean.empty? %>
-            <% if ocean[0].wave_height %>
-              <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
-            <% end %>
-            <% if ocean[0].water_temperature %>
-              <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
-            <% end %>
+
+    <div id="realtime" class="container inactive-tab">
+    <div id="cleaning" class="text-center p-1">
+      <% if @real_time.cleaning %>
+        <div class="alert-success"> PRAIA LIMPA E VERIFICADA PELO ÓRGÃO AMBIENTAL OFICIAL DO RIO DE JANEIRO</div>
+      <% else %>
+        <div class="alert-danger">ATENÇÃO: ESSA PRAIA NÃO ESTÁ RECOMENDADA PARA BANHO DE ACORDO COM O ÓRGÃO AMBIENTAL OFICIAL!</div>
+      <% end %>
+    </div>
+    <div id="real_time_values" class="d-flex justify-content-around">
+      <div>
+        <h3 class="h3-weather"><%= @portuguese[0] %>, <%= @real_time.date_time.strftime("%d/%m/%Y")%> <%= @real_time.date_time.hour.to_s.rjust(2, '0')%>h</h3>
+        <%= image_tag "weather_icons/#{@dailies[3].icon}.png", class: "image-medium" %>
+        <h4><%= @real_time.description.capitalize%></h4>
+      </div>
+      <div class="d-flex">
+        <div id="water">
+          <h3>ÁGUA</h3>
+          <p class="p-0 m-0">Ondas: <%= (@real_time.wave_height) %>m (<%= @real_time.wave_direction %>)</p>
+          <% if @real_time.wave_formation.to_i < 10 %>
+            <p class="p-0 m-0">Formação das ondas: "Ondas mal formadas" %></p>
+          <% else %>
+            <p class="p-0 m-0">Formação das ondas: "Ondas bem formadas" %></p>
           <% end %>
+          <p class="p-0 m-0">Temperatura da água: <%= (@real_time.water_temperature).round(1) %>%</p>
+        </div>
+        <div id="weather">
+          <h3>TEMPO</h3>
+          <p class="p-0 m-0">Temperatura do ar: <%= (@real_time.air_temperature.round(1)) %>°C</p>
+          <p class="p-0 m-0">Sensação Térmica: <%= (@real_time.air_temperature_feels_like.round(1)) %>°C</p>
+          <p class="p-0 m-0">Vento: <%= (@real_time.wind_speed).to_i %>km/h (<%=@real_time.wind_direction %>)</p>
+          <p class="p-0 m-0">Humidade: <%= (@real_time.humidity).to_i %>%</p>
+          <p class="p-0 m-0">Pressão: <%= (@real_time.pressure).to_i %>%</p>
         </div>
       </div>
     </div>
-  </div>
-
-
-
-  <div id="traffic" class="container inactive-tab">
-    <div id="map" data-markers="<%= @markers.to_json %>" >
+    <div id="tides">
+      <h2 class="text-center mt-4">MARÉS</h2>
+      <%= area_chart @tide, discrete: true %>
+    </div>
+    <div id="other_informations">
     </div>
   </div>
-
-
 
   <div id="weatherforecast" class="container inactive-tab">
      <div class="card-weathers">
       <div class="card-top">
-        <% @weathers_today.each do |hour| %>
-          <div id="weather-day0-hour<%= hour.date_time.hour %>" class="inactive-tab all-cards hourly">
-            <div class="d-flex justify-content-between align-middle">
-              <div class="padding-t">
-                <h3 class="h3-weather"><%= @portuguese[0] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
-                <h4><%= hour.description.capitalize%></h4>
-              </div>
-              <div>
-                <%= image_tag "weather_icons/#{hour.icon}.png", class: "image-medium" %>
-                <h2 class="pl-5"><%= hour.air_temperature.round(1) %>°C</h2>
-              </div>
-              <div class="padding-t1">
-                <p class="p-0 m-0">Sensação Térmica: <%= (hour.air_temperature_feels_like.round(1)) %>°C</p>
-                <p class="p-0 m-0">Chuva: <%= (hour.rain_probability * 100).to_i %>%</p>
-                <p class="p-0 m-0">Humidade: <%= (hour.humidity).to_i %>%</p>
-                <p class="p-0 m-0">Vento: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction %>)</p>
-                <% ocean = @oceans_today.where("date_time = '#{hour.date_time}'") %>
-                <% unless ocean.empty? %>
-                  <% if ocean[0].wave_height %>
-                    <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
+        <% unless @weathers_today.empty? %>
+          <% @weathers_today.each do |hour| %>
+            <div id="weather-day0-hour<%= hour.date_time.hour %>" class="inactive-tab all-cards hourly">
+              <div class="d-flex justify-content-between align-middle">
+                <div class="padding-t">
+                  <h3 class="h3-weather"><%= @portuguese[0] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
+                  <h4><%= hour.description.capitalize%></h4>
+                </div>
+                <div>
+                  <%= image_tag "weather_icons/#{hour.icon}.png", class: "image-medium" %>
+                  <h2 class="pl-5"><%= hour.air_temperature.round(1) %>°C</h2>
+                </div>
+                <div class="padding-t1">
+                  <p class="p-0 m-0">Sensação Térmica: <%= (hour.air_temperature_feels_like.round(1)) %>°C</p>
+                  <p class="p-0 m-0">Chuva: <%= (hour.rain_probability * 100).to_i %>%</p>
+                  <p class="p-0 m-0">Humidade: <%= (hour.humidity).to_i %>%</p>
+                  <p class="p-0 m-0">Vento: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction %>)</p>
+                  <% ocean = @oceans_today.where("date_time = '#{hour.date_time}'") %>
+                  <% unless ocean.empty? %>
+                    <% if ocean[0].wave_height %>
+                      <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
+                    <% end %>
+                    <% if ocean[0].water_temperature %>
+                      <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+                    <% end %>
                   <% end %>
-                  <% if ocean[0].water_temperature %>
-                    <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
-                  <% end %>
-                <% end %>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
+        <% else %>
+          <h2 class="all-cards hourly">NÃO HÁ DADOS PARA O DIA DE HOJE</h2>
         <% end %>
-
-
         <% @weathers_today_1.each do |hour| %>
           <div id="weather-day1-hour<%= hour.date_time.hour %>" class="inactive-tab all-cards hourly">
             <div class="d-flex justify-content-between align-middle">
@@ -236,36 +242,65 @@
             </div>
           </div>
         <% end %>
-        <% @weathers_today_2.each do |hour| %>
-          <div id="weather-day2-hour<%= hour.date_time.hour %>" class="inactive-tab all-cards hourly">
+        <% unless @weathers_today_2.empty? %>
+          <% @weathers_today_2.each do |hour| %>
+            <div id="weather-day2-hour<%= hour.date_time.hour %>" class="inactive-tab all-cards hourly">
+              <div class="d-flex justify-content-between align-middle">
+                <div class="padding-t">
+                  <h3 class="h3-weather"><%= @portuguese[0] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
+                  <h4><%= hour.description.capitalize%></h4>
+                </div>
+                <div>
+                  <%= image_tag "weather_icons/#{hour.icon}.png", class: "image-medium" %>
+                  <h2 class="pl-5"><%= hour.air_temperature.round(1) %>°C</h2>
+                </div>
+                <div class="padding-t1">
+                  <p class="p-0 m-0">Sensação Térmica: <%= (hour.air_temperature_feels_like.round(1)) %>°C</p>
+                  <p class="p-0 m-0">Chuva: <%= (hour.rain_probability * 100).to_i %>%</p>
+                  <p class="p-0 m-0">Humidade: <%= (hour.humidity).to_i %>%</p>
+                  <p class="p-0 m-0">Vento: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction %>)</p>
+                  <% ocean = @oceans_today.where("date_time = '#{hour.date_time}'") %>
+                  <% unless ocean.empty? %>
+                    <% if ocean[0].wave_height %>
+                      <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
+                    <% end %>
+                    <% if ocean[0].water_temperature %>
+                      <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <div id="weather-day2" class="inactive-tab all-cards daily">
+            <% daily = @dailies[2] %>
             <div class="d-flex justify-content-between align-middle">
               <div class="padding-t">
-                <h3 class="h3-weather"><%= @portuguese[0] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
-                <h4><%= hour.description.capitalize%></h4>
+                <h3 class="h3-weather"><%= @portuguese[2] %>, <%= daily.date_time.strftime("%d/%m/%Y")%></h3>
+                <h4><%= daily.description.capitalize%></h4>
               </div>
               <div>
-                <%= image_tag "weather_icons/#{hour.icon}.png", class: "image-medium" %>
-                <h2 class="pl-5"><%= hour.air_temperature.round(1) %>°C</h2>
+                <%= image_tag "weather_icons/#{daily.icon}.png", class: "image-medium" %>
+                <h2><%= daily.air_temperature.round(1) %>°C</h2>
+                <p> MIN <%= daily.air_temperature_min.round()%>° / MAX <%= daily.air_temperature_max.round()%>°</p>
               </div>
               <div class="padding-t1">
-                <p class="p-0 m-0">Sensação Térmica: <%= (hour.air_temperature_feels_like.round(1)) %>°C</p>
-                <p class="p-0 m-0">Chuva: <%= (hour.rain_probability * 100).to_i %>%</p>
-                <p class="p-0 m-0">Humidade: <%= (hour.humidity).to_i %>%</p>
-                <p class="p-0 m-0">Vento: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction %>)</p>
-                <% ocean = @oceans_today.where("date_time = '#{hour.date_time}'") %>
+                <p class="p-0 m-0">Sensação Térmica: <%= (daily.air_temperature_feels_like.round(1)) %>°C</p>
+                <p class="p-0 m-0">Chuva: <%= (daily.rain_probability * 100).to_i %>%</p>
+                <p class="p-0 m-0">Humidade: <%= (daily.humidity).to_i %>%</p>
+                <p class="p-0 m-0">Vento: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction %>)</p>
+                <% ocean = @oceans_today_2.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
+                <p class="p-0 m-0">Maior onda do dia: <%= ocean[0].wave_height %> m</p>
+                <% ocean = @oceans_today_2.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
                 <% unless ocean.empty? %>
-                  <% if ocean[0].wave_height %>
-                    <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
-                  <% end %>
-                  <% if ocean[0].water_temperature %>
-                    <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
-                  <% end %>
+                  <p class="p-0 m-0">Menor Temperatura da água do dia: <%= ocean[0].water_temperature.round(1) %>°C</p>
                 <% end %>
+                <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
               </div>
             </div>
           </div>
         <% end %>
-
         <div id="weather-day3" class="inactive-tab all-cards daily">
           <% daily = @dailies[3] %>
           <div class="d-flex justify-content-between align-middle">
@@ -323,21 +358,17 @@
         </div>
 
 
-
-
-
-
-
-
-
-
         <form action="#" method="get" class="w-100 inactive-tab range-today mb-5"  id="ranges">
-          <input type="range" id="weather-range-0" name="weather-range" step="3" min='<%= @weathers_today[0].date_time.hour %>' max='<%= @weathers_today[-1].date_time.hour %>' class="w-100">
-          <div class="d-flex justify-content-between">
-            <% @weathers_today.each do |hour| %>
-              <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
-            <% end %>
-          </div>
+          <% unless @weathers_today.empty? %>
+            <input type="range" id="weather-range-0" name="weather-range" step="3" min='<%= @weathers_today[0].date_time.hour %>' max='<%= @weathers_today[-1].date_time.hour %>' class="w-100">
+            <div class="d-flex justify-content-between">
+              <% @weathers_today.each do |hour| %>
+                <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
+              <% end %>
+            </div>
+          <% else %>
+            <p id="weather-range-0"></p>
+          <% end %>
         </form>
         <form action="#" method="get" class="w-100 inactive-tab range-today_1 mb-5" id="ranges">
           <input type="range" id="weather-range-1" name="weather-range" step="3"  min='<%= @weathers_today_1[0].date_time.hour %>' max='<%= @weathers_today_1[-1].date_time.hour %>' class="w-100">
@@ -348,12 +379,17 @@
           </div>
         </form>
         <form action="#" method="get" class="w-100 inactive-tab range-today_2 mb-5" id="ranges">
-          <input type="range" id="weather-range-2" name="weather-range" step="3" min='<%= @weathers_today_2[0].date_time.hour %>' max='<%= @weathers_today_2[-1].date_time.hour %>' class="w-100">
-          <div class="d-flex justify-content-between">
-            <% @weathers_today_2.each do |hour| %>
-              <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
-            <% end %>
-          </div>
+          <% unless @weathers_today_2.empty? %>
+            <input type="range" id="weather-range-2" name="weather-range" step="3" min='<%= @weathers_today_2[0].date_time.hour %>' max='<%= @weathers_today_2[-1].date_time.hour %>' class="w-100">
+            <div class="d-flex justify-content-between">
+              <% @weathers_today_2.each do |hour| %>
+                <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
+              <% end %>
+            </div>
+          <% else %>
+            <div id="weather-range-2"></div>
+            <div id="weather-range-null"></div>
+          <% end %>
         </form>
       </div>
       <div class="card-down d-flex w-100 justify-content-between w-100 mt-5">
@@ -385,4 +421,42 @@
       </div>
     </div>
   </div>
+
+  <div id="traffic" class="container2 inactive-tab">
+    <div id="map" data-markers="<%= @markers.to_json %>" data-ok="<%= ENV['GOOGLEMAP_API_KEY'] %>" >
+    </div>
+    <div id="transit" class="d-flex justify-content-around pt-3">
+      <div id="car" class="card-transit m-2">
+      </div>
+      <div id="public-transportation"  class="card-transit-public">
+      </div>
+    </div>
+  </div>
+
 </div>
+
+<!-- <script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: <%= @tide_datetime.to_json.html_safe %>,
+        datasets: [{
+            data: <%= @tide_tide.to_json.html_safe %>,
+        }]
+    },
+    options: {
+        legend: {
+          display: false
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:false
+                }
+            }]
+        }
+    }
+});
+</script>
+ -->
