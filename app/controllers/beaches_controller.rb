@@ -5,19 +5,20 @@ class BeachesController < ApplicationController
   def index
     @beaches = policy_scope(Beach)
     if params[:query].present?
-      @beaches = Beach.where("name ILIKE ?", "%#{params[:query]}%")
-    elsif params[:search].present?
-        if params[:search] == "Melhor praia"
-          @beaches = @beaches.order(overall_rating: :desc)
-        elsif params[:search] == "Melhor praia para surfe"
-          @beaches = @beaches.order(overall_wave: :desc)
-        elsif params[:search] == "Praia mais segura"
-          @beaches = @beaches.order(overall_security: :desc)
-        elsif params[:search] == "Praia mais limpa"
-          @beaches = @beaches.order(overall_cleaning: :desc)
-        else params[:search] == "Praia mais acessível"
-          @beaches = @beaches.order(overall_accessibility: :desc)
-        end
+      @beaches = @beaches.where("name ILIKE ?", "%#{params[:query]}%")
+    end
+    if params[:options].present?
+      if params[:options] == "Melhor praia"
+        @beaches = @beaches.order(overall_rating: :desc)
+      elsif params[:options] == "Melhor praia para surfe"
+        @beaches = @beaches.order(overall_wave: :desc)
+      elsif params[:options] == "Praia mais segura"
+        @beaches = @beaches.order(overall_security: :desc)
+      elsif params[:options] == "Praia mais limpa"
+        @beaches = @beaches.order(overall_cleaning: :desc)
+      elsif params[:options] == "Praia mais acessível"
+        @beaches = @beaches.order(overall_accessibility: :desc)
+      end
     end
   end
 
