@@ -20,7 +20,7 @@
     </li>
   </ul>
   <div id="grades" class="container">
-    <div class="row">
+    <div class="row w-100">
       <div class="col-12 d-flex justify-content-center">
         <p class="geral pr-2">AVALIAÇÃO GERAL</p>
         <% c = 1 %>
@@ -39,62 +39,82 @@
     </div>
     <div class="barras w-100">
       <div class="row">
-        <div class="col-6 d-flex justify-content-between">
+        <div class="col-2">
           <p class="pt-1">ESTACIONAMENTO</p>
+        </div>
+        <div class="col-4">
           <div class="barra align-right">
-             <div class="barra-nivel1" data-nivel="<%= (@beach.overall_parking.round(1)*10).to_i%>"></div>
+            <div class="barra-nivel1" data-nivel="<%= (@beach.overall_parking.round(1)*10).to_i%>"></div>
           </div>
         </div>
-        <div class="col-6 d-flex justify-content-between">
+        <div class="col-2">
           <p  class="pt-1">RESTAURANTES</p>
+        </div>
+        <div class="col-4">
           <div class="barra">
              <div class="barra-nivel1" data-nivel="<%= (@beach.overall_restaurant.round(1)*10).to_i%>"></div>
           </div>
         </div>
-        <div class="col-6 d-flex justify-content-between">
+        <div class="col-2">
           <p class="pt-1">TRANSPORTE PÚBLICO</p>
+        </div>
+        <div class="col-4">
           <div class="barra">
              <div class="barra-nivel1" data-nivel="<%= (@beach.overall_public_transportation.round(1)*10).to_i%>"></div>
           </div>
         </div>
-        <div class="col-6 d-flex justify-content-between">
+        <div class="col-2">
           <p class="pt-1">SEGURANÇA</p>
+        </div>
+        <div class="col-4">
           <div class="barra">
              <div class="barra-nivel1" data-nivel="<%= (@beach.overall_security.round(1)*10).to_i%>"></div>
           </div>
         </div>
-        <div class="col-6 d-flex justify-content-between">
+        <div class="col-2">
           <p class="pt-1">LIMPEZA</p>
+        </div>
+        <div class="col-4">
           <div class="barra">
-             <div class="barra-nivel1" data-nivel="<%= (@beach.overall_cleaning.round(1)*10).to_i%>"></div>
+           <div class="barra-nivel1" data-nivel="<%= (@beach.overall_cleaning.round(1)*10).to_i%>"></div>
           </div>
         </div>
-        <div class="col-6 d-flex justify-content-between">
+        <div class="col-2">
           <p class="pt-1">ALUGUEL DE CADEIRAS</p>
+        </div>
+        <div class="col-4">
           <div class="barra">
              <div class="barra-nivel1" data-nivel="<%= (@beach.overall_rent_equipment.round(1)*10).to_i%>"></div>
           </div>
         </div>
-        <div class="col-6 d-flex justify-content-between">
+        <div class="col-2">
           <p class="pt-1">ONDAS</p>
+        </div>
+        <div class="col-4">
           <div class="barra">
              <div class="barra-nivel1" data-nivel="<%= (@beach.overall_wave.round(1)*10).to_i%>"></div>
           </div>
         </div>
-        <div class="col-6 d-flex justify-content-between">
+        <div class="col-2">
           <p class="pt-1">VENTO</p>
+        </div>
+        <div class="col-4">
           <div class="barra">
              <div class="barra-nivel1" data-nivel="<%= (@beach.overall_wind.round(1)*10).to_i%>"></div>
           </div>
         </div>
-        <div class="col-6 d-flex justify-content-between">
+        <div class="col-2">
           <p class="pt-1">ACESSIBILIDADE</p>
+        </div>
+        <div class="col-4">
           <div class="barra">
              <div class="barra-nivel1" data-nivel="<%= (@beach.overall_accessibility.round(1)*10).to_i%>"></div>
           </div>
         </div>
-        <div class="col-6 d-flex justify-content-between">
+        <div class="col-2">
           <p class="pt-1">FAIXA DE AREIA</p>
+        </div>
+        <div class="col-4">
           <div class="barra">
              <div class="barra-nivel1" data-nivel="<%= (@beach.overall_sand_strip.round(1)*10).to_i%>"></div>
           </div>
@@ -102,6 +122,7 @@
       </div>
     </div>
   </div>
+
 
   <div id="reviews" class="container inactive-tab">
     <div id="overview" class="d-flex justify-content-center pb-4">
@@ -133,44 +154,81 @@
     <%= link_to "Adicionar avaliação", new_beach_review_path(@beach), class: "btn btn-primary btn-blue align-middle h-75 button"%>
   </div>
 
-
-    <div id="realtime" class="container inactive-tab">
-    <div id="cleaning" class="text-center p-1">
-      <% if @real_time.cleaning %>
-        <div class="alert-success"> PRAIA LIMPA E VERIFICADA PELO ÓRGÃO AMBIENTAL OFICIAL DO RIO DE JANEIRO</div>
-      <% else %>
-        <div class="alert-danger">ATENÇÃO: ESSA PRAIA NÃO ESTÁ RECOMENDADA PARA BANHO DE ACORDO COM O ÓRGÃO AMBIENTAL OFICIAL!</div>
-      <% end %>
-    </div>
-    <div id="real_time_values" class="d-flex justify-content-around">
-      <div>
-        <h3 class="h3-weather"><%= @portuguese[0] %>, <%= @real_time.date_time.strftime("%d/%m/%Y")%> <%= @real_time.date_time.hour.to_s.rjust(2, '0')%>h</h3>
-        <%= image_tag "weather_icons/#{@dailies[3].icon}.png", class: "image-medium" %>
-        <h4><%= @real_time.description.capitalize%></h4>
-      </div>
-      <div class="d-flex">
-        <div id="water">
-          <h3>ÁGUA</h3>
-          <p class="p-0 m-0">Ondas: <%= (@real_time.wave_height) %>m (<%= @real_time.wave_direction %>)</p>
-          <% if @real_time.wave_formation.to_i < 10 %>
-            <p class="p-0 m-0">Formação das ondas: "Ondas mal formadas" %></p>
-          <% else %>
-            <p class="p-0 m-0">Formação das ondas: "Ondas bem formadas" %></p>
-          <% end %>
-          <p class="p-0 m-0">Temperatura da água: <%= (@real_time.water_temperature).round(1) %>%</p>
+  <div id="realtime" class="container inactive-tab">
+    <h2 class="text-center"><%= @portuguese[0] %>, <%= @real_time.date_time.strftime("%d/%m/%Y %H:%M")%> (AGORA)</h2>
+    <div id="real_time_values" class="row">
+      <div class="text-center row justify-content-between w-100">
+        <div class="col-4 card-trip mt-2">
+          <%= image_tag "weather_icons/#{@dailies[3].icon}.png", class: "image-wea" %>
+          <div class="card-trip-infos">
+            <p><%= @real_time.description.upcase %></p>
+          </div>
         </div>
-        <div id="weather">
-          <h3>TEMPO</h3>
-          <p class="p-0 m-0">Temperatura do ar: <%= (@real_time.air_temperature.round(1)) %>°C</p>
-          <p class="p-0 m-0">Sensação Térmica: <%= (@real_time.air_temperature_feels_like.round(1)) %>°C</p>
-          <p class="p-0 m-0">Vento: <%= (@real_time.wind_speed).to_i %>km/h (<%=@real_time.wind_direction %>)</p>
-          <p class="p-0 m-0">Humidade: <%= (@real_time.humidity).to_i %>%</p>
-          <p class="p-0 m-0">Pressão: <%= (@real_time.pressure).to_i %>%</p>
+        <div class="col-4 card-trip mt-2">
+          <% if @real_time.air_temperature.round(1) > 28 %>
+            <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+          <% else %>
+            <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
+          <% end %>
+          <div class="card-trip-infos">
+            <p class="p-0 m-0">TEMPERATURA DO AR: <%= (@real_time.air_temperature.round(1)) %>°C</p>
+            <p class="p-0 m-0">SENSAÇÃO TÉRMICA <%= (@real_time.air_temperature_feels_like.round(1)) %>°C</p>
+          </div>
+        </div>
+        <div class="col-4 card-trip mt-2">
+          <% if @real_time.wind_speed.to_i > 10 %>
+            <%= image_tag "strong_wind.png", class: "image-wind" %>
+          <% else %>
+            <%= image_tag "calm_wind.png", class: "image-wind" %>
+          <% end %>
+          <div class="card-trip-infos">
+            <p class="p-0 m-0">VENTO: <%= (@real_time.wind_speed).to_i %>km/h (<%=@real_time.wind_direction.upcase %>)</p>
+            <p class="p-0 m-0">HUMIDADE: <%= (@real_time.humidity).to_i %>%</p>
+            <p class="p-0 m-0">PRESSÃO: <%= (@real_time.pressure).to_i %>mb</p>
+          </div>
+        </div>
+        <div class="col-4 card-trip mt-2">
+          <% if @real_time.wave_height > 1.5 %>
+            <%= image_tag "big_wave.png", class: "image-wave" %>
+          <% else %>
+            <%= image_tag "small_wave.png", class: "image-wave" %>
+          <% end %>
+          <div class="card-trip-infos">
+            <p class="p-0 m-0">ONDAS: <%= (@real_time.wave_height) %>m (<%= @real_time.wave_direction.upcase %>)</p>
+            <% if @real_time.wave_formation.to_i < 10 %>
+              <p class="p-0 m-0">"ONDAS MAL FORMADAS"</p>
+            <% else %>
+              <p class="p-0 m-0">"ONDAS BEM FORMADAS"</p>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-4 card-trip mt-2">
+          <% if @real_time.water_temperature >= 20 %>
+            <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+          <% else %>
+            <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
+          <% end %>
+          <div class="card-trip-infos">
+            <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (@real_time.water_temperature).round(1) %>°C</p>
+          </div>
+        </div>
+        <div class="col-4 card-trip mt-2">
+          <% if @real_time.cleaning %>
+            <%= image_tag "clean_beach.png", class: "image-clean" %>
+            <div class="card-trip-infos">
+              <div class="alert-success"> PRAIA LIMPA E VERIFICADA PELO ÓRGÃO AMBIENTAL OFICIAL DO RIO DE JANEIRO</div>
+            </div>
+          <% else %>
+            <%= image_tag "dirty_beach.png", class: "image-clean" %>
+            <div class="card-trip-infos">
+              <div class="alert-danger">ATENÇÃO: ESSA PRAIA NÃO ESTÁ RECOMENDADA PARA BANHO DE ACORDO COM O ÓRGÃO AMBIENTAL OFICIAL!</div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
     <div id="tides">
-      <h2 class="text-center mt-4">MARÉS</h2>
+      <h4 class="text-center mt-4">MARÉS</h4>
       <%= area_chart @tide, discrete: true %>
     </div>
     <div id="other_informations">
@@ -358,38 +416,44 @@
         </div>
 
 
-        <form action="#" method="get" class="w-100 inactive-tab range-today mb-5"  id="ranges">
-          <% unless @weathers_today.empty? %>
-            <input type="range" id="weather-range-0" name="weather-range" step="3" min='<%= @weathers_today[0].date_time.hour %>' max='<%= @weathers_today[-1].date_time.hour %>' class="w-100">
-            <div class="d-flex justify-content-between">
-              <% @weathers_today.each do |hour| %>
-                <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
-              <% end %>
-            </div>
-          <% else %>
-            <p id="weather-range-0"></p>
-          <% end %>
-        </form>
-        <form action="#" method="get" class="w-100 inactive-tab range-today_1 mb-5" id="ranges">
-          <input type="range" id="weather-range-1" name="weather-range" step="3"  min='<%= @weathers_today_1[0].date_time.hour %>' max='<%= @weathers_today_1[-1].date_time.hour %>' class="w-100">
-          <div class="d-flex justify-content-between">
-            <% @weathers_today_1.each do |hour| %>
-              <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
+        <form action="#" method="get" class="frame w-100 inactive-tab range-today mb-5"  id="ranges">
+          <div class="range">
+            <% unless @weathers_today.empty? %>
+              <input type="range" id="weather-range-0" name="weather-range" step="3" min='<%= @weathers_today[0].date_time.hour %>' max='<%= @weathers_today[-1].date_time.hour %>' class="w-100">
+              <div class="d-flex justify-content-between">
+                <% @weathers_today.each do |hour| %>
+                  <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
+                <% end %>
+              </div>
+            <% else %>
+              <p id="weather-range-0"></p>
             <% end %>
           </div>
         </form>
-        <form action="#" method="get" class="w-100 inactive-tab range-today_2 mb-5" id="ranges">
-          <% unless @weathers_today_2.empty? %>
-            <input type="range" id="weather-range-2" name="weather-range" step="3" min='<%= @weathers_today_2[0].date_time.hour %>' max='<%= @weathers_today_2[-1].date_time.hour %>' class="w-100">
+        <form action="#" method="get" class="frame w-100 inactive-tab range-today_1 mb-5" id="ranges">
+          <div class="range">
+            <input type="range" id="weather-range-1" name="weather-range" step="3"  min='<%= @weathers_today_1[0].date_time.hour %>' max='<%= @weathers_today_1[-1].date_time.hour %>' class="w-100">
             <div class="d-flex justify-content-between">
-              <% @weathers_today_2.each do |hour| %>
+              <% @weathers_today_1.each do |hour| %>
                 <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
               <% end %>
             </div>
-          <% else %>
-            <div id="weather-range-2"></div>
-            <div id="weather-range-null"></div>
-          <% end %>
+          </div>
+        </form>
+        <form action="#" method="get" class="frame w-100 inactive-tab range-today_2 mb-5" id="ranges">
+          <div class="range">
+            <% unless @weathers_today_2.empty? %>
+              <input type="range" id="weather-range-2" name="weather-range" step="3" min='<%= @weathers_today_2[0].date_time.hour %>' max='<%= @weathers_today_2[-1].date_time.hour %>' class="w-100">
+              <div class="d-flex justify-content-between">
+                <% @weathers_today_2.each do |hour| %>
+                  <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
+                <% end %>
+              </div>
+            <% else %>
+              <div id="weather-range-2"></div>
+              <div id="weather-range-null"></div>
+            <% end %>
+          </div>
         </form>
       </div>
       <div class="card-down d-flex w-100 justify-content-between w-100 mt-5">

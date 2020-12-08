@@ -18,6 +18,7 @@ import { toogleTab } from '../components/tabs_index';
 import { initBar } from '../components/init_bar';
 import { initBar1 } from '../components/init_bar1';
 import { autocompleteSearch } from '../components/autocomplete';
+import { showMap } from '../components/show_map';
 
 
 
@@ -36,6 +37,7 @@ document.addEventListener('turbolinks:load', () => {
   initBar();
   initBar1();
   autocompleteSearch();
+  showMap();
 });
 
 // Uncomment to copy all static images under ../images to the output folder and reference
