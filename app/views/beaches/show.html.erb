@@ -377,7 +377,6 @@
               <p class="p-0 m-0">Humidade: <%= (daily.humidity).to_i %>%</p>
               <p class="p-0 m-0">Vento: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction %>)</p>
               <% ocean = @oceans_today_3.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
-              <p class="p-0 m-0">Maior onda do dia: <%= ocean[0].wave_height %> m</p>
               <% ocean = @oceans_today_3.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
               <% unless ocean.empty? %>
                 <p class="p-0 m-0">Menor Temperatura da água do dia: <%= ocean[0].water_temperature.round(1) %>°C</p>
@@ -405,7 +404,7 @@
               <p class="p-0 m-0">Humidade: <%= (daily.humidity).to_i %>%</p>
               <p class="p-0 m-0">Vento: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction %>)</p>
               <% ocean = @oceans_today_3.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
-              <p class="p-0 m-0">Maior onda do dia: <%= ocean[0].wave_height %> m</p>
+
               <% ocean = @oceans_today_3.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
               <% unless ocean.empty? %>
                 <p class="p-0 m-0">Menor Temperatura da água do dia: <%= ocean[0].water_temperature.round(1) %>°C</p>

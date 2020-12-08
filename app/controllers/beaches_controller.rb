@@ -4,11 +4,22 @@ class BeachesController < ApplicationController
   before_action :skip_authorization, only: [:map]
 
   def index
-    @beaches = policy_scope(Beach).order(created_at: :desc)
+    @beaches = policy_scope(Beach)
     if params[:query].present?
-      @beaches = Beach.where("name ILIKE ?", "%#{params[:query]}%")
-    else
-      @beaches = Beach.all
+      @beaches = @beaches.where("name ILIKE ?", "%#{params[:query]}%")
+    end
+    if params[:options].present?
+      if params[:options] == "Melhor praia"
+        @beaches = @beaches.order(overall_rating: :desc)
+      elsif params[:options] == "Melhor praia para surfe"
+        @beaches = @beaches.order(overall_wave: :desc)
+      elsif params[:options] == "Praia mais segura"
+        @beaches = @beaches.order(overall_security: :desc)
+      elsif params[:options] == "Praia mais limpa"
+        @beaches = @beaches.order(overall_cleaning: :desc)
+      elsif params[:options] == "Praia mais acessível"
+        @beaches = @beaches.order(overall_accessibility: :desc)
+      end
     end
     @markers = @beaches.map do |beach|
       { lat: beach.lat, lng: beach.lng, id: beach.id, name: beach.name, rating: beach.overall_rating, icon: beach.weather_forecast_dailies[0].icon }
