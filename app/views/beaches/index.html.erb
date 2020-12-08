@@ -15,17 +15,14 @@
           <%= text_field_tag :query, nil, autocomplete: :off, class: "form-control pl-3 search-input", placeholder: "Ache uma praia" %>
         </div>
       <% end %>
-
-      <%= form_tag beaches_path, method: :get, class: "pl-3" do %>
-        hidden_field_tag 'tags_list'
-        <%= button_tag :submit, class: "non-btn" do %>
-            <i class="fas fa-search h2"></i>
-          <% end %>
-      <% end %>
-
-
+      <div id="show-map" data-toggle="popover" title="Mostrar Mapa">
+        <%= image_tag "map.png", class: "img-map", id: "img-map"  %>
+      </div>
     </div>
     <div class="row">
+      <div class="col-12">
+        <div id="map1" data-markers="<%= @markers.to_json %>" class="inactive-tab m-2"></div>
+      </div>
       <% @beaches.each_with_index do |beach, idx| %>
         <div class="col-4 m-0">
           <%= link_to beach_path(beach) do %>
@@ -47,7 +44,9 @@
                       <% c += 1 %>
                     <% end %>
                   </p>
-                  <%= image_tag "weather_icons/#{beach.weather_forecast_dailies[0].icon}.png", class: "location-bottom-left" %>
+                  <div class="d-flex location-bottom-left">
+                    <%= image_tag "weather_icons/#{beach.real_time_values[0].icon}.png", class: "img-wea" %>
+                  </div>
                 </div>
               </div>
               <div class="back" >

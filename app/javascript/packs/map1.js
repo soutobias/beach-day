@@ -24,10 +24,23 @@ if (mapElement) { // don't try to build a map if there's no div#map to inject in
   const map = new GMaps({ el: '#map1', lat: 0, lng: 0, disableDefaultUI: true });
   const markers = JSON.parse(mapElement.dataset.markers);
 
-  const icon = {
-        url: "http://maps.google.com/mapfiles/kml/pal3/icon49.png", // url
-        scaledSize: new google.maps.Size(40, 40), // size
-    };
+  const iconRed = {
+    url: "https://img.icons8.com/emoji/48/000000/red-circle-emoji.png", // url
+    scaledSize: new google.maps.Size(50, 50), // size
+  };
+
+  const iconBlue = {
+    url: "https://img.icons8.com/emoji/48/000000/blue-circle-emoji.png", // url
+    scaledSize: new google.maps.Size(50, 50), // size
+  };
+
+  const iconOrange = {
+    url: "https://img.icons8.com/emoji/48/000000/orange-circle-emoji.png", // url
+    scaledSize: new google.maps.Size(50, 50), // size
+  };
+
+  let icon
+  let rating
   markers.forEach((marker) => {
     if (marker.icon === "01d"){
       x = a01d;
@@ -52,15 +65,26 @@ if (mapElement) { // don't try to build a map if there's no div#map to inject in
     }else if (marker.icon === "11d"){
       x = a11d;
     }
+
+    rating = Math.round(parseFloat(marker.rating) * 10) / 10
+
+    if (rating < 3.3){
+      icon = iconRed
+    } else if (rating < 3.5){
+      icon = iconOrange
+    } else {
+      icon = iconBlue
+    }
     map.addMarker({
       lat: parseFloat(marker.lat),
       lng: parseFloat(marker.lng),
       title: marker.name,
       label: {
-        text: (Math.round(parseFloat(marker.rating) * 10) / 10).toString(),
+        text: rating.toString(),
         fontFamily: "'Roboto Condensed', sans-serif"
       },
       icon: icon,
+      color: "black",
       infoWindow: {
           content: `<div class="d-flex align-items-center"><p class="map-p pt-2">${marker.name}</p><img class="map-img" src=${x}/></div>`
       },
@@ -80,9 +104,23 @@ if (mapElement) { // don't try to build a map if there's no div#map to inject in
     map.setZoom(2);
   } else if (markers.length === 1) {
     map.setCenter(markers[0].lat, markers[0].lng);
-    map.setZoom(14);
+    map.setZoom(12);
   } else {
-    map.setCenter(-23, -43.215387);
-    map.setZoom(11);
+    map.setCenter(-22.97, -43.265387);
+    map.setZoom(12);
   }
+
+  const iconMap = {
+    url: "http://maps.google.com/mapfiles/kml/shapes/man.png", // url
+    scaledSize: new google.maps.Size(40, 40), // size
+  };
+
+  navigator.geolocation.getCurrentPosition((data) => {
+    map.addMarker({
+      lat: data["coords"].latitude,
+      lng: data["coords"].longitude,
+      title: "Minha localização",
+      icon: iconMap
+    });
+  });
 }

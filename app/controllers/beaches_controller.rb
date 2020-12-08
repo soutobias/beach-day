@@ -10,7 +10,9 @@ class BeachesController < ApplicationController
     else
       @beaches = Beach.all
     end
-
+    @markers = @beaches.map do |beach|
+      { lat: beach.lat, lng: beach.lng, id: beach.id, name: beach.name, rating: beach.overall_rating, icon: beach.weather_forecast_dailies[0].icon }
+    end
     @names = Beach.pluck(:name).sort
   end
 
@@ -57,7 +59,7 @@ class BeachesController < ApplicationController
 
     @real_time = policy_scope(RealTimeValue).where("beach_id = #{@beach.id}").order(date_time: :desc).limit(1)[0]
 
-    @tides = Tide.where("date_time >= '#{DateTime.now.strftime('%Y-%m-%d 00:00:00')}'").order(date_time: :asc).limit(10)
+    @tides = Tide.where("date_time >= '#{DateTime.now.strftime('%Y-%m-%d 00:00:00')}' AND date_time <= '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 00:00:00')}'").order(date_time: :asc).limit(10)
     @tide = {}
     @tides.each do |tide|
       @tide["#{tide.date_time.strftime('%d-%m %H:%M')}"] = tide.tide
