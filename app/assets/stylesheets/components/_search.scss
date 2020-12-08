@@ -18,3 +18,26 @@
   height: 39px;
   box-sizing: content-box;
 }
+
+::placeholder {
+  font-family: 'Anton', sans-serif;
+  color: #61a5c2;
+  font-size: 15px;
+}
+
+.select2-dropdown {
+  background-color: #3a3a3a;
+  font-size: 10px;
+  font-family: sans-serif;
+}
+
+.form-control {
+  display: inline;
+  height: 40px;
+  border-color: gray;
+  font-family: 'Anton', sans-serif;
+  color: #61a5c2;
+  font-size: 15px;
+  width: 200px;
+}
+

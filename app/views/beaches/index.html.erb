@@ -13,8 +13,8 @@
       <%= form_tag beaches_path, method: :get, class: "pl-3" do %>
         <%= text_field_tag :query,
           params[:query],
-          placeholder: "Digite uma praia..." %>
-          <%= select_tag :box, raw("<option>Melhor praia</option><option>Melhor praia para surfe</option><option>Praia mais limpa</option><option>Praia mais segura</option><option>Praia mais acessível</option>" ), prompt: "Ordenar por" %>
+          placeholder: "  Digite uma praia..." %>
+          <%= select_tag :box, raw("<option>Melhor praia</option><option>Melhor praia para surfe</option><option>Praia mais limpa</option><option>Praia mais segura</option><option>Praia mais acessível</option>" ), prompt: "Ordenar por", class: 'form-control', id: 'select_two' %>
            <%= button_tag :submit, class: "non-btn" do %>
             <i class="fas fa-search h2"></i>
           <% end %>

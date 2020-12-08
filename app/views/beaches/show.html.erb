@@ -271,7 +271,6 @@
               <p class="p-0 m-0">Humidade: <%= (daily.humidity).to_i %>%</p>
               <p class="p-0 m-0">Vento: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction %>)</p>
               <% ocean = @oceans_today_3.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
-              <p class="p-0 m-0">Maior onda do dia: <%= ocean[0].wave_height %> m</p>
               <% ocean = @oceans_today_3.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
               <% unless ocean.empty? %>
                 <p class="p-0 m-0">Menor Temperatura da água do dia: <%= ocean[0].water_temperature.round(1) %>°C</p>
@@ -299,7 +298,7 @@
               <p class="p-0 m-0">Humidade: <%= (daily.humidity).to_i %>%</p>
               <p class="p-0 m-0">Vento: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction %>)</p>
               <% ocean = @oceans_today_3.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
-              <p class="p-0 m-0">Maior onda do dia: <%= ocean[0].wave_height %> m</p>
+
               <% ocean = @oceans_today_3.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
               <% unless ocean.empty? %>
                 <p class="p-0 m-0">Menor Temperatura da água do dia: <%= ocean[0].water_temperature.round(1) %>°C</p>
@@ -327,7 +326,7 @@
           </div>
         </form>
         <form action="#" method="get" class="w-100 inactive-tab range-today_1 mb-5" id="ranges">
-          <input type="range" id="weather-range-1" name="weather-range" step="3"  min='<%= @weathers_today_1[0].date_time.hour %>' max='<%= @weathers_today_1[-1].date_time.hour %>' class="w-100">
+
           <div class="d-flex justify-content-between">
             <% @weathers_today_1.each do |hour| %>
               <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
@@ -335,7 +334,7 @@
           </div>
         </form>
         <form action="#" method="get" class="w-100 inactive-tab range-today_2 mb-5" id="ranges">
-          <input type="range" id="weather-range-2" name="weather-range" step="3" min='<%= @weathers_today_2[0].date_time.hour %>' max='<%= @weathers_today_2[-1].date_time.hour %>' class="w-100">
+
           <div class="d-flex justify-content-between">
             <% @weathers_today_2.each do |hour| %>
               <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
