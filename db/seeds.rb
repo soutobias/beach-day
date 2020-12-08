@@ -202,7 +202,7 @@ beach_index += 1
 puts "Creating beach #{beach_index}"
 file = URI.open('https://rotadeferias.com.br/wp-content/uploads/2018/04/praias-para-surfe-Silveira-VisualHunt.jpg')
 beach = Beach.new(
-  name: "Barra - Posto 6 - Quiosque Piratas - BarraBela",
+  name: "Barra - Posto 6",
   lat: "-23.011",
   lng: "-43.3451",
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
@@ -216,7 +216,7 @@ beach_index += 1
 puts "Creating beach #{beach_index}"
 file = URI.open('https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Praia_de_Cotovelo_-_Parnamirim_-_Rio_Grande_do_Norte.jpg/800px-Praia_de_Cotovelo_-_Parnamirim_-_Rio_Grande_do_Norte.jpg')
 beach = Beach.new(
-  name: "Rico Point Barra direcao P5",
+  name: "Barra - Posto 5",
   lat: "-23.0112",
   lng: "-43.3387",
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
@@ -228,7 +228,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://freeway.tur.br/images/xcacheImage.php,qw=800,ah=600,asrc=https,3A,_,_freeway.tur.br,_userfiles,_6feb119fa8209213e4079a9504a6b6cb.png.pagespeed.ic.2kKbWqsJL_.jpg')
+file = URI.open('https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Praia_da_Vit%C3%B3ria_-_Portugal_%283635098735%29.jpg/800px-Praia_da_Vit%C3%B3ria_-_Portugal_%283635098735%29.jpg')
 beach = Beach.new(
   name: "Prainha",
   lat: "-23.0408",
@@ -272,7 +272,7 @@ beach_index += 1
 puts "Creating beach #{beach_index}"
 file = URI.open('https://rotadeferias.com.br/wp-content/uploads/2018/09/praias-de-Sao-Sebastiao-Barra-do-Sahy-Visualhunt.jpg')
 beach = Beach.new(
-  name: "Barra - Rico Point - Posto 55",
+  name: "Barra - Posto 55",
   lat: "-23.0112",
   lng: "-43.3387",
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
@@ -286,7 +286,7 @@ beach_index += 1
 puts "Creating beach #{beach_index}"
 file = URI.open('https://i1.wp.com/catalogodeviagens.net/wp-content/uploads/2016/11/3PRAIASEMGOZO-1.jpg?fit=800%2C600')
 beach = Beach.new(
-  name: "Barra Posto 4 - Hotel WYNDHAM",
+  name: "Barra - Posto 4",
   lat: "-23.0123",
   lng: "-43.327",
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
@@ -342,7 +342,7 @@ beach_index += 1
 puts "Creating beach #{beach_index}"
 file = URI.open('https://i0.wp.com/itabapoananews.com/wp-content/uploads/2020/06/praia1.jpeg?resize=800%2C600&ssl=1')
 beach = Beach.new(
-  name: "Rico Point Barra direcao P6",
+  name: "Barra - Rico Point",
   lat: "-23.0113",
   lng: "-43.3374",
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
@@ -356,7 +356,7 @@ beach_index += 1
 puts "Creating beach #{beach_index}"
 file = URI.open('https://i0.wp.com/jornaldemafra.pt/wp-content/uploads/2019/08/Jornal_de_Mafra_2019.08.22_22h27m57s_057_.jpg?fit=800%2C600&ssl=1')
 beach = Beach.new(
-  name: "Sao Conrado - Canto Esquerdo",
+  name: "São Conrado - Canto Esquerdo",
   lat: "-22.9995",
   lng: "-43.2561",
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
@@ -440,7 +440,7 @@ beach_index += 1
 puts "Creating beach #{beach_index}"
 file = URI.open('https://i0.wp.com/vidasemparedes.com.br/wp-content/uploads/2017/10/Vida-sem-Paredes-praias-selvagens-do-Rio-1.jpg?fit=800%2C600&ssl=1')
 beach = Beach.new(
-  name: "Ipanema - Garcia davila",
+  name: "Ipanema - Garcia d'avila",
   lat: "-22.9873",
   lng: "-43.2093",
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
@@ -454,7 +454,7 @@ beach_index += 1
 puts "Creating beach #{beach_index}"
 file = URI.open('https://i0.wp.com/vidasemparedes.com.br/wp-content/uploads/2017/10/Vida-sem-Paredes-praias-selvagens-do-Rio-1.jpg?fit=800%2C600&ssl=1')
 beach = Beach.new(
-  name: "Praia do Diabo",
+  name: "Diabo",
   lat: "-22.9886",
   lng: "-43.1896",
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
@@ -468,7 +468,7 @@ beach_index += 1
 puts "Creating beach #{beach_index}"
 file = URI.open('https://i1.wp.com/amantesdeviagens.com/wp-content/uploads/2016/09/Menorca_.jpg?resize=800%2C600&ssl=1')
 beach = Beach.new(
-  name: "Praia do Leme",
+  name: "Leme",
   lat: "-22.9648",
   lng: "-43.1688",
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
