@@ -31,7 +31,6 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'selenium-webdriver'
 gem 'haversine', '~> 0.3.0'
 
-
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass', '~> 5.6.1'
 gem 'nokogiri'
@@ -41,6 +40,7 @@ gem 'select2-rails'
 
 gem 'rest-client'
 
+gem "chartkick"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
