@@ -1,4 +1,4 @@
-import GMaps from 'gmaps/gmaps.js';
+// import GMaps from 'gmaps/gmaps.js';
 import bikeIcon from '../images/bike.png';
 import carIcon from '../images/car.png';
 import personIcon from '../images/person.png';
