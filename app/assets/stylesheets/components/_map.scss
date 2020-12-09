@@ -45,3 +45,22 @@
   // filter: drop-shadow(1px 1px 0 black)
   //         drop-shadow(-1px -1px 0 black);
 }
+
+#traffic{
+  position: relative;
+}
+
+#floating-panel {
+  position: absolute;
+  top: 10px;
+  left: 20%;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  text-align: center;
+  line-height: 30px;
+  border-color: gray;
+  font-family: 'Anton', sans-serif;
+  font-size: 15px;
+}
