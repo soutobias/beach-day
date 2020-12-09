@@ -22,6 +22,7 @@ import { initBar } from '../components/init_bar';
 import { initBar1 } from '../components/init_bar1';
 import { autocompleteSearch } from '../components/autocomplete';
 import { showMap } from '../components/show_map';
+import { initMap } from '../components/map';
 
 
 
@@ -40,19 +41,9 @@ document.addEventListener('turbolinks:load', () => {
   initBar();
   initBar1();
   autocompleteSearch();
+  initMap();
   showMap();
 });
-
-// (function($){
-//    "use strict";
-//     $(document).on('ready', function(){
-//         $("#order_place_id").select2({
-//             allowClear: true,
-//             theme: "bootstrap"
-//         });
-//     });
-// }(jQuery));
-
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)

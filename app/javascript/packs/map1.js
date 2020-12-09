@@ -1,4 +1,4 @@
-import GMaps from 'gmaps/gmaps.js';
+// import GMaps from 'gmaps/gmaps.js';
 
 import a01d from '../images/weather_icons/01d.png'
 import a01n from '../images/weather_icons/01n.png'
