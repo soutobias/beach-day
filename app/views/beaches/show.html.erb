@@ -236,33 +236,68 @@
   </div>
 
   <div id="weatherforecast" class="container inactive-tab">
-     <div class="card-weathers">
-      <div class="card-top">
+     <div class="card-weathers w-100">
+      <div class="card-top w-100">
         <% unless @weathers_today.empty? %>
           <% @weathers_today.each do |hour| %>
             <div id="weather-day0-hour<%= hour.date_time.hour %>" class="inactive-tab all-cards hourly">
-              <div class="d-flex justify-content-between align-middle">
-                <div class="padding-t">
-                  <h3 class="h3-weather"><%= @portuguese[0] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
-                  <h4><%= hour.description.capitalize%></h4>
+              <h2 class="text-center  mb-2"><%= @portuguese[0] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h2>
+              <div class="text-center row justify-content-center w-100 ml-2">
+                <div class="col-3 card-trip mt-2 flex-grow-1">
+                  <% if hour.air_temperature.round(1) > 28 %>
+                    <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+                  <% else %>
+                    <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
+                  <% end %>
+                  <div class="card-trip-infos">
+                    <p class="p-0 m-0">TEMPERATURA DO AR: <%= (hour.air_temperature.round(1)) %>°C</p>
+                    <p class="p-0 m-0">SENSAÇÃO TÉRMICA <%= (hour.air_temperature_feels_like.round(1)) %>°C</p>
+                  </div>
                 </div>
-                <div>
-                  <%= image_tag "weather_icons/#{hour.icon}.png", class: "image-medium" %>
-                  <h2 class="pl-5"><%= hour.air_temperature.round(1) %>°C</h2>
+                <div class="col-2 card-trip mt-2 flex-grow-1">
+                  <%= image_tag "weather_icons/#{hour.icon}.png", class: "image-wea" %>
+                  <div class="card-trip-infos">
+                    <p class="p-0 m-0"><%= hour.description.upcase%></p>
+                    <p class="p-0 m-0">CHUVA: <%= (hour.rain_probability * 100).to_i %>%</p>
+                  </div>
                 </div>
-                <div class="padding-t1">
-                  <p class="p-0 m-0">Sensação Térmica: <%= (hour.air_temperature_feels_like.round(1)) %>°C</p>
-                  <p class="p-0 m-0">Chuva: <%= (hour.rain_probability * 100).to_i %>%</p>
-                  <p class="p-0 m-0">Humidade: <%= (hour.humidity).to_i %>%</p>
-                  <p class="p-0 m-0">Vento: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction %>)</p>
-                  <% ocean = @oceans_today.where("date_time = '#{hour.date_time}'") %>
-                  <% unless ocean.empty? %>
-                    <% if ocean[0].wave_height %>
-                      <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
+                <div class="col-2 card-trip mt-2 flex-grow-1">
+                  <% if hour.wind_speed.to_i > 10 %>
+                    <%= image_tag "strong_wind.png", class: "image-wind" %>
+                  <% else %>
+                    <%= image_tag "calm_wind.png", class: "image-wind" %>
+                  <% end %>
+                  <div class="card-trip-infos">
+                    <p class="p-0 m-0">VENTO: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction.upcase %>)</p>
+                    <p class="p-0 m-0">HUMIDADE: <%= (hour.humidity).to_i %>%</p>
+                  </div>
+                </div>
+                <% ocean = @oceans_today.where("date_time = '#{hour.date_time}'") %>
+                <div class="col-2 card-trip mt-2 flex-grow-1">
+                  <% if ocean[0].water_temperature >= 20 %>
+                    <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+                  <% else %>
+                    <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
+                  <% end %>
+                  <div class="card-trip-infos">
+                    <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+                  </div>
+                </div>
+                <div class="col-3 card-trip mt-2 flex-grow-1">
+                  <% if ocean[0].wave_height %>
+                    <% if ocean[0].wave_height > 1.5 %>
+                      <%= image_tag "big_wave.png", class: "image-wave1" %>
+                    <% else %>
+                      <%= image_tag "small_wave.png", class: "image-wave1" %>
                     <% end %>
-                    <% if ocean[0].water_temperature %>
-                      <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
-                    <% end %>
+                    <div class="card-trip-infos">
+                      <p class="p-0 m-0">ONDAS: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction.upcase %>)</p>
+                      <% if ocean[0].wave_formation.to_i < 10 %>
+                        <p class="p-0 m-0">"ONDAS MAL FORMADAS"</p>
+                      <% else %>
+                        <p class="p-0 m-0">"ONDAS BEM FORMADAS"</p>
+                      <% end %>
+                    </div>
                   <% end %>
                 </div>
               </div>
@@ -273,28 +308,63 @@
         <% end %>
         <% @weathers_today_1.each do |hour| %>
           <div id="weather-day1-hour<%= hour.date_time.hour %>" class="inactive-tab all-cards hourly">
-            <div class="d-flex justify-content-between align-middle">
-              <div class="padding-t">
-                <h3 class="h3-weather"><%= @portuguese[0] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
-                <h4><%= hour.description.capitalize%></h4>
+            <h2 class="text-center mb-2"><%= @portuguese[1] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h2>
+            <div class="text-center row justify-content-center w-100 ml-2">
+              <div class="col-3 card-trip mt-2 flex-grow-1">
+                <% if hour.air_temperature.round(1) > 28 %>
+                  <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+                <% else %>
+                  <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
+                <% end %>
+                <div class="card-trip-infos">
+                  <p class="p-0 m-0">TEMPERATURA DO AR: <%= (hour.air_temperature.round(1)) %>°C</p>
+                  <p class="p-0 m-0">SENSAÇÃO TÉRMICA <%= (hour.air_temperature_feels_like.round(1)) %>°C</p>
+                </div>
               </div>
-              <div>
-                <%= image_tag "weather_icons/#{hour.icon}.png", class: "image-medium" %>
-                <h2 class="pl-5"><%= hour.air_temperature.round(1) %>°C</h2>
+              <div class="col-2 card-trip mt-2 flex-grow-1">
+                <%= image_tag "weather_icons/#{hour.icon}.png", class: "image-wea" %>
+                <div class="card-trip-infos">
+                  <p class="p-0 m-0"><%= hour.description.upcase%></p>
+                  <p class="p-0 m-0">CHUVA: <%= (hour.rain_probability * 100).to_i %>%</p>
+                </div>
               </div>
-              <div class="padding-t1">
-                <p class="p-0 m-0">Sensação Térmica: <%= (hour.air_temperature_feels_like.round(1)) %>°C</p>
-                <p class="p-0 m-0">Chuva: <%= (hour.rain_probability * 100).to_i %>%</p>
-                <p class="p-0 m-0">Humidade: <%= (hour.humidity).to_i %>%</p>
-                <p class="p-0 m-0">Vento: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction %>)</p>
-                <% ocean = @oceans_today.where("date_time = '#{hour.date_time}'") %>
-                <% unless ocean.empty? %>
-                  <% if ocean[0].wave_height %>
-                    <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
+              <div class="col-2 card-trip mt-2 flex-grow-1">
+                <% if hour.wind_speed.to_i > 10 %>
+                  <%= image_tag "strong_wind.png", class: "image-wind" %>
+                <% else %>
+                  <%= image_tag "calm_wind.png", class: "image-wind" %>
+                <% end %>
+                <div class="card-trip-infos">
+                  <p class="p-0 m-0">VENTO: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction.upcase %>)</p>
+                  <p class="p-0 m-0">HUMIDADE: <%= (hour.humidity).to_i %>%</p>
+                </div>
+              </div>
+              <% ocean = @oceans_today_1.where("date_time = '#{hour.date_time}'") %>
+              <div class="col-2 card-trip mt-2 flex-grow-1">
+                <% if ocean[0].water_temperature >= 20 %>
+                  <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+                <% else %>
+                  <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
+                <% end %>
+                <div class="card-trip-infos">
+                  <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+                </div>
+              </div>
+              <div class="col-3 card-trip mt-2 flex-grow-1">
+                <% if ocean[0].wave_height %>
+                  <% if ocean[0].wave_height > 1.5 %>
+                    <%= image_tag "big_wave.png", class: "image-wave1" %>
+                  <% else %>
+                    <%= image_tag "small_wave.png", class: "image-wave1" %>
                   <% end %>
-                  <% if ocean[0].water_temperature %>
-                    <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
-                  <% end %>
+                  <div class="card-trip-infos">
+                    <p class="p-0 m-0">ONDAS: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction.upcase %>)</p>
+                    <% if ocean[0].wave_formation.to_i < 10 %>
+                      <p class="p-0 m-0">"ONDAS MAL FORMADAS"</p>
+                    <% else %>
+                      <p class="p-0 m-0">"ONDAS BEM FORMADAS"</p>
+                    <% end %>
+                  </div>
                 <% end %>
               </div>
             </div>
@@ -303,28 +373,65 @@
         <% unless @weathers_today_2.empty? %>
           <% @weathers_today_2.each do |hour| %>
             <div id="weather-day2-hour<%= hour.date_time.hour %>" class="inactive-tab all-cards hourly">
-              <div class="d-flex justify-content-between align-middle">
-                <div class="padding-t">
-                  <h3 class="h3-weather"><%= @portuguese[0] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h3>
-                  <h4><%= hour.description.capitalize%></h4>
+              <h2 class="text-center"><%= @portuguese[2] %>, <%= hour.date_time.strftime("%d/%m/%Y")%> <%= hour.date_time.hour.to_s.rjust(2, '0')%>h</h2>
+              <div class="text-center row justify-content-center w-100 ml-2">
+                <div class="col-3 card-trip mt-2 flex-grow-1">
+                  <% if hour.air_temperature.round(1) > 28 %>
+                    <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+                  <% else %>
+                    <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
+                  <% end %>
+                  <div class="card-trip-infos">
+                    <p class="p-0 m-0">TEMPERATURA DO AR: <%= (hour.air_temperature.round(1)) %>°C</p>
+                    <p class="p-0 m-0">SENSAÇÃO TÉRMICA <%= (hour.air_temperature_feels_like.round(1)) %>°C</p>
+                  </div>
                 </div>
-                <div>
-                  <%= image_tag "weather_icons/#{hour.icon}.png", class: "image-medium" %>
-                  <h2 class="pl-5"><%= hour.air_temperature.round(1) %>°C</h2>
+                <div class="col-2 card-trip mt-2 flex-grow-1">
+                  <%= image_tag "weather_icons/#{hour.icon}.png", class: "image-wea" %>
+                  <div class="card-trip-infos">
+                    <p class="p-0 m-0"><%= hour.description.upcase%></p>
+                    <p class="p-0 m-0">CHUVA: <%= (hour.rain_probability * 100).to_i %>%</p>
+                  </div>
                 </div>
-                <div class="padding-t1">
-                  <p class="p-0 m-0">Sensação Térmica: <%= (hour.air_temperature_feels_like.round(1)) %>°C</p>
-                  <p class="p-0 m-0">Chuva: <%= (hour.rain_probability * 100).to_i %>%</p>
-                  <p class="p-0 m-0">Humidade: <%= (hour.humidity).to_i %>%</p>
-                  <p class="p-0 m-0">Vento: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction %>)</p>
-                  <% ocean = @oceans_today.where("date_time = '#{hour.date_time}'") %>
-                  <% unless ocean.empty? %>
-                    <% if ocean[0].wave_height %>
-                      <p class="p-0 m-0">Ondas: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction %>)</p>
+                <div class="col-2 card-trip mt-2 flex-grow-1">
+                  <% if hour.wind_speed.to_i > 10 %>
+                    <%= image_tag "strong_wind.png", class: "image-wind" %>
+                  <% else %>
+                    <%= image_tag "calm_wind.png", class: "image-wind" %>
+                  <% end %>
+                  <div class="card-trip-infos">
+                    <p class="p-0 m-0">VENTO: <%= (hour.wind_speed).to_i %>km/h (<%=hour.wind_direction.upcase %>)</p>
+                    <p class="p-0 m-0">HUMIDADE: <%= (hour.humidity).to_i %>%</p>
+                  </div>
+                </div>
+                <% ocean = @oceans_today_2.where("date_time = '#{hour.date_time}'") %>
+                <div class="col-2 card-trip mt-2 flex-grow-1">
+                  <% if ocean[0].water_temperature %>
+                    <% if ocean[0].water_temperature >= 20 %>
+                      <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+                    <% else %>
+                      <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
                     <% end %>
-                    <% if ocean[0].water_temperature %>
-                      <p class="p-0 m-0">Temperatura da água: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+                    <div class="card-trip-infos">
+                      <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="col-3 card-trip mt-2 flex-grow-1">
+                  <% if ocean[0].wave_height %>
+                    <% if ocean[0].wave_height > 1.5 %>
+                      <%= image_tag "big_wave.png", class: "image-wave1" %>
+                    <% else %>
+                      <%= image_tag "small_wave.png", class: "image-wave1" %>
                     <% end %>
+                    <div class="card-trip-infos">
+                      <p class="p-0 m-0">ONDAS: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction.upcase %>)</p>
+                      <% if ocean[0].wave_formation.to_i < 10 %>
+                        <p class="p-0 m-0">"ONDAS MAL FORMADAS"</p>
+                      <% else %>
+                        <p class="p-0 m-0">"ONDAS BEM FORMADAS"</p>
+                      <% end %>
+                    </div>
                   <% end %>
                 </div>
               </div>
@@ -333,93 +440,200 @@
         <% else %>
           <div id="weather-day2" class="inactive-tab all-cards daily">
             <% daily = @dailies[2] %>
-            <div class="d-flex justify-content-between align-middle">
-              <div class="padding-t">
-                <h3 class="h3-weather"><%= @portuguese[2] %>, <%= daily.date_time.strftime("%d/%m/%Y")%></h3>
-                <h4><%= daily.description.capitalize%></h4>
-              </div>
-              <div>
-                <%= image_tag "weather_icons/#{daily.icon}.png", class: "image-medium" %>
-                <h2><%= daily.air_temperature.round(1) %>°C</h2>
-                <p> MIN <%= daily.air_temperature_min.round()%>° / MAX <%= daily.air_temperature_max.round()%>°</p>
-              </div>
-              <div class="padding-t1">
-                <p class="p-0 m-0">Sensação Térmica: <%= (daily.air_temperature_feels_like.round(1)) %>°C</p>
-                <p class="p-0 m-0">Chuva: <%= (daily.rain_probability * 100).to_i %>%</p>
-                <p class="p-0 m-0">Humidade: <%= (daily.humidity).to_i %>%</p>
-                <p class="p-0 m-0">Vento: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction %>)</p>
-                <% ocean = @oceans_today_2.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
-                <p class="p-0 m-0">Maior onda do dia: <%= ocean[0].wave_height %> m</p>
-                <% ocean = @oceans_today_2.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
-                <% unless ocean.empty? %>
-                  <p class="p-0 m-0">Menor Temperatura da água do dia: <%= ocean[0].water_temperature.round(1) %>°C</p>
+            <h2 class="text-center"><%= @portuguese[2] %>, <%= daily.date_time.strftime("%d/%m/%Y")%></h2>
+            <div class="text-center row justify-content-center w-100 ml-2">
+              <div class="col-3 card-trip mt-2 flex-grow-1">
+                <% if daily.air_temperature.round(1) > 28 %>
+                  <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+                <% else %>
+                  <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
                 <% end %>
-                <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
+                <div class="card-trip-infos">
+                  <p class="p-0 m-0">TEMPERATURA DO AR: <%= (daily.air_temperature.round(1)) %>°C</p>
+                  <p class="p-0 m-0">SENSAÇÃO TÉRMICA <%= (daily.air_temperature_feels_like.round(1)) %>°C</p>
+                  <p class="p-0 m-0">MIN <%= daily.air_temperature_min.round()%>° / MAX <%= daily.air_temperature_max.round()%>°</p>
+                </div>
+              </div>
+              <div class="col-2 card-trip mt-2 flex-grow-1">
+                <%= image_tag "weather_icons/#{daily.icon}.png", class: "image-wea" %>
+                <div class="card-trip-infos">
+                  <p class="p-0 m-0"><%= daily.description.upcase%></p>
+                  <p class="p-0 m-0">CHUVA: <%= (daily.rain_probability * 100).to_i %>%</p>
+                  <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
+                </div>
+              </div>
+              <div class="col-2 card-trip mt-2 flex-grow-1">
+                <% if daily.wind_speed.to_i > 10 %>
+                  <%= image_tag "strong_wind.png", class: "image-wind" %>
+                <% else %>
+                  <%= image_tag "calm_wind.png", class: "image-wind" %>
+                <% end %>
+                <div class="card-trip-infos">
+                  <p class="p-0 m-0">VENTO: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction.upcase %>)</p>
+                  <p class="p-0 m-0">HUMIDADE: <%= (daily.humidity).to_i %>%</p>
+                </div>
+              </div>
+              <% ocean = @oceans_today_2.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
+              <% ocean1 = @oceans_today_2.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
+              <div class="col-2 card-trip mt-2 flex-grow-1">
+                <% if ocean1[0].water_temperature %>
+                  <% if ocean1[0].water_temperature >= 20 %>
+                    <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+                  <% else %>
+                    <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
+                  <% end %>
+                  <div class="card-trip-infos">
+                    <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean1[0].water_temperature).round(1) %>°C</p>
+                  </div>
+                <% end %>
+              </div>
+              <div class="col-3 card-trip mt-2 flex-grow-1">
+                <% if ocean[0].wave_height %>
+                  <% if ocean[0].wave_height > 1.5 %>
+                    <%= image_tag "big_wave.png", class: "image-wave1" %>
+                  <% else %>
+                    <%= image_tag "small_wave.png", class: "image-wave1" %>
+                  <% end %>
+                  <div class="card-trip-infos">
+                    <p class="p-0 m-0">ONDAS: <%= (ocean1[0].wave_height) %>m (<%=ocean[0].wave_direction.upcase %>)</p>
+                  </div>
+                <% end %>
               </div>
             </div>
           </div>
         <% end %>
-        <div id="weather-day3" class="inactive-tab all-cards daily">
+         <div id="weather-day3" class="inactive-tab all-cards daily">
           <% daily = @dailies[3] %>
-          <div class="d-flex justify-content-between align-middle">
-            <div class="padding-t">
-              <h3 class="h3-weather"><%= @portuguese[3] %>, <%= daily.date_time.strftime("%d/%m/%Y")%></h3>
-              <h4><%= daily.description.capitalize%></h4>
-            </div>
-            <div>
-              <%= image_tag "weather_icons/#{daily.icon}.png", class: "image-medium" %>
-              <h2><%= daily.air_temperature.round(1) %>°C</h2>
-              <p> MIN <%= daily.air_temperature_min.round()%>° / MAX <%= daily.air_temperature_max.round()%>°</p>
-            </div>
-            <div class="padding-t1">
-              <p class="p-0 m-0">Sensação Térmica: <%= (daily.air_temperature_feels_like.round(1)) %>°C</p>
-              <p class="p-0 m-0">Chuva: <%= (daily.rain_probability * 100).to_i %>%</p>
-              <p class="p-0 m-0">Humidade: <%= (daily.humidity).to_i %>%</p>
-              <p class="p-0 m-0">Vento: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction %>)</p>
-              <% ocean = @oceans_today_3.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
-              <% ocean = @oceans_today_3.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
-              <% unless ocean.empty? %>
-                <p class="p-0 m-0">Menor Temperatura da água do dia: <%= ocean[0].water_temperature.round(1) %>°C</p>
+          <h2 class="text-center"><%= @portuguese[3] %>, <%= daily.date_time.strftime("%d/%m/%Y")%></h2>
+          <div class="text-center row justify-content-center w-100 ml-2">
+            <div class="col-3 card-trip mt-2 flex-grow-1">
+              <% if daily.air_temperature.round(1) > 28 %>
+                <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+              <% else %>
+                <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
               <% end %>
-              <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
+              <div class="card-trip-infos">
+                <p class="p-0 m-0">TEMPERATURA DO AR: <%= (daily.air_temperature.round(1)) %>°C</p>
+                <p class="p-0 m-0">SENSAÇÃO TÉRMICA <%= (daily.air_temperature_feels_like.round(1)) %>°C</p>
+                <p class="p-0 m-0">MIN <%= daily.air_temperature_min.round()%>° / MAX <%= daily.air_temperature_max.round()%>°</p>
+              </div>
+            </div>
+            <div class="col-2 card-trip mt-2 flex-grow-1">
+              <%= image_tag "weather_icons/#{daily.icon}.png", class: "image-wea" %>
+              <div class="card-trip-infos">
+                <p class="p-0 m-0"><%= daily.description.upcase%></p>
+                <p class="p-0 m-0">CHUVA: <%= (daily.rain_probability * 100).to_i %>%</p>
+                <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
+              </div>
+            </div>
+            <div class="col-2 card-trip mt-2 flex-grow-1">
+              <% if daily.wind_speed.to_i > 10 %>
+                <%= image_tag "strong_wind.png", class: "image-wind" %>
+              <% else %>
+                <%= image_tag "calm_wind.png", class: "image-wind" %>
+              <% end %>
+              <div class="card-trip-infos">
+                <p class="p-0 m-0">VENTO: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction.upcase %>)</p>
+                <p class="p-0 m-0">HUMIDADE: <%= (daily.humidity).to_i %>%</p>
+              </div>
+            </div>
+            <% ocean = @oceans_today_3.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
+            <% ocean1 = @oceans_today_3.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
+            <div class="col-2 card-trip mt-2 flex-grow-1">
+              <% if ocean1[0] %>
+                <% if ocean1[0].water_temperature >= 20 %>
+                  <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+                <% else %>
+                  <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
+                <% end %>
+                <div class="card-trip-infos">
+                  <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean1[0].water_temperature).round(1) %>°C</p>
+                </div>
+              <% end %>
+            </div>
+            <div class="col-3 card-trip mt-2 flex-grow-1">
+              <% if ocean[0] %>
+                <% if ocean[0].wave_height > 1.5 %>
+                  <%= image_tag "big_wave.png", class: "image-wave1" %>
+                <% else %>
+                  <%= image_tag "small_wave.png", class: "image-wave1" %>
+                <% end %>
+                <div class="card-trip-infos">
+                  <p class="p-0 m-0">ONDAS: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction.upcase %>)</p>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
-
         <div id="weather-day4" class="inactive-tab all-cards daily">
           <% daily = @dailies[4] %>
-         <div class="d-flex justify-content-between align-middle">
-            <div class="padding-t">
-              <h3 class="h3-weather"><%= @portuguese[3] %>, <%= daily.date_time.strftime("%d/%m/%Y")%></h3>
-              <h4><%= daily.description.capitalize%></h4>
-            </div>
-            <div>
-              <%= image_tag "weather_icons/#{daily.icon}.png", class: "image-medium" %>
-              <h2><%= daily.air_temperature.round(1) %>°C</h2>
-              <p> MIN <%= daily.air_temperature_min.round()%>° / MAX <%= daily.air_temperature_max.round()%>°</p>
-            </div>
-            <div class="padding-t1">
-              <p class="p-0 m-0">Sensação Térmica: <%= (daily.air_temperature_feels_like.round(1)) %>°C</p>
-              <p class="p-0 m-0">Chuva: <%= (daily.rain_probability * 100).to_i %>%</p>
-              <p class="p-0 m-0">Humidade: <%= (daily.humidity).to_i %>%</p>
-              <p class="p-0 m-0">Vento: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction %>)</p>
-              <% ocean = @oceans_today_3.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
-
-              <% ocean = @oceans_today_3.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
-              <% unless ocean.empty? %>
-                <p class="p-0 m-0">Menor Temperatura da água do dia: <%= ocean[0].water_temperature.round(1) %>°C</p>
+          <h2 class="text-center"><%= @portuguese[2] %>, <%= daily.date_time.strftime("%d/%m/%Y")%></h2>
+          <div class="text-center row justify-content-center w-100 ml-2">
+            <div class="col-3 card-trip mt-2 flex-grow-1">
+              <% if daily.air_temperature.round(1) > 28 %>
+                <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+              <% else %>
+                <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
               <% end %>
-              <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
+              <div class="card-trip-infos">
+                <p class="p-0 m-0">TEMPERATURA DO AR: <%= (daily.air_temperature.round(1)) %>°C</p>
+                <p class="p-0 m-0">SENSAÇÃO TÉRMICA <%= (daily.air_temperature_feels_like.round(1)) %>°C</p>
+                <p class="p-0 m-0">MIN <%= daily.air_temperature_min.round()%>° / MAX <%= daily.air_temperature_max.round()%>°</p>
+              </div>
+            </div>
+            <div class="col-2 card-trip mt-2 flex-grow-1">
+              <%= image_tag "weather_icons/#{daily.icon}.png", class: "image-wea" %>
+              <div class="card-trip-infos">
+                <p class="p-0 m-0"><%= daily.description.upcase%></p>
+                <p class="p-0 m-0">CHUVA: <%= (daily.rain_probability * 100).to_i %>%</p>
+                <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
+              </div>
+            </div>
+            <div class="col-2 card-trip mt-2 flex-grow-1">
+              <% if daily.wind_speed.to_i > 10 %>
+                <%= image_tag "strong_wind.png", class: "image-wind" %>
+              <% else %>
+                <%= image_tag "calm_wind.png", class: "image-wind" %>
+              <% end %>
+              <div class="card-trip-infos">
+                <p class="p-0 m-0">VENTO: <%= (daily.wind_speed).to_i %>km/h (<%=daily.wind_direction.upcase %>)</p>
+                <p class="p-0 m-0">HUMIDADE: <%= (daily.humidity).to_i %>%</p>
+              </div>
+            </div>
+            <% ocean = @oceans_today_4.where("wave_height > 0").order(wave_height: :desc).limit(1) %>
+            <% ocean1 = @oceans_today_4.where("water_temperature > 0").order(water_temperature: :asc).limit(1) %>
+            <div class="col-2 card-trip mt-2 flex-grow-1">
+              <% if ocean1[0] %>
+                <% if ocean1[0].water_temperature >= 20 %>
+                  <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
+                <% else %>
+                  <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
+                <% end %>
+                <div class="card-trip-infos">
+                  <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean1[0].water_temperature).round(1) %>°C</p>
+                </div>
+              <% end %>
+            </div>
+            <div class="col-3 card-trip mt-2 flex-grow-1">
+              <% if ocean[0] %>
+                <% if ocean[0].wave_height > 1.5 %>
+                  <%= image_tag "big_wave.png", class: "image-wave1" %>
+                <% else %>
+                  <%= image_tag "small_wave.png", class: "image-wave1" %>
+                <% end %>
+                <div class="card-trip-infos">
+                  <p class="p-0 m-0">ONDAS: <%= (ocean[0].wave_height) %>m (<%=ocean[0].wave_direction.upcase %>)</p>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
-
 
         <form action="#" method="get" class="frame w-100 inactive-tab range-today mb-5"  id="ranges">
           <div class="range">
             <% unless @weathers_today.empty? %>
               <input type="range" id="weather-range-0" name="weather-range" step="3" min='<%= @weathers_today[0].date_time.hour %>' max='<%= @weathers_today[-1].date_time.hour %>' class="w-100">
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-between mt-0 mb-5 pt-0">
                 <% @weathers_today.each do |hour| %>
                   <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
                 <% end %>
@@ -432,7 +646,7 @@
         <form action="#" method="get" class="frame w-100 inactive-tab range-today_1 mb-5" id="ranges">
           <div class="range">
             <input type="range" id="weather-range-1" name="weather-range" step="3"  min='<%= @weathers_today_1[0].date_time.hour %>' max='<%= @weathers_today_1[-1].date_time.hour %>' class="w-100">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mt-0 mb-5 pt-0">
               <% @weathers_today_1.each do |hour| %>
                 <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
               <% end %>
@@ -443,7 +657,7 @@
           <div class="range">
             <% unless @weathers_today_2.empty? %>
               <input type="range" id="weather-range-2" name="weather-range" step="3" min='<%= @weathers_today_2[0].date_time.hour %>' max='<%= @weathers_today_2[-1].date_time.hour %>' class="w-100">
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-between mt-0 mb-5 pt-0">
                 <% @weathers_today_2.each do |hour| %>
                   <p><%= hour.date_time.hour.to_s.rjust(2, '0') %>:00 </p>
                 <% end %>
@@ -456,29 +670,29 @@
         </form>
       </div>
       <div class="card-down d-flex w-100 justify-content-between w-100 mt-5">
-        <div class="card-day day-0 w-100 padding-l">
-          <p class="text-align-center"><%= @dailies[0].date_time.strftime("%A")[0..2]%></p>
+        <div class="card-day day-0 w-100">
+          <p class="text-align-center"><%= @portuguese[0][0..2]%></p>
           <%= image_tag "weather_icons/#{@dailies[0].icon}.png", class: "image-small" %>
           <p><%= @dailies[0].air_temperature_min.round()%>° / <%= @dailies[0].air_temperature_max.round()%>°</p>
         </div>
-        <div class="card-day day-1 w-100 padding-l">
-          <p><%= @dailies[1].date_time.strftime("%A")[0..2]%></p>
-          <%= image_tag "weather_icons/#{@dailies[2].icon}.png", class: "image-small"%>
+        <div class="card-day day-1 w-100">
+          <p><%= @portuguese[1][0..2]%></p>
+          <%= image_tag "weather_icons/#{@dailies[1].icon}.png", class: "image-small"%>
           <p><%= @dailies[1].air_temperature_min.round()%>° / <%= @dailies[0].air_temperature_max.round()%>°</p>
         </div>
-        <div class="card-day day-2 w-100 padding-l">
-          <p><%= @dailies[2].date_time.strftime("%A")[0..2]%></p>
-          <%= image_tag "weather_icons/#{@dailies[3].icon}.png", class: "image-small" %>
+        <div class="card-day day-2 w-100">
+          <p><%= @portuguese[2][0..2]%></p>
+          <%= image_tag "weather_icons/#{@dailies[2].icon}.png", class: "image-small" %>
           <p><%= @dailies[2].air_temperature_min.round()%>° / <%= @dailies[0].air_temperature_max.round()%>°</p>
         </div>
-        <div class="card-day day-3 w-100 padding-l">
-          <p><%= @dailies[3].date_time.strftime("%A")[0..2]%></p>
-          <%= image_tag "weather_icons/#{@dailies[4].icon}.png", class: "image-small" %>
+        <div class="card-day day-3 w-100">
+          <p><%= @portuguese[3][0..2]%></p>
+          <%= image_tag "weather_icons/#{@dailies[3].icon}.png", class: "image-small" %>
           <p><%= @dailies[3].air_temperature_min.round()%>° / <%= @dailies[0].air_temperature_max.round()%>°</p>
         </div>
-        <div class="card-day day-4 w-100 padding-l">
-          <p><%= @dailies[4].date_time.strftime("%A")[0..2]%></p>
-          <%= image_tag "weather_icons/#{@dailies[5].icon}.png", class: "image-small" %>
+        <div class="card-day day-4 w-100">
+          <p><%= @portuguese[4][0..2]%></p>
+          <%= image_tag "weather_icons/#{@dailies[4].icon}.png", class: "image-small" %>
           <p><%= @dailies[4].air_temperature_min.round()%>° / <%= @dailies[0].air_temperature_max.round()%>°</p>
         </div>
       </div>
