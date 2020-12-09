@@ -11,8 +11,8 @@ require("chartkick")
 require("chart.js")
 
 
-require("select2")
-require("_tree")
+// require("select2")
+// require("_tree")
 
 import { initUpdateH1OnScroll } from '../components/init_h1';
 import { rangeBegin, rangeWeather0, rangeWeather1, rangeWeather2, changeWeatherDay1, changeWeatherDay0, changeWeatherDay2, changeWeatherDay3, changeWeatherDay4 } from '../components/init_range'; // <-- add this line
@@ -44,15 +44,15 @@ document.addEventListener('turbolinks:load', () => {
   showMap();
 });
 
-(function($){
-   "use strict";
-    $(document).on('ready', function(){
-        $("#order_place_id").select2({
-            allowClear: true,
-            theme: "bootstrap"
-        });
-    });
-}(jQuery));
+// (function($){
+//    "use strict";
+//     $(document).on('ready', function(){
+//         $("#order_place_id").select2({
+//             allowClear: true,
+//             theme: "bootstrap"
+//         });
+//     });
+// }(jQuery));
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
