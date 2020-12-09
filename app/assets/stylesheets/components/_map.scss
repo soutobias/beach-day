@@ -34,13 +34,14 @@
     cursor: pointer;
   }
   opacity: 0.7;
-  width: 65px;
+  font-size: 35px;
 }
 
 .pressed{
-  width: 62px;
-  -webkit-filter: drop-shadow(1px 1px 0 black)
-                  drop-shadow(-1px -1px 0 black);
-  filter: drop-shadow(1px 1px 0 black)
-          drop-shadow(-1px -1px 0 black);
+  font-size: 32px;
+  opacity: 0.5;
+  // -webkit-filter: drop-shadow(1px 1px 0 black)
+  //                 drop-shadow(-1px -1px 0 black);
+  // filter: drop-shadow(1px 1px 0 black)
+  //         drop-shadow(-1px -1px 0 black);
 }

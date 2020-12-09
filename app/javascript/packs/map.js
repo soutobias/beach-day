@@ -27,7 +27,7 @@ if (mapElement) {
   });
 
   map.setCenter(marker.lat, marker.lng);
-  map.setZoom(12);
+  map.setZoom(15);
   const icon = {
         url: "http://maps.google.com/mapfiles/kml/shapes/man.png", // url
         scaledSize: new google.maps.Size(40, 40), // size
