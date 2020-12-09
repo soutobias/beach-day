@@ -5,6 +5,8 @@ const autocompleteSearch = function() {
   const skills = JSON.parse(document.getElementById('search-data').dataset.skills)
   const searchInput = document.getElementById('query');
 
+
+
   if (skills && searchInput) {
     new autocomplete({
       selector: searchInput,
