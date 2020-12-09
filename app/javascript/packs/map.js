@@ -51,9 +51,7 @@ if (mapElement) {
     map.addLayer('traffic');
     map.addLayer('transit');
 
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-
-
+    const proxyurl = "";
 
     let url = `https://maps.googleapis.com/maps/api/directions/json?origin=${data["coords"].latitude},${data["coords"].longitude}&destination=${marker.lat},${marker.lng}&key=${key}`
     fetch(proxyurl + url)
