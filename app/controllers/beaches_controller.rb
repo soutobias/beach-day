@@ -70,7 +70,7 @@ class BeachesController < ApplicationController
 
     @real_time = policy_scope(RealTimeValue).where("beach_id = #{@beach.id}").order(date_time: :desc).limit(1)[0]
 
-    @tides = Tide.where("date_time >= '#{DateTime.now.strftime('%Y-%m-%d 00:00:00')}' AND date_time <= '#{DateTime.now.advance(days: 2).strftime('%Y-%m-%d 00:00:00')}'").order(date_time: :asc).limit(10)
+    @tides = Tide.where("date_time >= '#{DateTime.now.strftime('%Y-%m-%d 00:00:00')}' AND date_time <= '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 12:00:00')}'").order(date_time: :asc).limit(10)
     @tide = {}
     @tides.each do |tide|
       @tide["#{tide.date_time.strftime('%d-%m %H:%M')}"] = tide.tide
@@ -106,7 +106,7 @@ class BeachesController < ApplicationController
       return "Terça-feira"
     when "wednesday"
       return "Quarta-feira"
-    when "thrusday"
+    when "thursday"
       return "Quinta-feira"
     when "friday"
       return "Sexta-feira"

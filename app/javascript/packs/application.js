@@ -12,6 +12,7 @@ require("chart.js")
 
 // require("select2")
 // require("_tree")
+import 'bootstrap';
 
 import { initUpdateH1OnScroll } from '../components/init_h1';
 import { rangeBegin, rangeWeather0, rangeWeather1, rangeWeather2, changeWeatherDay1, changeWeatherDay0, changeWeatherDay2, changeWeatherDay3, changeWeatherDay4 } from '../components/init_range'; // <-- add this line
@@ -23,6 +24,7 @@ import { initBar1 } from '../components/init_bar1';
 import { autocompleteSearch } from '../components/autocomplete';
 import { showMap } from '../components/show_map';
 import { initMap } from '../components/map';
+import { initMap1 } from '../components/map1';
 
 
 
@@ -42,6 +44,7 @@ document.addEventListener('turbolinks:load', () => {
   initBar1();
   autocompleteSearch();
   initMap();
+  initMap1();
   showMap();
 });
 

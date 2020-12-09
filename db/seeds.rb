@@ -510,9 +510,275 @@ beach_index += 1
 puts "Creating beach #{beach_index}"
 file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
 beach = Beach.new(
-  name: "Itacoatiara - Costao",
+  name: "Itacoatiara - Costão",
   lat: "-22.9758",
   lng: "-43.0305",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Vermelha",
+  lat: -22.955250142867826,
+  lng: -43.16435470679382,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Vidigal",
+  lat: -22.99179201183994,
+  lng: -43.23208173612224,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Flamengo - Canto Direito",
+  lat: -22.93511480093811,
+  lng: -43.171060229328184,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Flamengo - Centro",
+  lat: -22.92859339071708,
+  lng: -43.17048087215316,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Urca",
+  lat: -22.947845467099466,
+  lng: -43.16344275569807,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Ribeira",
+  lat:  -22.765827254522243,
+  lng: -43.10369386790752,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Gragoatá",
+  lat: -22.90223876167349,
+  lng: -43.136141408298435,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Adão",
+  lat: -22.92773303773431,
+  lng: -43.12289080465795,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Camboinhas - Centro",
+  lat: -22.962056778661623,
+  lng: -43.056578166471,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Camboinhas - Canto Direito",
+  lat: -22.96677872425047,
+  lng: -43.048402793398196,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Charitas",
+  lat: -22.92546025169957,
+  lng: -43.09579547613986,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Eva",
+  lat: -22.929699387253148,
+  lng: -43.12280497397102,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Boa Viagem",
+  lat: -22.90804989048639,
+  lng: -43.12888871521811,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Flechas",
+  lat: -22.90572744536363,
+  lng: -43.124940503525984,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Icaraí",
+  lat: -22.904749139850797,
+  lng: -43.11810104477682,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "São Francisco",
+  lat: -22.91554083836005,
+  lng: -43.09586016765691,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Jurujuba",
+  lat: -22.93458055372498,
+  lng: -43.11282715648674,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Itaipu",
+  lat: -22.971836357371163,
+  lng: -43.046042449507574,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+beach = Beach.new(
+  name: "Piratininga",
+  lat: -22.95411333880743,
+  lng: -43.09458813521258,
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
 )
 beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
@@ -609,11 +875,12 @@ def direction_to_string(value)
 end
 
 def translate_description(description)
+  description = description.downcase
   if description == "clear sky"
     description = "Céu Limpo"
   elsif description == "few clouds"
     description = "Poucas Nuvens"
-  elsif description == "overclast clouds"
+  elsif description == "overcast clouds"
     description = "Poucas Nuvens"
   elsif description == "scattered clouds"
     description = "Nuvens Esparsas"
@@ -783,7 +1050,7 @@ def cleaning_status
         date_time = date_time.strftime("%Y-%m-%d 00:00:00")
         name = beach.css("[class='name']")[0].text
         description = beach.css("[class='location']")[0].text
-        status = beach.css(".status")[0].text
+        status = beach.css(".status")[0].text == "Própria"
         cleaning_station = CleaningStation.where("name = '#{name}' AND description = ?", description)[0]
 
         cleaning_value = CleaningValue.where("date_time = '#{date_time}' AND cleaning_station_id = #{cleaning_station.id}")
