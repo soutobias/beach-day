@@ -22,12 +22,13 @@
 }
 
 #map1{
+  box-shadow: 0 0 20px 30px #e1d1d1;
   height: 500px !important;
   width: 100% !important;
-  -webkit-filter: drop-shadow(1px 1px 0 black)
-                  drop-shadow(-1px -1px 0 black);
-  filter: drop-shadow(1px 1px 0 black)
-          drop-shadow(-1px -1px 0 black);
+  // -webkit-filter: drop-shadow(1px 1px 0 black)
+  //                 drop-shadow(-1px -1px 0 black);
+  // filter: drop-shadow(1px 1px 0 black)
+  //         drop-shadow(-1px -1px 0 black);
 }
 
 

@@ -33,6 +33,7 @@
 }
 // base
 .flip {
+    text-decoration: none;
     position: relative;
     color: #555;
     text-align: center;
@@ -41,6 +42,7 @@
     box-shadow: 0px 0px 10px rgba(10,10,10,0.3);
     >.front,
     >.back {
+        text-decoration: none;
         display: block;
         background-size: cover;
         transition-timing-function: cubic-bezier(.175, .885, .32, 1.275);
@@ -49,6 +51,7 @@
         transition-duration:1.5s;
     }
     >.front {
+        text-decoration: none !important;
         transform: rotateY(0deg);
     }
     >.back {
@@ -62,6 +65,7 @@
     }
     &:hover {
         >.front {
+            text-decoration: none !important;
             transform: rotateY(180deg);
         }
         >.back {
@@ -75,6 +79,7 @@
         }
         &:hover {
             >.front {
+                text-decoration: none !important;
                 transform: rotateX(180deg);
             }
             >.back {
@@ -87,18 +92,20 @@
 .flip {
     width: 100%;
     margin: 0px;
+    text-decoration: none !important;
     >.front,
     >.back {
       display: block;
       color: white;
       width: inherit;
-      background-size: cover!important;
+      background-size: cover !important;
       background-position: center!important;
       height: 300px;
       background: #313131;
       border-radius: 4px;
       padding-left: 25px;
       box-shadow: 0 0 20px 25px #e1d1d1;
+      text-decoration: none !important;
       p {
         font-family: 'Anton', sans-serif;
         font-size: 1.1rem;
@@ -110,6 +117,7 @@
 
 
 .h2flip {
+  text-decoration: none !important;
   font-family: 'Anton', sans-serif !important;
   font-size: 40px !important;
   padding-top: 20%;
@@ -266,31 +274,41 @@
 
 .card-trip {
   height: 180px;
-  background: white;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  margin-bottom: 10px;
 }
 
 .card-trip{
   .image-temp{
     width: 86px;
+    opacity: 0.7;
+
   }
   .image-wave{
     width: 290px;
     padding-top: 10px;
+    opacity: 0.7;
+
   }
   .image-wave1{
     width: 230px;
     padding-top: 14px;
+    opacity: 0.7;
+
   }
   .image-wea{
     width: 150px;
+    opacity: 0.7;
+
   }
   .image-clean{
     width: 110px;
     padding-top: 3px;
+    opacity: 0.7;
   }
   .image-wind{
     width: 110px;
+    opacity: 0.7;
+
   }
 }
 

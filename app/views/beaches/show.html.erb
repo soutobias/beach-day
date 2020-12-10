@@ -129,7 +129,8 @@
       <h3 class="h3-overview w-100"><%= @beach.overview.upcase %></h3>
     </div>
     <% if !@beach.reviews.empty? %>
-      <% @beach.reviews.each do |review| %>
+      <% reviews = @beach.reviews.order(created_at: :desc)  %>
+      <% reviews.each do |review| %>
         <div id="card-review">
         <p class="p-card"><%= "#{review.user.first_name} #{review.user.last_name} escreveu uma avaliação em #{review.user.created_at.strftime("%Y-%m-%d %H:%M:%S")}" %></p>
         <% user_rating = ( review.parking + review.restaurant + review.public_transportation + review.security + review.cleaning + review.rent_equipment + review.wave + review.wind + review.accessibility + review.sand_strip ) / 10 %>
