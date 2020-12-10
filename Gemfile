@@ -32,8 +32,7 @@ gem 'pundit'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'haversine', '~> 0.3.0'
 
-gem 'autoprefixer-rails'
-gem 'font-awesome-sass', '~> 5.6.1'
+
 gem 'nokogiri'
 gem 'cloudinary', '~> 1.16.0'
 gem 'geocoder'

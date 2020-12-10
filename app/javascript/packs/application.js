@@ -21,7 +21,7 @@ import { rangeBegin, rangeWeather0, rangeWeather1, rangeWeather2, changeWeatherD
 import { toogleTab } from '../components/tabs_index';
 import { initBar } from '../components/init_bar';
 import { initBar1 } from '../components/init_bar1';
-import { autocompleteSearch } from '../components/autocomplete';
+// import { autocompleteSearch } from '../components/autocomplete';
 import { showMap } from '../components/show_map';
 import { initMap } from '../components/map';
 import { initMap1 } from '../components/map1';
@@ -29,6 +29,7 @@ import { initMap1 } from '../components/map1';
 
 
 document.addEventListener('turbolinks:load', () => {
+  // autocompleteSearch();
   initUpdateH1OnScroll();
   rangeBegin();
   rangeWeather0();
@@ -42,7 +43,6 @@ document.addEventListener('turbolinks:load', () => {
   toogleTab();
   initBar();
   initBar1();
-  autocompleteSearch();
   initMap();
   initMap1();
   showMap();
