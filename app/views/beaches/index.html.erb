@@ -108,14 +108,16 @@
   </div>
 </main>
 
+
 <script>
+  import $ from 'jquery';
   const search = document.getElementById('search-data')
   const skills = JSON.parse(search.dataset.skills)
-
   search.addEventListener('keyup', (event) => {
-    $("#query" ).autocomplete({
-      source: skills
+    $(function() {
+      $("#query" ).autocomplete({
+        source: skills
+      });
     });
   });
-
 </script>
