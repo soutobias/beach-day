@@ -702,11 +702,9 @@
   <div id="traffic" class="container2 inactive-tab">
     <div id="floating-panel" class=''>
       <b>Qual seu meio de transporte? </b>
-      <select id="mode">
-        <option value="DRIVING">Carro</option>
-        <option value="BICYCLING">Bicicleta</option>
-        <option value="TRANSIT">Transporte Público</option>
-      </select>
+      <%= image_tag "car.png", id: "bicycling", title: "DRIVING", class: "image-small-transit pr-2 all-icons pressed-direction" %>
+      <%= image_tag "bike.png", id: "driving", title: "BICYCLING", class: "image-small-transit pr-2 all-icons" %>
+      <%= image_tag "bus.png", id: "transit", title: "TRANSIT", class: "image-small-transit pr-2 all-icons" %>
     </div>
     <div id="map" data-markers="<%= @markers.to_json %>" data-ok="<%= ENV['GOOGLEMAP_API_KEY'] %>" >
     </div>
@@ -717,7 +715,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <!-- <script>

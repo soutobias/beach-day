@@ -22,7 +22,7 @@ class BeachesController < ApplicationController
       end
     end
     @markers = @beaches.map do |beach|
-      { lat: beach.lat, lng: beach.lng, id: beach.id, name: beach.name, rating: beach.overall_rating, icon: beach.weather_forecast_dailies[0].icon }
+      { lat: beach.lat, lng: beach.lng, id: beach.id, name: beach.name, rating: beach.overall_rating, icon: beach.real_time_values[-1].icon, cleaning: beach.real_time_values[-1].cleaning }
     end
     @names = Beach.pluck(:name).sort
   end
@@ -70,22 +70,10 @@ class BeachesController < ApplicationController
 
     @real_time = policy_scope(RealTimeValue).where("beach_id = #{@beach.id}").order(date_time: :desc).limit(1)[0]
 
-    @tides = Tide.where("date_time >= '#{DateTime.now.strftime('%Y-%m-%d 00:00:00')}' AND date_time <= '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 12:00:00')}'").order(date_time: :asc).limit(10)
+    @tides = Tide.where("date_time >= '#{DateTime.now.strftime('%Y-%m-%d 00:00:00')}' AND date_time <= '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 09:00:00')}'").order(date_time: :asc).limit(10)
     @tide = {}
     @tides.each do |tide|
       @tide["#{tide.date_time.strftime('%d-%m %H:%M')}"] = tide.tide
-    end
-  end
-
-  def map
-    @beaches = policy_scope(Beach).order(created_at: :desc)
-    if params[:query].present?
-      @beaches = Beach.where("name ILIKE ?", "%#{params[:query]}%")
-    else
-      @beaches = Beach.all
-    end
-    @markers = @beaches.map do |beach|
-      { lat: beach.lat, lng: beach.lng, id: beach.id, name: beach.name, rating: beach.overall_rating, icon: beach.weather_forecast_dailies[0].icon }
     end
   end
 

@@ -242,7 +242,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://www.google.com/maps/place/Rio+2016+-+Pontal/@-23.0324627,-43.4707859,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipMSG1UaC9qh4bD-wkTkdlQ4abvT6wd7f32Oa-gQ!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipMSG1UaC9qh4bD-wkTkdlQ4abvT6wd7f32Oa-gQ%3Dw129-h86-k-no!7i2048!8i1365!4m12!1m6!3m5!1s0x0:0x8bfdbb9907ea48d4!2sRico+Point+Recreio!8m2!3d-23.0310519!4d-43.476852!3m4!1s0x0:0xa3e9b802d2ec5fc8!8m2!3d-23.0324629!4d-43.4707868#')
+file = URI.open('https://www.viagenspossiveis.com.br/wp-content/uploads/2016/02/Praia-da-Macumba-5.jpg')
 beach = Beach.new(
   name: "Macumba - Centro",
   lat: "-23.0315",
@@ -354,7 +354,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://www.google.com/url?sa=i&url=https%3A%2F%2Fcatracalivre.com.br%2Fagenda%2Fo-que-fazer-no-posto-6-copacabana-rio-de-janeiro%2F&psig=AOvVaw3nGSeH1JOAJ8-4knFOlNjF&ust=1607651833862000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCj0vanwu0CFQAAAAAdAAAAABAD')
+file = URI.open('https://4.bp.blogspot.com/-dJQzjlvs9JQ/XKgAZESqqfI/AAAAAAAAPuk/siihkOqjjHICGYEMzlVsGkKVthA4laZ9ACLcBGAs/s1600/P_20190404_084107.jpg')
 beach = Beach.new(
   name: "Copacabana - Posto 6",
   lat: "-22.985",
@@ -410,7 +410,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://www.google.com/url?sa=i&url=https%3A%2F%2Fmapio.net%2Fs%2F30217532%2F&psig=AOvVaw2jY-9Mv6vUYn9oJ0B30tJG&ust=1607652098467000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKCt7vOowu0CFQAAAAAdAAAAABAf')
+file = URI.open('https://imagesvc.meredithcorp.io/v3/mm/image?q=85&c=sc&poi=face&url=https%3A%2F%2Fcdn-image.travelandleisure.com%2Fsites%2Fdefault%2Ffiles%2F1451967729%2Fipanema-beach-rio1215.jpg')
 beach = Beach.new(
   name: "Ipanema - Garcia d'avila",
   lat: "-22.9873",
@@ -1106,33 +1106,22 @@ def ocean_forecast
 
   date_now = Time.new(date1.year, date1.month, date1.day, 12)
 
-  begin
-    x = WaterForecastValue.first.date_time.strftime("%Y-%m-%d %H:00:00") == date_now.strftime("%Y-%m-%d %H:00:00")
-  rescue
-    x = false
-  end
-  unless x
-    begin
-      html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:60%5D%5B0:1:0%5D%5B1423:1:1423%5D%5B3954:1:3968%5D").read
-      lines = html_file.split(/\n/)[13..-13]
-      positions = WaterForecastStation.all
-      WaterForecastValue.destroy_all
-      t = 0
-      lines.each do |line|
-        date_model = (date_now + 3600 * t).strftime("%Y-%m-%d %H:00:00")
-        line = line.split(',')
-        line.each_with_index do |l, idx|
-          unless idx == 0
-            p l
-            WaterForecastValue.create(water_forecast_station_id: positions[idx - 1].id, date_time: date_model, water_temperature: l.to_f)
-            p "saved #{positions[idx - 1].id}"
-          end
-        end
-        t += 1
+  html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:60%5D%5B0:1:0%5D%5B1423:1:1423%5D%5B3954:1:3968%5D").read
+  lines = html_file.split(/\n/)[13..-13]
+  positions = WaterForecastStation.all
+  WaterForecastValue.destroy_all
+  t = 0
+  lines.each do |line|
+    date_model = (date_now + 3600 * t * 3).strftime("%Y-%m-%d %H:00:00")
+    line = line.split(',')
+    line.each_with_index do |l, idx|
+      unless idx == 0
+        p l
+        WaterForecastValue.create(water_forecast_station_id: positions[idx - 1].id, date_time: date_model, water_temperature: l.to_f)
+        p "saved #{positions[idx - 1].id}"
       end
-    rescue
-      puts "Não há dados novos"
     end
+    t += 1
   end
 end
 
@@ -1167,6 +1156,8 @@ def open_weather_api
         description = translate_description(hour["weather"][0]["description"])
         rain_probability = hour["pop"]
         icon = hour["weather"][0]["icon"]
+
+        p rain_probability
 
         p date_time
         weather_forecast_value = WeatherForecastValue.new(
@@ -1303,7 +1294,10 @@ feed_weather_forecast
 
 def tidal_data
 
-  tides_values = RestClient.get "https://www.worldtides.info/api/v2?extremes&date=2020-12-03&lat=-22.9068&lon=-43.1729&days=7&station=UKHO:2201a&key=#{ENV['WORLDTIDE_API']}"
+  date1 = Time.now - 1.day
+  date = Time.new(date1.year, date1.month, date1.day).strftime("%Y-%m-%d")
+
+  tides_values = RestClient.get "https://www.worldtides.info/api/v2?extremes&date=#{date}&lat=-22.9068&lon=-43.1729&days=7&station=UKHO:2201a&key=#{ENV['WORLDTIDE_API']}"
   tides_values = JSON.parse(tides_values)
   tides_values["extremes"].each do |value|
     tide = value["height"]

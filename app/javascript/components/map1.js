@@ -33,7 +33,9 @@ function initMap1() {
 
     let map = new google.maps.Map(mapElement, {
       center: { lat: -22.97, lng: -43.265387},
-      zoom: 12, mapTypeId: 'satellite'
+      zoom: 12,
+      mapTypeId: 'satellite',
+      disableDefaultUI: true,
     });
     const icon2 = {
       url: "http://maps.google.com/mapfiles/kml/shapes/man.png", // url
@@ -48,7 +50,6 @@ function initMap1() {
     let icon
     let rating
     let mark
-    let infowindow
     markers.forEach((marker) => {
       if (marker.icon === "01d"){
         x = a01d;
@@ -93,17 +94,35 @@ function initMap1() {
         },
         icon: icon
       });
-      infowindow = new google.maps.InfoWindow({
-        content: `<div class="d-flex align-items-center"><p class="map-p pt-2">${marker.name}</p><img class="map-img" src=${x}/></div>`,
-      });
-      mark.addListener('mouseover', function() {
-          infowindow.open(map, this);
-      });
+      if (marker.cleaning === true ){
+        const clean = "<div class='alert-success text-center'>PRAIA LIMPA</div>"
+        const infowindow = new google.maps.InfoWindow({
+          content: `<div class="d-flex align-items-center"><p class="map-p pt-2">${marker.name}</p><img class="map-img" src=${x}/></div>${clean}`
+        });
+        mark.addListener('mouseover', function() {
+            infowindow.open(map, this);
+        });
 
-      // assuming you also want to hide the infowindow when user mouses-out
-      mark.addListener('mouseout', function() {
-          infowindow.close();
-      });
+        // assuming you also want to hide the infowindow when user mouses-out
+        mark.addListener('mouseout', function() {
+            infowindow.close();
+        });
+
+      }else{
+        const clean = "<div class='alert-danger text-center'>PRAIA SUJA</div>"
+        const infowindow = new google.maps.InfoWindow({
+          content: `<div class="d-flex align-items-center"><p class="map-p pt-2">${marker.name}</p><img class="map-img" src=${x}/></div>${clean}`
+        });
+        mark.addListener('mouseover', function() {
+            infowindow.open(map, this);
+        });
+
+        // assuming you also want to hide the infowindow when user mouses-out
+        mark.addListener('mouseout', function() {
+            infowindow.close();
+        });
+      }
+
       mark.addListener('click', function() {
           window.open(`/beaches/${marker.id}`,'_self');
       });

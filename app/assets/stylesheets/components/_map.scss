@@ -14,11 +14,20 @@
 #map{
   height: 500px !important;
   width: 100% !important;
+  -webkit-filter: drop-shadow(1px 1px 0 black)
+                  drop-shadow(-1px -1px 0 black);
+  filter: drop-shadow(1px 1px 0 black)
+          drop-shadow(-1px -1px 0 black);
+  // border-color: "black";
 }
 
 #map1{
   height: 500px !important;
   width: 100% !important;
+  -webkit-filter: drop-shadow(1px 1px 0 black)
+                  drop-shadow(-1px -1px 0 black);
+  filter: drop-shadow(1px 1px 0 black)
+          drop-shadow(-1px -1px 0 black);
 }
 
 
@@ -53,16 +62,25 @@
 }
 
 #floating-panel {
-  position: absolute;
-  top: 10px;
-  left: 20%;
   z-index: 5;
-  background-color: #fff;
   padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
   line-height: 30px;
   border-color: gray;
   font-family: 'Anton', sans-serif;
-  font-size: 15px;
+  font-size: 20px;
+  width: auto;
+}
+
+.pressed-direction{
+  font-size: 20px;
+  opacity: 1 !important;
+}
+
+.image-small-transit{
+  &:hover{
+    opacity: 1;
+    cursor: pointer;
+  }
+  opacity: 0.5;
+  height: 24px;
 }

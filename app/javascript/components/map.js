@@ -1,6 +1,5 @@
 import bikeIcon from '../images/bike.png';
 import carIcon from '../images/car.png';
-import personIcon from '../images/person.png';
 import busIcon from '../images/bus.png';
 
 
@@ -65,14 +64,42 @@ function initMap() {
       });
       directionsRenderer.setMap(map);
       calculateAndDisplayRoute(directionsService, directionsRenderer, data, marker);
-      document.getElementById("mode").addEventListener("change", () => {
-        calculateAndDisplayRoute(directionsService, directionsRenderer, data, marker);
+      const bikeButton = document.getElementById("bicycling")
+      const carButton = document.getElementById("driving")
+      const busButton = document.getElementById("transit")
+
+      bikeButton.addEventListener("click", () => {
+        if (!event.currentTarget.classList.contains("pressed-direction")) {
+          event.currentTarget.classList.add("pressed-direction")
+          carButton.classList.remove("pressed-direction")
+          busButton.classList.remove("pressed-direction")
+          calculateAndDisplayRoute(directionsService, directionsRenderer, data, marker);
+        }
+      });
+
+      carButton.addEventListener("click", () => {
+        if (!event.currentTarget.classList.contains("pressed-direction")) {
+          event.currentTarget.classList.add("pressed-direction")
+          bikeButton.classList.remove("pressed-direction")
+          busButton.classList.remove("pressed-direction")
+          calculateAndDisplayRoute(directionsService, directionsRenderer, data, marker);
+        }
+      });
+      busButton.addEventListener("click", () => {
+        if (!event.currentTarget.classList.contains("pressed-direction")) {
+          event.currentTarget.classList.add("pressed-direction")
+          carButton.classList.remove("pressed-direction")
+          bikeButton.classList.remove("pressed-direction")
+          calculateAndDisplayRoute(directionsService, directionsRenderer, data, marker);
+        }
       });
     });
   }
 }
+
+
 function calculateAndDisplayRoute(directionsService, directionsRenderer, data1, marker) {
-  const selectedMode = document.getElementById("mode").value;
+  const selectedMode = document.querySelector(".pressed-direction").title;
   directionsService.route(
     {
       origin: { lat: data1["coords"].latitude, lng: data1["coords"].longitude },
