@@ -158,7 +158,7 @@ Beach.destroy_all
 
 beach_index = 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://www.fotoswiki.org/Uploads/fotoswiki.org/Resolucoes/2163-800x600.jpg')
+file = URI.open('https://spguia.melhoresdestinos.com.br/system/fotos_local/fotos/45647/show/prainha.jpg')
 beach = Beach.new(
   name: "Prainha - Canto Direito",
   lat: "-23.0423",
@@ -172,7 +172,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i.pinimg.com/originals/10/45/b3/1045b3b09d1a932e16b7daf9f6c6776d.jpg')
+file = URI.open('https://www.google.com/maps/uv?pb=!1s0x9be823fa4ea837%3A0xd5a99b488c56480!3m1!7e115!4shttps%3A%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipN8QOIjpN8696SDerWcj2vYqpM4GY8Hgzzp9Kvf%3Dw213-h160-k-no!5smacumba%20ccb%20-%20Google%20Search!15sCgIgAQ&imagekey=!1e10!2sAF1QipN8QOIjpN8696SDerWcj2vYqpM4GY8Hgzzp9Kvf&hl=en&sa=X&ved=2ahUKEwjLlpy2pcLtAhUYH7kGHf89Bb0QoiowCnoECBkQAw#')
 beach = Beach.new(
   name: "Macumba - CCB",
   lat: "-23.0316",
@@ -186,7 +186,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://www.brasileiraspelomundo.com/wp-content/uploads/2019/06/800-600-Moraig-bpm.jpg')
+file = URI.open('https://www.guiaviagensbrasil.com/imagens/canto-praia-recreio-dos-bandeirantes-rj.jpg')
 beach = Beach.new(
   name: "Recreio - Canto",
   lat: "-23.0299",
@@ -200,7 +200,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://rotadeferias.com.br/wp-content/uploads/2018/04/praias-para-surfe-Silveira-VisualHunt.jpg')
+file = URI.open('https://i.ytimg.com/vi/HxhKqWxXbzw/maxresdefault.jpg')
 beach = Beach.new(
   name: "Barra - Posto 6",
   lat: "-23.011",
@@ -214,7 +214,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Praia_de_Cotovelo_-_Parnamirim_-_Rio_Grande_do_Norte.jpg/800px-Praia_de_Cotovelo_-_Parnamirim_-_Rio_Grande_do_Norte.jpg')
+file = URI.open('https://i.ytimg.com/vi/vvMRgMni2dc/maxresdefault.jpg')
 beach = Beach.new(
   name: "Barra - Posto 5",
   lat: "-23.0112",
@@ -228,7 +228,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Praia_da_Vit%C3%B3ria_-_Portugal_%283635098735%29.jpg/800px-Praia_da_Vit%C3%B3ria_-_Portugal_%283635098735%29.jpg')
+file = URI.open('https://3.bp.blogspot.com/-0i7AlTTK56I/UurFkswLxII/AAAAAAAANjs/oTOzO3VLkyI/s1600/20140120_093041.jpg')
 beach = Beach.new(
   name: "Prainha",
   lat: "-23.0408",
@@ -242,9 +242,9 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://viversemroteiro.com.br/wp-content/uploads/2019/05/Praia-das-Fontes-2.png')
+file = URI.open('https://www.google.com/maps/place/Rio+2016+-+Pontal/@-23.0324627,-43.4707859,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipMSG1UaC9qh4bD-wkTkdlQ4abvT6wd7f32Oa-gQ!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipMSG1UaC9qh4bD-wkTkdlQ4abvT6wd7f32Oa-gQ%3Dw129-h86-k-no!7i2048!8i1365!4m12!1m6!3m5!1s0x0:0x8bfdbb9907ea48d4!2sRico+Point+Recreio!8m2!3d-23.0310519!4d-43.476852!3m4!1s0x0:0xa3e9b802d2ec5fc8!8m2!3d-23.0324629!4d-43.4707868#')
 beach = Beach.new(
-  name: "Macumba - Rico Point",
+  name: "Macumba - Centro",
   lat: "-23.0315",
   lng: "-43.4761",
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
@@ -256,7 +256,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i0.wp.com/vidasemparedes.com.br/wp-content/uploads/2020/02/praiadepipa-vidasemparedes-15-1.jpg?fit=800%2C600&ssl=1')
+file = URI.open('https://ateondeeupuderir.com/wp-content/uploads/2019/06/pedra-do-pontal-recreio-rj.jpg')
 beach = Beach.new(
   name: "Recreio - Posto 11",
   lat: "-23.0298",
@@ -270,21 +270,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.booking.com%2Fhotel%2Fbr%2Fapto-com-linda-vista-posto-5-barra-da-tijuca.html&psig=AOvVaw3mYvW65qsGKGixNbYg_i5j&ust=1607638751568000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCnqJ33we0CFQAAAAAdAAAAABAD')
-beach = Beach.new(
-  name: "Barra - Posto 55",
-  lat: "-23.0112",
-  lng: "-43.3387",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://i1.wp.com/catalogodeviagens.net/wp-content/uploads/2016/11/3PRAIASEMGOZO-1.jpg?fit=800%2C600')
+file = URI.open('https://www.viagenspossiveis.com.br/wp-content/uploads/2014/01/Praia-da-Barra-da-Tijuca-RJ.jpg')
 beach = Beach.new(
   name: "Barra - Posto 4",
   lat: "-23.0123",
@@ -298,7 +284,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i2.wp.com/contaspoupanca.pt/wp-content/uploads/2020/05/praia-2.jpg?resize=800%2C600&ssl=1')
+file = URI.open('https://www.fuiserviajante.com/wp-content/uploads/2017/03/praia-do-secreto-rio-de-janeiro-8.jpg')
 beach = Beach.new(
   name: "Macumba - Secreto",
   lat: "-23.0369",
@@ -312,7 +298,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i0.wp.com/www.descobriregipto.com/wp-content/uploads/2018/08/Praia-de-Agiba.jpg?fit=800%2C600&ssl=1')
+file = URI.open('https://i.ytimg.com/vi/sew0A297PYM/maxresdefault.jpg')
 beach = Beach.new(
   name: "Macumba - 2W",
   lat: "-23.0345",
@@ -326,7 +312,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/praia-do-sancho-fernando-de-noronha-documento-de-viagem_edited.jpg?resize=800%2C600&ssl=1')
+file = URI.open('https://i.ytimg.com/vi/BFZyc8FUYCI/maxresdefault.jpg')
 beach = Beach.new(
   name: "Recreio - Posto 10",
   lat: "-23.0262",
@@ -340,21 +326,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i0.wp.com/itabapoananews.com/wp-content/uploads/2020/06/praia1.jpeg?resize=800%2C600&ssl=1')
-beach = Beach.new(
-  name: "Barra - Rico Point",
-  lat: "-23.0113",
-  lng: "-43.3374",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://i0.wp.com/jornaldemafra.pt/wp-content/uploads/2019/08/Jornal_de_Mafra_2019.08.22_22h27m57s_057_.jpg?fit=800%2C600&ssl=1')
+file = URI.open('https://i.ytimg.com/vi/CNQ-uKGAiAs/maxresdefault.jpg')
 beach = Beach.new(
   name: "São Conrado - Canto Esquerdo",
   lat: "-22.9995",
@@ -368,7 +340,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i2.wp.com/aventurandoadois.com.br/wp-content/uploads/2020/01/VISTA_ROSA_NORTE_TRILHA.jpg?fit=800%2C600&ssl=1')
+file = URI.open('https://i.pinimg.com/originals/4e/9e/d1/4e9ed1b28ee6e31e0b5b58f9318d4e10.jpg')
 beach = Beach.new(
   name: "Ipanema - Posto 8",
   lat: "-22.9881",
@@ -382,7 +354,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i0.wp.com/a3construtora.com.br/wp-content/uploads/2019/09/original-67bec68b1ee67ba7eaf65e48dfbf74ba.jpg?fit=800%2C600&ssl=1')
+file = URI.open('https://www.google.com/url?sa=i&url=https%3A%2F%2Fcatracalivre.com.br%2Fagenda%2Fo-que-fazer-no-posto-6-copacabana-rio-de-janeiro%2F&psig=AOvVaw3nGSeH1JOAJ8-4knFOlNjF&ust=1607651833862000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCj0vanwu0CFQAAAAAdAAAAABAD')
 beach = Beach.new(
   name: "Copacabana - Posto 6",
   lat: "-22.985",
@@ -396,7 +368,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i1.wp.com/tvprefeito.com/wp-content/uploads/2020/07/02-287.jpg?fit=800%2C600&ssl=1')
+file = URI.open('https://maladeaventuras.com/wp-content/uploads/2018/10/melhores-praias-do-rio-de-janeiro-1280x720.jpg')
 beach = Beach.new(
   name: "Leblon - Canto",
   lat: "-22.9881",
@@ -410,7 +382,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i1.wp.com/www.essemundoenosso.com.br/wp-content/uploads/2015/09/praias-de-morro-de-s%C3%A3o-paulo-1.jpg?resize=800%2C600&ssl=1')
+file = URI.open('https://ogimg.infoglobo.com.br/in/14647326-813-77f/FT1086A/652/arpoador-2.jpg')
 beach = Beach.new(
   name: "Arpoador",
   lat: "-22.9895",
@@ -424,7 +396,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://images2.fanpop.com/image/photos/10700000/Muri-Beach-rarotonga-10708104-800-600.jpg')
+file = URI.open('https://viagemdeaaz.com/wp-content/uploads/2019/02/Rio-2015-Sony-HX300-5-of-59-2-1.jpg')
 beach = Beach.new(
   name: "Copacabana - Posto 5",
   lat: "-22.9806",
@@ -438,7 +410,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i0.wp.com/vidasemparedes.com.br/wp-content/uploads/2017/10/Vida-sem-Paredes-praias-selvagens-do-Rio-1.jpg?fit=800%2C600&ssl=1')
+file = URI.open('https://www.google.com/url?sa=i&url=https%3A%2F%2Fmapio.net%2Fs%2F30217532%2F&psig=AOvVaw2jY-9Mv6vUYn9oJ0B30tJG&ust=1607652098467000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKCt7vOowu0CFQAAAAAdAAAAABAf')
 beach = Beach.new(
   name: "Ipanema - Garcia d'avila",
   lat: "-22.9873",
@@ -452,7 +424,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i0.wp.com/vidasemparedes.com.br/wp-content/uploads/2017/10/Vida-sem-Paredes-praias-selvagens-do-Rio-1.jpg?fit=800%2C600&ssl=1')
+file = URI.open('https://i.ytimg.com/vi/CG0dNM1fCjs/maxresdefault.jpg')
 beach = Beach.new(
   name: "Diabo",
   lat: "-22.9886",
@@ -466,7 +438,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i1.wp.com/amantesdeviagens.com/wp-content/uploads/2016/09/Menorca_.jpg?resize=800%2C600&ssl=1')
+file = URI.open('https://loucosporpraia.com.br/wp-content/uploads/2014/07/leme-rio-de-janeiro-por-Bebel-Machado.jpg')
 beach = Beach.new(
   name: "Leme",
   lat: "-22.9648",
@@ -480,7 +452,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i2.wp.com/www.familiacalifornia.com/wp-content/uploads/2019/03/blog-familia-california-san-diego-28-800x600.jpg?resize=800%2C600&ssl=1')
+file = URI.open('https://i.pinimg.com/originals/4d/c3/d9/4dc3d9f3879cbdebbcaa8a124d74c066.jpg')
 beach = Beach.new(
   name: "Itacoatiara - Pampo",
   lat: "-22.9746",
@@ -494,7 +466,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i0.wp.com/vamocomigo.com/wp-content/uploads/2020/08/trilha-das-7-praias-praia-do-deserto.jpg?resize=800%2C600&ssl=1')
+file = URI.open('https://1.bp.blogspot.com/-qpipNw6kZlI/WybtJS0nmLI/AAAAAAABxrg/nYQdj997pDAcCQdAsQQxvsFqEBvcyAkMgCLcBGAs/w1200-h630-p-k-no-nu/praia-itacoatiara-niteroi.jpg')
 beach = Beach.new(
   name: "Itacoatiara - Meio",
   lat: "-22.9748",
@@ -1126,6 +1098,7 @@ wave_forecast_data
 p "Feed water forecast values"
 
 def ocean_forecast
+  WaterForecastValue.destroy_all
   date1 = Time.now - 1.day
   date = Time.new(date1.year, date1.month, date1.day).strftime("%Y-%m-%d")
 
