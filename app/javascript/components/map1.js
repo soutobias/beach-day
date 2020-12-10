@@ -89,7 +89,7 @@ function initMap1() {
         title: marker.name,
         label: {
           text: rating.toString(),
-          fontFamily: "'Roboto Condensed', sans-serif"
+          fontFamily: "'Lato', sans-serif"
         },
         icon: icon
       });

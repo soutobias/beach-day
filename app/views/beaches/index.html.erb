@@ -111,7 +111,8 @@
 <script>
 const search = document.getElementById('search-data')
 const skills = JSON.parse(search.dataset.skills)
-$(function() {
+
+search.addEventListener('keyup', (event) => {
   $("#query" ).autocomplete({
     source: skills
   });
