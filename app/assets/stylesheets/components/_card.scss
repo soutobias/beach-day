@@ -98,6 +98,7 @@
       background: #313131;
       border-radius: 4px;
       padding-left: 25px;
+      box-shadow: 0 0 20px 25px #e1d1d1;
       p {
         font-family: 'Anton', sans-serif;
         font-size: 1.1rem;
@@ -111,9 +112,14 @@
 .h2flip {
   font-family: 'Anton', sans-serif !important;
   font-size: 40px !important;
-  color: rgb(50, 50, 50) !important;
   padding-top: 20%;
+  color: black;
+  text-shadow: 1px 1px lightgrey;
   }
+
+.h2flip h2 {
+  color: black;
+}
 
 .image-medium{
   width: 190px;
@@ -301,13 +307,7 @@
   font-weight: bold;
 }
 
-
-.row11{
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.col-11{
-  width: 22%;
+.passe-partout {
+  background: white;
+  height: 200px;
 }
