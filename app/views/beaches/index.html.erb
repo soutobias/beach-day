@@ -8,22 +8,32 @@
 </header>
 <main>
   <div class="mr-3 ml-3">
-    <div id="beaches" class="search d-flex w-100">
-      <p class="pl-3">Qual a praia perfeita para você?</p>
-      <%= form_tag beaches_path, method: :get, class: "pl-3" do %>
-        <%= text_field_tag :query,
-          params[:query],
-          class: "form-control  pl-3",
-          placeholder: "Ache uma praia"
-        %>
+    <div id="beaches" class="search d-flex">
+      <p class="pl-3" >Qual a praia perfeita para você?</p>
+      <%= form_tag beaches_path, method: :get, class: "pl-3 d-flex" do %>
+        <div id= "search-data" class="form-search search-data" data-skills="<%= @names.to_json %>">
+          <%= text_field_tag :query, nil, class: "blank search-input", placeholder: "  Digite uma praia..."%>
+        </div>
+        <%= select_tag :options, raw("<option>Melhor praia</option><option>Melhor praia para surfe</option><option>Praia mais limpa</option><option>Praia mais segura</option><option>Praia mais acessível</option>" ), prompt: "Ordenar por", class: 'form-control', id: 'select_two' %>
+        <%= button_tag :submit, class: "non-btn" do %>
+          <i class="fas fa-search h2"></i>
+        <% end %>
       <% end %>
+      <div id="show-map" data-toggle="popover" title="Mostrar Mapa">
+        <i class="fas fa-globe-americas pl-2 img-map" id="img-map"></i>
+      </div>
     </div>
-    <div class="row">
-      <% @beaches.each do |beach| %>
+
+    <div class="row w-100">
+      <div class="col-12">
+        <div id="map1" data-markers="<%= @markers.to_json %>" class="inactive-tab m-2"></div>
+      </div>
+      <% @beaches.each_with_index do |beach, idx| %>
+
         <div class="col-4 m-0">
           <%= link_to beach_path(beach) do %>
             <div class="flip m-3">
-              <div class="front" style="background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url('<%= cl_image_path beach.photo.key%>')">
+              <div class="front" style="background-image: linear-gradient(rgba(255,255,255,0.7),rgba(0,0,0,0)), url('<%= cl_image_path beach.photo.key%>')">
                 <h2 class="text-shadow align-middle h2flip"><%=beach.name %></h2>
                   <div class="beach-weather-infos">
                 <div class="d-flex">
@@ -39,51 +49,53 @@
                         <span class="far fa-star checked geral pl-2 pt-1"></span>
                       <% end  %>
                       <% c += 1 %>
-                    <% end  %>
+                    <% end %>
                   </p>
-                  <%= image_tag "weather_icons/#{beach.weather_forecast_dailies[0].icon}.png", class: "location-bottom-left" %>
+                  <div class="d-flex location-bottom-left">
+                    <%= image_tag "weather_icons/#{beach.real_time_values[0].icon}.png", class: "img-wea" %>
+                  </div>
                 </div>
                 </div>
               </div>
               <div class="back" >
                 <div class="barras text-align-center text-left pt-4">
                   <div class="row align-middle">
-                    <div class="col-6">
+                    <div class="col-4">
                       <p class="pt-1">ESTACIONAMENTO</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                       <div class="barra">
                          <div class="barra-nivel" data-nivel="<%= (beach.overall_parking.round(1)*10).to_i%>"></div>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                       <p  class="pt-1">RESTAURANTES</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                       <div class="barra">
                          <div class="barra-nivel" data-nivel="<%= (beach.overall_restaurant.round(1)*10).to_i%>"></div>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                       <p class="pt-1">TRANSPORTE PÚBLICO</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                       <div class="barra">
                          <div class="barra-nivel" data-nivel="<%= (beach.overall_public_transportation.round(1)*10).to_i%>"></div>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                       <p class="pt-1">SEGURANÇA</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                       <div class="barra">
                          <div class="barra-nivel" data-nivel="<%= (beach.overall_security.round(1)*10).to_i%>"></div>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                       <p class="pt-1">ONDAS</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                       <div class="barra">
                          <div class="barra-nivel" data-nivel="<%= (beach.overall_wave.round(1)*10).to_i%>"></div>
                       </div>
@@ -98,3 +110,15 @@
     </div>
   </div>
 </main>
+
+<!-- <script>
+  const search = document.getElementById('search-data')
+  const skills = JSON.parse(search.dataset.skills)
+  search.addEventListener('keyup', (event) => {
+    $(function() {
+      $("#query" ).autocomplete({
+        source: skills
+      });
+    });
+  });
+</script> -->

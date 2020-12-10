@@ -22,24 +22,25 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'simple_form'
+gem 'autoprefixer-rails'
+gem 'font-awesome-sass', '~> 5.6.1'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 gem 'faker'
 gem 'devise'
 gem 'pundit'
 gem 'dotenv-rails', groups: [:development, :test]
-gem 'selenium-webdriver'
 gem 'haversine', '~> 0.3.0'
 
 
-gem 'autoprefixer-rails'
-gem 'font-awesome-sass', '~> 5.6.1'
 gem 'nokogiri'
 gem 'cloudinary', '~> 1.16.0'
 gem 'geocoder'
+gem 'select2-rails'
 
 gem 'rest-client'
 
+gem "chartkick"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false

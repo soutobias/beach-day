@@ -41,15 +41,18 @@ const rangeWeather1 = () => {
 
 const rangeWeather2 = () => {
   const range2 = document.getElementById('weather-range-2')
+  const range7 = document.getElementById('weather-range-null')
   if (range2) {
-    range2.addEventListener('change', (event) => {
-      const cards = document.querySelectorAll('.all-cards')
-      cards.forEach((card) => {
-        card.classList.add('inactive-tab');
+    if (range7 === null){
+      range2.addEventListener('change', (event) => {
+        const cards = document.querySelectorAll('.all-cards')
+        cards.forEach((card) => {
+          card.classList.add('inactive-tab');
+        });
+        const actual = document.getElementById(`weather-day2-hour${event.currentTarget.value}`)
+        actual.classList.remove('inactive-tab');
       });
-      const actual = document.getElementById(`weather-day2-hour${event.currentTarget.value}`)
-      actual.classList.remove('inactive-tab');
-    });
+    }
   }
 };
 
@@ -100,6 +103,7 @@ const changeWeatherDay0 = () => {
 
 const changeWeatherDay2 = () => {
   const cardDay = document.querySelector('.day-2')
+  const range7 = document.getElementById('weather-range-null')
   if (cardDay) {
     cardDay.addEventListener('click', (event) => {
       const cards = document.querySelectorAll('.all-cards')
@@ -117,9 +121,13 @@ const changeWeatherDay2 = () => {
       range1.value = 0;
       range.classList.remove('inactive-tab');
 
-
-      const actual = document.getElementById(`weather-day2-hour${range1.value}`)
-      actual.classList.remove('inactive-tab');
+      if (range7 === null){
+        const actual = document.getElementById(`weather-day2-hour${range1.value}`)
+        actual.classList.remove('inactive-tab');
+      } else{
+        const actual = document.getElementById(`weather-day2`)
+        actual.classList.remove('inactive-tab');
+      }
     });
   }
 };

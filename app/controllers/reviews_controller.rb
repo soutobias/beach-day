@@ -15,8 +15,8 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     @review.user = current_user
     @review.beach = @beach
-    if @review.save!
-      redirect_to beach_reviews_path(@beach)
+    if @review.save
+      redirect_to beach_path(@beach)
     else
       @review = Review.new
       render "new"

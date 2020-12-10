@@ -8,7 +8,12 @@
     "@rails/webpacker": "4.3.0",
     "boostrap": "^2.0.0",
     "bootstrap": "^4.5.3",
+    "bootstrap-autocomplete": "^2.3.7",
+    "chart.js": "^2.9.4",
+    "chartkick": "^3.2.1",
     "jquery": "^3.5.1",
+    "jquery.autocomplete": "^1.2.0",
+    "js-autocomplete": "^1.0.4",
     "popper.js": "^1.16.1",
     "turbolinks": "^5.2.0"
   },

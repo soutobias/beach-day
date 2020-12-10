@@ -1,0 +1,11 @@
+<div id="map1" data-markers="<%= @markers.to_json %>"></div>
+  <div id="beaches" class="search d-flex w-100 fixed-top">
+    <p class="pl-3">Qual a praia perfeita para você?</p>
+    <%= form_tag map_beaches_path, method: :get, class: "pl-3" do %>
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control  pl-3",
+        placeholder: "Ache uma praia"
+      %>
+    <% end %>
+  </div>

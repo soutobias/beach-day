@@ -7,6 +7,12 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+require("chartkick")
+require("chart.js")
+require("jquery")
+// require("select2")
+// require("_tree")
+import 'bootstrap';
 
 import { initUpdateH1OnScroll } from '../components/init_h1';
 import { rangeBegin, rangeWeather0, rangeWeather1, rangeWeather2, changeWeatherDay1, changeWeatherDay0, changeWeatherDay2, changeWeatherDay3, changeWeatherDay4 } from '../components/init_range'; // <-- add this line
@@ -15,13 +21,15 @@ import { rangeBegin, rangeWeather0, rangeWeather1, rangeWeather2, changeWeatherD
 import { toogleTab } from '../components/tabs_index';
 import { initBar } from '../components/init_bar';
 import { initBar1 } from '../components/init_bar1';
+// import { autocompleteSearch } from '../components/autocomplete';
+import { showMap } from '../components/show_map';
+import { initMap } from '../components/map';
+import { initMap1 } from '../components/map1';
 
 
-
-import { initMap } from 'packs/map';
 
 document.addEventListener('turbolinks:load', () => {
-  initMap();
+  // autocompleteSearch();
   initUpdateH1OnScroll();
   rangeBegin();
   rangeWeather0();
@@ -35,6 +43,9 @@ document.addEventListener('turbolinks:load', () => {
   toogleTab();
   initBar();
   initBar1();
+  initMap();
+  initMap1();
+  showMap();
 });
 
 // Uncomment to copy all static images under ../images to the output folder and reference

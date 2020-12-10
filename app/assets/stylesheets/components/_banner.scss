@@ -17,6 +17,8 @@ body {
 
 header {
   background: linear-gradient(rgba(200,200,200,0.2),rgba(200,200,200,0.2));
+
+
 }
 
 .index {
@@ -61,6 +63,7 @@ header {
   font-size: 30px;
   font-family: 'Anton', sans-serif;
   padding-left: 20px;
+  text-shadow: 1px 1px white;
 }
 
 .icon-click{
@@ -96,12 +99,60 @@ main {
   font-family: 'Anton', sans-serif;
 }
 
+
+@media (max-width: 1680px) {
+  main{
+    margin-top: -750px;
+  }
+}
+
+@media (max-width: 1600px) {
+  main{
+    margin-top: -670px;
+  }
+}
+
+@media (max-width: 1440px) {
+  main{
+    margin-top: -510px;
+  }
+}
+
+@media (max-width: 1400px) {
+  main{
+    margin-top: -470px;
+  }
+}
+
+@media (max-width: 1280px) {
+  main{
+    margin-top: -350px;
+  }
+}
+
+
 @media (max-width: 750px) {
   .banner {
     height: 200px;
     padding: 70px 0;
   }
+  main{
+    margin-top: 0px;
+  }
   .index p{
     margin-top: -320px;
+  }
+}
+
+
+@media (max-width: 720px) {
+  main{
+    margin-top: 0px;
+  }
+}
+
+@media (max-width: 540px) {
+  main{
+    margin-top: 0px;
   }
 }
