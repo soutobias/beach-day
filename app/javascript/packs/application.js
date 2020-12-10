@@ -9,7 +9,7 @@ require("@rails/activestorage").start()
 require("channels")
 require("chartkick")
 require("chart.js")
-
+require("jquery")
 // require("select2")
 // require("_tree")
 import 'bootstrap';

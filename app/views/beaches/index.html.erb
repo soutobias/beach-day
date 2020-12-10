@@ -109,13 +109,13 @@
 </main>
 
 <script>
-const search = document.getElementById('search-data')
-const skills = JSON.parse(search.dataset.skills)
+  const search = document.getElementById('search-data')
+  const skills = JSON.parse(search.dataset.skills)
 
-search.addEventListener('keyup', (event) => {
-  $("#query" ).autocomplete({
-    source: skills
+  search.addEventListener('keyup', (event) => {
+    $("#query" ).autocomplete({
+      source: skills
+    });
   });
-});
 
 </script>
