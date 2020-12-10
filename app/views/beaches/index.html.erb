@@ -35,27 +35,31 @@
             <div class="flip m-3">
               <div class="front" style="background-image: linear-gradient(rgba(255,255,255,0.7),rgba(0,0,0,0)), url('<%= cl_image_path beach.photo.key%>')">
                 <h2 class="text-shadow align-middle h2flip"><%=beach.name %></h2>
+              </div>
+                <div class="bottom-card" style="display: flex; Flex-direction:collumn; linear-gradient(rgba(255,255,255,0.7),rgba(0,0,0,0))">
                   <div class="beach-weather-infos">
-                <div class="d-flex">
-                  <p class="p location-bottom-right">
-                    <% c = 1 %>
-                    <% rating = ((((beach.overall_rating * 2).round).to_f)/2) %>
-                    <% 5.times do %>
-                      <% if c < rating %>
-                        <span class="fas fa-star checked geral pl-2 pt-1"></span>
-                      <% elsif c - rating == 0.5%>
-                        <span class="fas fa-star-half-alt checked geral pl-2 pt-1"></span>
-                      <% else %>
-                        <span class="far fa-star checked geral pl-2 pt-1"></span>
-                      <% end  %>
-                      <% c += 1 %>
-                    <% end %>
-                  </p>
-                  <div class="d-flex location-bottom-left">
-                    <%= image_tag "weather_icons/#{beach.real_time_values[0].icon}.png", class: "img-wea" %>
+                    <div class="d-flex">
+                      <p class="p location-bottom-right">
+                        <% c = 1 %>
+                        <% rating = ((((beach.overall_rating * 2).round).to_f)/2) %>
+                        <% 5.times do %>
+                          <% if c < rating %>
+                            <span class="fas fa-star checked geral pl-2 pt-1"></span>
+                         <% elsif c - rating == 0.5%>
+                            <span class="fas fa-star-half-alt checked geral pl-2 pt-1"></span>
+                          <% else %>
+                            <span class="far fa-star checked geral pl-2 pt-1"></span>
+                          <% end  %>
+                          <% c += 1 %>
+                        <% end %>
+                      </p>
+                      <div class="d-flex location-bottom-left">
+                        <%= image_tag "weather_icons/#{beach.real_time_values[0].icon}.png", class: "img-wea" %>
+                      </div>
                   </div>
                 </div>
-                </div>
+              </div>
+            </div>
               </div>
               <div class="back" >
                 <div class="barras text-align-center text-left pt-4">
