@@ -29,10 +29,11 @@
         <div id="map1" data-markers="<%= @markers.to_json %>" class="inactive-tab m-2"></div>
       </div>
       <% @beaches.each_with_index do |beach, idx| %>
+
         <div class="col-4 m-0">
           <%= link_to beach_path(beach) do %>
             <div class="flip m-3">
-              <div class="front" style="background-image: linear-gradient(rgba(255,255,255,0.5),rgba(0,0,0,0)), url('<%= cl_image_path beach.photo.key%>')">
+              <div class="front" style="background-image: linear-gradient(rgba(255,255,255,0.7),rgba(0,0,0,0)), url('<%= cl_image_path beach.photo.key%>')">
                 <h2 class="text-shadow align-middle h2flip"><%=beach.name %></h2>
                 <div class="d-flex">
                   <p class="p location-bottom-right">

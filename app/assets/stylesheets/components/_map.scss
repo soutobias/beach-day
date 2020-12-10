@@ -25,15 +25,17 @@
 .map-img{
   width: 40px;
   height: auto;
+  margin-left: 2px;
+
 }
 
 
 .img-map{
   &:hover{
-    opacity: 1;
+    opacity: 0.7;
     cursor: pointer;
   }
-  opacity: 0.7;
+  opacity: 1;
   font-size: 35px;
 }
 

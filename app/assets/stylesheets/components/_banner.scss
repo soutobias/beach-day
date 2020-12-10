@@ -17,6 +17,8 @@ body {
 
 header {
   background: linear-gradient(rgba(200,200,200,0.2),rgba(200,200,200,0.2));
+  position: relative;
+
 }
 
 .index {
@@ -61,6 +63,7 @@ header {
   font-size: 30px;
   font-family: 'Anton', sans-serif;
   padding-left: 20px;
+  text-shadow: 1px 1px white;
 }
 
 .icon-click{
