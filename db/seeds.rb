@@ -270,7 +270,7 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://rotadeferias.com.br/wp-content/uploads/2018/09/praias-de-Sao-Sebastiao-Barra-do-Sahy-Visualhunt.jpg')
+file = URI.open('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.booking.com%2Fhotel%2Fbr%2Fapto-com-linda-vista-posto-5-barra-da-tijuca.html&psig=AOvVaw3mYvW65qsGKGixNbYg_i5j&ust=1607638751568000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCnqJ33we0CFQAAAAAdAAAAABAD')
 beach = Beach.new(
   name: "Barra - Posto 55",
   lat: "-23.0112",
@@ -508,11 +508,263 @@ puts "Beach #{beach_index} saved"
 
 beach_index += 1
 puts "Creating beach #{beach_index}"
-file = URI.open('https://i0.wp.com/documentodeviagem.com/wp-content/uploads/2019/10/baia-dos-porcos-fernando-de-noronha-documento-de-viagem-1_edited.jpg?resize=800%2C600&ssl=1')
+file = URI.open('https://www.viajadora.com/wp-content/uploads/2015/01/cost%C3%A3o-canto-direito-itacoatiara-niteroi-viajadora.jpg')
 beach = Beach.new(
-  name: "Itacoatiara - Costao",
+  name: "Itacoatiara - Costão",
   lat: "-22.9758",
   lng: "-43.0305",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://www.viajali.com.br/wp-content/uploads/2019/07/praia-vermelha-08.jpg')
+beach = Beach.new(
+  name: "Vermelha",
+  lat: -22.955250142867826,
+  lng: -43.16435470679382,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://tevejopelomundo.com.br/wp-content/uploads/2017/11/praia-do-vidigal-vista-das-pedras.jpg')
+beach = Beach.new(
+  name: "Vidigal",
+  lat: -22.99179201183994,
+  lng: -43.23208173612224,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://viajento.files.wordpress.com/2019/12/aterro-do-flamengo-rio-de-janeiro-brasil.jpg')
+beach = Beach.new(
+  name: "Flamengo - Canto Direito",
+  lat: -22.93511480093811,
+  lng: -43.171060229328184,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://loucosporpraia.com.br/wp-content/uploads/2014/07/Flamengo-por-street-view02.jpg')
+beach = Beach.new(
+  name: "Flamengo - Centro",
+  lat: -22.92859339071708,
+  lng: -43.17048087215316,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://vejario.abril.com.br/wp-content/uploads/2017/10/anna-fisher4.jpg')
+beach = Beach.new(
+  name: "Urca",
+  lat: -22.947845467099466,
+  lng: -43.16344275569807,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://images.sympla.com.br/5b96bc9556e97.jpg')
+beach = Beach.new(
+  name: "Ribeira - Paquetá",
+  lat:  -22.765827254522243,
+  lng: -43.10369386790752,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://api.prond.com.br/images/resized/br-rj-niteroi/praia-do-gragoata')
+beach = Beach.new(
+  name: "Gragoatá",
+  lat: -22.90223876167349,
+  lng: -43.136141408298435,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://media-cdn.tripadvisor.com/media/photo-s/09/df/3d/39/praia-adao-e-eva.jpg')
+beach = Beach.new(
+  name: "Adão",
+  lat: -22.92773303773431,
+  lng: -43.12289080465795,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://ogimg.infoglobo.com.br/in/15123232-143-650/FT1086A/652/2015-780161059-2014-779560061-2014123039754.jpg_20141230.jpg_20150104.jpg')
+beach = Beach.new(
+  name: "Camboinhas - Centro",
+  lat: -22.962056778661623,
+  lng: -43.056578166471,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://curtarj.com.br/wp-content/uploads/2019/03/camboinhas-praia.jpg')
+beach = Beach.new(
+  name: "Camboinhas - Canto Direito",
+  lat: -22.96677872425047,
+  lng: -43.048402793398196,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://ladodeca.com.br/wp-content/uploads/2020/01/praia-de-charitas-por-heloisaprado-1024x543.jpg')
+beach = Beach.new(
+  name: "Charitas",
+  lat: -22.92546025169957,
+  lng: -43.09579547613986,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://www.visiteobrasil.com.br/galerias/carac4-rio-de-janeiro-praia-da-boa-viagem-niteroi/725-041534-praia-da-boa-viagem-foto-marinelsongr.jpg')
+beach = Beach.new(
+  name: "Boa Viagem",
+  lat: -22.90804989048639,
+  lng: -43.12888871521811,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://www.praias.com.br/images/stories/rj_1024/rj-niteroi-praia-das-flexas-03.jpg')
+beach = Beach.new(
+  name: "Flechas",
+  lat: -22.90572744536363,
+  lng: -43.124940503525984,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://upload.wikimedia.org/wikipedia/commons/d/dd/PraiadeIcara%C3%AD.jpg')
+beach = Beach.new(
+  name: "Icaraí",
+  lat: -22.904749139850797,
+  lng: -43.11810104477682,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://upload.wikimedia.org/wikipedia/commons/5/55/Cal%C3%A7ad%C3%A3o_de_S%C3%A3o_Francisco.jpg')
+beach = Beach.new(
+  name: "São Francisco",
+  lat: -22.91554083836005,
+  lng: -43.09586016765691,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://www.praias.com.br/images/stories/rj_1024/rj-niteroi-praia-de-jurujuba-01.jpg')
+beach = Beach.new(
+  name: "Jurujuba",
+  lat: -22.93458055372498,
+  lng: -43.11282715648674,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://ogimg.infoglobo.com.br/in/14968022-4cb-31e/FT1086A/652/2014-779562403-2014123039765.jpg_20141230.jpg')
+beach = Beach.new(
+  name: "Itaipu",
+  lat: -22.971836357371163,
+  lng: -43.046042449507574,
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+puts "Creating beach #{beach_index}"
+file = URI.open('https://niteroiexperience.com.br/wp-content/uploads/2020/02/60994756_2097479500552636_5859014902814867456_o.jpg')
+beach = Beach.new(
+  name: "Piratininga",
+  lat: -22.95411333880743,
+  lng: -43.09458813521258,
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
 )
 beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
@@ -609,11 +861,12 @@ def direction_to_string(value)
 end
 
 def translate_description(description)
+  description = description.downcase
   if description == "clear sky"
     description = "Céu Limpo"
   elsif description == "few clouds"
     description = "Poucas Nuvens"
-  elsif description == "overclast clouds"
+  elsif description == "overcast clouds"
     description = "Poucas Nuvens"
   elsif description == "scattered clouds"
     description = "Nuvens Esparsas"
@@ -783,7 +1036,7 @@ def cleaning_status
         date_time = date_time.strftime("%Y-%m-%d 00:00:00")
         name = beach.css("[class='name']")[0].text
         description = beach.css("[class='location']")[0].text
-        status = beach.css(".status")[0].text
+        status = beach.css(".status")[0].text == "Própria"
         cleaning_station = CleaningStation.where("name = '#{name}' AND description = ?", description)[0]
 
         cleaning_value = CleaningValue.where("date_time = '#{date_time}' AND cleaning_station_id = #{cleaning_station.id}")
@@ -887,7 +1140,7 @@ def ocean_forecast
   end
   unless x
     begin
-      html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:60%5D%5B0:1:0%5D%5B1425:1:1425%5D%5B3954:1:3968%5D").read
+      html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:60%5D%5B0:1:0%5D%5B1423:1:1423%5D%5B3954:1:3968%5D").read
       lines = html_file.split(/\n/)[13..-13]
       positions = WaterForecastStation.all
       WaterForecastValue.destroy_all
@@ -897,6 +1150,7 @@ def ocean_forecast
         line = line.split(',')
         line.each_with_index do |l, idx|
           unless idx == 0
+            p l
             WaterForecastValue.create(water_forecast_station_id: positions[idx - 1].id, date_time: date_model, water_temperature: l.to_f)
             p "saved #{positions[idx - 1].id}"
           end

@@ -12,7 +12,7 @@
       <p class="pl-3" >Qual a praia perfeita para você?</p>
       <%= form_tag beaches_path, method: :get, class: "pl-3 d-flex" do %>
         <div id= "search-data" class="form-search search-data" data-skills="<%= @names.to_json %>">
-          <%= text_field_tag :query, nil, autocomplete: :off, class: "blank search-input", placeholder: "  Digite uma praia..."%>
+          <%= text_field_tag :query, nil, class: "blank search-input", placeholder: "  Digite uma praia..."%>
         </div>
         <%= select_tag :options, raw("<option>Melhor praia</option><option>Melhor praia para surfe</option><option>Praia mais limpa</option><option>Praia mais segura</option><option>Praia mais acessível</option>" ), prompt: "Ordenar por", class: 'form-control', id: 'select_two' %>
         <%= button_tag :submit, class: "non-btn" do %>
@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row w-100">
       <div class="col-12">
         <div id="map1" data-markers="<%= @markers.to_json %>" class="inactive-tab m-2"></div>
       </div>
@@ -108,3 +108,15 @@
     </div>
   </div>
 </main>
+
+<script>
+  const search = document.getElementById('search-data')
+  const skills = JSON.parse(search.dataset.skills)
+  search.addEventListener('keyup', (event) => {
+    $(function() {
+      $("#query" ).autocomplete({
+        source: skills
+      });
+    });
+  });
+</script>
