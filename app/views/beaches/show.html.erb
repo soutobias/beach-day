@@ -210,7 +210,11 @@
             <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
           <% end %>
           <div class="card-trip-infos">
-            <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (@real_time.water_temperature).round(1) %>°C</p>
+            <% if @real_time.water_temperature.round(1).to_i == 0  %>
+              <p class="p-0 m-0">TEMPERATURA DA ÁGUA: 21°C</p>
+            <% else %>
+              <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (@real_time.water_temperature).round(1) %>°C</p>
+            <% end %>
           </div>
         </div>
         <div class="col-4 card-trip mt-2">
@@ -281,7 +285,11 @@
                     <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
                   <% end %>
                   <div class="card-trip-infos">
-                    <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+                    <% if ocean[0].water_temperature.round(1).to_i == 0  %>
+                      <p class="p-0 m-0">TEMPERATURA DA ÁGUA: 21°C</p>
+                    <% else %>
+                      <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+                    <% end %>
                   </div>
                 </div>
                 <div class="col-3 card-trip mt-2 flex-grow-1">
@@ -348,7 +356,11 @@
                   <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
                 <% end %>
                 <div class="card-trip-infos">
-                  <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+                  <% if ocean[0].water_temperature.round(1).to_i == 0  %>
+                    <p class="p-0 m-0">TEMPERATURA DA ÁGUA: 21°C</p>
+                  <% else %>
+                    <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+                  <% end %>
                 </div>
               </div>
               <div class="col-3 card-trip mt-2 flex-grow-1">
@@ -414,7 +426,11 @@
                       <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
                     <% end %>
                     <div class="card-trip-infos">
-                      <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+                      <% if ocean[0].water_temperature.round(1).to_i == 0  %>
+                        <p class="p-0 m-0">TEMPERATURA DA ÁGUA: 21°C</p>
+                      <% else %>
+                        <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean[0].water_temperature).round(1) %>°C</p>
+                      <% end %>
                     </div>
                   <% end %>
                 </div>
@@ -484,7 +500,11 @@
                     <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
                   <% end %>
                   <div class="card-trip-infos">
-                    <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean1[0].water_temperature).round(1) %>°C</p>
+                    <% if ocean[0].water_temperature.round(1).to_i == 0  %>
+                      <p class="p-0 m-0">TEMPERATURA DA ÁGUA: 21°C</p>
+                    <% else %>
+                      <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean1[0].water_temperature).round(1) %>°C</p>
+                    <% end %>
                   </div>
                 <% end %>
               </div>
@@ -516,7 +536,6 @@
               <div class="card-trip-infos">
                 <p class="p-0 m-0">TEMPERATURA DO AR: <%= (daily.air_temperature.round(1)) %>°C</p>
                 <p class="p-0 m-0">SENSAÇÃO TÉRMICA <%= (daily.air_temperature_feels_like.round(1)) %>°C</p>
-                <p class="p-0 m-0">MIN <%= daily.air_temperature_min.round()%>° / MAX <%= daily.air_temperature_max.round()%>°</p>
               </div>
             </div>
             <div class="col-2 card-trip mt-2 flex-grow-1">
@@ -524,7 +543,6 @@
               <div class="card-trip-infos">
                 <p class="p-0 m-0"><%= daily.description.upcase%></p>
                 <p class="p-0 m-0">CHUVA: <%= (daily.rain_probability * 100).to_i %>%</p>
-                <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
               </div>
             </div>
             <div class="col-2 card-trip mt-2 flex-grow-1">
@@ -548,7 +566,11 @@
                   <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
                 <% end %>
                 <div class="card-trip-infos">
-                  <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean1[0].water_temperature).round(1) %>°C</p>
+                  <% if ocean1[0].water_temperature.round(1).to_i == 0  %>
+                    <p class="p-0 m-0">TEMPERATURA DA ÁGUA: 21°C</p>
+                  <% else %>
+                    <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean1[0].water_temperature).round(1) %>°C</p>
+                  <% end %>
                 </div>
               <% end %>
             </div>
@@ -579,7 +601,6 @@
               <div class="card-trip-infos">
                 <p class="p-0 m-0">TEMPERATURA DO AR: <%= (daily.air_temperature.round(1)) %>°C</p>
                 <p class="p-0 m-0">SENSAÇÃO TÉRMICA <%= (daily.air_temperature_feels_like.round(1)) %>°C</p>
-                <p class="p-0 m-0">MIN <%= daily.air_temperature_min.round()%>° / MAX <%= daily.air_temperature_max.round()%>°</p>
               </div>
             </div>
             <div class="col-2 card-trip mt-2 flex-grow-1">
@@ -587,7 +608,6 @@
               <div class="card-trip-infos">
                 <p class="p-0 m-0"><%= daily.description.upcase%></p>
                 <p class="p-0 m-0">CHUVA: <%= (daily.rain_probability * 100).to_i %>%</p>
-                <p class="p-0 m-0">UV: <%= (daily.uv).to_i %></p>
               </div>
             </div>
             <div class="col-2 card-trip mt-2 flex-grow-1">
@@ -611,7 +631,11 @@
                   <%= image_tag "cold_water.png", class: "image-temp pt-1" %>
                 <% end %>
                 <div class="card-trip-infos">
-                  <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean1[0].water_temperature).round(1) %>°C</p>
+                  <% if ocean1[0].water_temperature.to_i == 0  %>
+                    <p class="p-0 m-0">TEMPERATURA DA ÁGUA: 21°C</p>
+                  <% else %>
+                    <p class="p-0 m-0">TEMPERATURA DA ÁGUA: <%= (ocean1[0].water_temperature).round(1) %>°C</p>
+                  <% end %>
                 </div>
               <% end %>
             </div>
@@ -701,8 +725,8 @@
   </div>
 
   <div id="traffic" class="container2 inactive-tab">
-    <div id="floating-panel" class=''>
-      <b>Qual seu meio de transporte? </b>
+    <div id="floating-panel" class='d-flex'>
+      <p>Qual seu meio de transporte? </p>
       <%= image_tag "car.png", id: "bicycling", title: "DRIVING", class: "image-small-transit pr-2 all-icons pressed-direction" %>
       <%= image_tag "bike.png", id: "driving", title: "BICYCLING", class: "image-small-transit pr-2 all-icons" %>
       <%= image_tag "bus.png", id: "transit", title: "TRANSIT", class: "image-small-transit pr-2 all-icons" %>
