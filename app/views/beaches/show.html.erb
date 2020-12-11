@@ -24,15 +24,17 @@
       <div class="col-12 d-flex justify-content-center">
         <p class="geral pr-2">AVALIAÇÃO GERAL</p>
         <% c = 1 %>
-        <% rating = ((((@beach.overall_rating * 2).round).to_f)/2) %>
+        <% rating =  @beach.overall_rating.round(1) %>
         <% 5.times do %>
           <% if c < rating %>
             <span class="fas fa-star checked geral pl-2 pt-1"></span>
-          <% elsif c - rating == 0.5%>
+          <% elsif c - rating < 0.5%>
             <span class="fas fa-star-half-alt checked geral pl-2 pt-1"></span>
+          <% elsif c - rating <= 0.2%>
+            <span class="fas fa-star checked geral pl-2 pt-1"></span>
           <% else %>
             <span class="far fa-star checked geral pl-2 pt-1"></span>
-          <% end %>
+          <% end  %>
           <% c += 1 %>
         <% end %>
       </div>
@@ -133,15 +135,18 @@
       <% reviews.each do |review| %>
         <div id="card-review">
         <p class="p-card"><%= "#{review.user.first_name} #{review.user.last_name} escreveu uma avaliação em #{review.user.created_at.strftime("%Y-%m-%d %H:%M:%S")}" %></p>
-        <% user_rating = ( review.parking + review.restaurant + review.public_transportation + review.security + review.cleaning + review.rent_equipment + review.wave + review.wind + review.accessibility + review.sand_strip ) / 10 %>
+        <% user_rating = ( review.parking + review.restaurant + review.public_transportation + review.security + review.cleaning + review.rent_equipment + review.wave + review.wind + review.accessibility + review.sand_strip ) / 10.0 %>
+        <% user_rating = user_rating.round(1) %>
         <% c = 1 %>
         <% 5.times do %>
-          <% if c <= user_rating %>
-            <span class="fas fa-star checked p-card2"></span>
-          <% elsif c - user_rating == 0.5%>
-            <span class="fas fa-star-half-alt checked p-card2"></span>
+          <% if c < user_rating %>
+            <span class="fas fa-star checked geral pl-2 pt-1"></span>
+          <% elsif c - user_rating < 0.5%>
+            <span class="fas fa-star-half-alt checked geral pl-2 pt-1"></span>
+          <% elsif c - user_rating <= 0.2%>
+            <span class="fas fa-star checked geral pl-2 pt-1"></span>
           <% else %>
-            <span class="far fa-star checked p-card2"></span>
+            <span class="far fa-star checked geral pl-2 pt-1"></span>
           <% end  %>
           <% c += 1 %>
         <% end %>
@@ -156,7 +161,7 @@
   </div>
 
   <div id="realtime" class="container inactive-tab">
-    <h2 class="text-center"><%= @portuguese[0] %>, <%= @real_time.date_time.strftime("%d/%m/%Y %H:%M")%> (AGORA)</h2>
+    <h2 class="text-center"><%= @portuguese[0] %>, <%= Time.now.strftime("%d/%m/%Y %H:00")%> (AGORA)</h2>
     <div id="real_time_values" class="row">
       <div class="text-center row justify-content-between w-100">
         <div class="col-4 card-trip mt-2">

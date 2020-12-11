@@ -38,12 +38,14 @@
                 <div class="d-flex">
                   <p class="p location-bottom-right">
                     <% c = 1 %>
-                    <% rating = ((((beach.overall_rating * 2).round).to_f)/2) %>
+                    <% rating =  beach.overall_rating.round(1) %>
                     <% 5.times do %>
                       <% if c < rating %>
                         <span class="fas fa-star checked geral pl-2 pt-1"></span>
-                      <% elsif c - rating == 0.5%>
+                      <% elsif c - rating < 0.5%>
                         <span class="fas fa-star-half-alt checked geral pl-2 pt-1"></span>
+                      <% elsif c - rating <= 0.2%>
+                        <span class="fas fa-star checked geral pl-2 pt-1"></span>
                       <% else %>
                         <span class="far fa-star checked geral pl-2 pt-1"></span>
                       <% end  %>

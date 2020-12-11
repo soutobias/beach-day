@@ -156,7 +156,24 @@ puts "Feed beaches"
 
 Beach.destroy_all
 
+
 beach_index = 1
+
+puts "Creating beach #{beach_index}"
+file = URI.open('https://viagemdeaaz.com/wp-content/uploads/2019/02/Rio-2015-Sony-HX300-5-of-59-2-1.jpg')
+beach = Beach.new(
+  name: "Copacabana - Posto 5",
+  lat: "-22.9806",
+  lng: "-43.1888",
+  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
+)
+beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
+puts "Saving beach #{beach_index}"
+beach.save!
+puts "Beach #{beach_index} saved"
+
+beach_index += 1
+
 puts "Creating beach #{beach_index}"
 file = URI.open('https://spguia.melhoresdestinos.com.br/system/fotos_local/fotos/45647/show/prainha.jpg')
 beach = Beach.new(
@@ -387,20 +404,6 @@ beach = Beach.new(
   name: "Arpoador",
   lat: "-22.9895",
   lng: "-43.1919",
-  overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
-)
-beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
-puts "Saving beach #{beach_index}"
-beach.save!
-puts "Beach #{beach_index} saved"
-
-beach_index += 1
-puts "Creating beach #{beach_index}"
-file = URI.open('https://viagemdeaaz.com/wp-content/uploads/2019/02/Rio-2015-Sony-HX300-5-of-59-2-1.jpg')
-beach = Beach.new(
-  name: "Copacabana - Posto 5",
-  lat: "-22.9806",
-  lng: "-43.1888",
   overview: ["Praia mais reservada para banhistas de meia idade.", "Opção de praia para quem vai com animais de estimação.", "Praia muito frequentada por praticantes Futvolley", "Praia com mar agitado não recomendada para crianças abaixo de 12 anos"].sample
 )
 beach.photo.attach(io: file, filename: "#{beach_index}.jpg", content_type: 'image/jpg')
@@ -752,58 +755,134 @@ User.destroy_all
 
 beaches = Beach.all
 
-user_index = 1
-8.times do
+user_real = ["Tobias Ferreira", "Alice Ratton", "Vanessa Bach", "Fred Coque", "Julia Mathias", "Bernardo Neves", "Romulo Santos", "Luiz Matheus", "Glauber Lima"]
+
+
+good_grade1 = {title: ["Melhor praia da vida!",
+  "Praia Perfeita",
+  "Vista linda e está sempre vazia",
+  "Boas opções de restaurantes próximo",
+  "Praia limpa e água quentinha"],
+content: ["Praia vazia, calma, ondas excelentes para quem procura um surf power, e sem muitos ambulantes.",
+"Vista maravilhosa, brisa da boa, recomendo passar o dia inteiro.",
+"Minha família adora passar o dia inteiro nessa praia. Recomendo a visita!",
+"Vou nessa praia toda a semana que tem sol. Meus filhos amam.",
+"Água boa, cristalina. Muito legal!"],
+grade: [4, 5, 5, 5, 5] }
+
+
+good_grade2 = {title: ["Melhor praia da vida!",
+  "Praia Perfeita",
+  "Vista linda e está sempre vazia",
+  "Boas opções de restaurantes próximo",
+  "Praia limpa e água quentinha"],
+content: ["Praia vazia, calma, ondas excelentes para quem procura um surf power, e sem muitos ambulantes.",
+"Vista maravilhosa, brisa da boa, recomendo passar o dia inteiro.",
+"Minha família adora passar o dia inteiro nessa praia. Recomendo a visita!",
+"Vou nessa praia toda a semana que tem sol. Meus filhos amam.",
+"Água boa, cristalina. Muito legal!"],
+grade: [4, 4, 4, 5, 5] }
+
+
+
+average_grade1 = {title: ["Muito boa, mas sempre cheia!",
+  "Praia ok. Mas tem melhores",
+  "Vista linda, mas a praia é lotada",
+  "Bons restaurantes e só",
+  "Boa opção para quem tem pouco tempo na praia"],
+content: ["Praia é muito boa. Entretanto, está sempre muito cheia. Difícil achar vaga para estacionar.",
+  "É uma boa praia para passar algumas horas, e só. Se tiver escolha, vá para outra praia.",
+"Esta sempre muito lotada e é difícil achar um espacinho na areia. Prefira ir em dias de semana.",
+"Adoro os restaurantes próximos. A comida é boa. Já a praia, não recomendo muito",
+"Se você quer só dar um mergulho para refrescar, eu recomendo. Mas não dá para passar o dia inteiro nessa praia."],
+grade: [3, 4, 4, 4, 4]}
+
+average_grade2 = {title: ["Muito boa, mas sempre cheia!",
+  "Praia ok. Mas tem melhores",
+  "Vista linda, mas a praia é lotada",
+  "Bons restaurantes e só",
+  "Boa opção para quem tem pouco tempo na praia"],
+content: ["Praia é muito boa. Entretanto, está sempre muito cheia. Difícil achar vaga para estacionar.",
+  "É uma boa praia para passar algumas horas, e só. Se tiver escolha, vá para outra praia.",
+"Esta sempre muito lotada e é difícil achar um espacinho na areia. Prefira ir em dias de semana.",
+"Adoro os restaurantes próximos. A comida é boa. Já a praia, não recomendo muito",
+"Se você quer só dar um mergulho para refrescar, eu recomendo. Mas não dá para passar o dia inteiro nessa praia."],
+grade: [3, 4, 4, 3, 3] }
+
+
+bad_grade = {title: ["Praia mais suja que já visitei!",
+  "Praia lotada! Nunca mais!",
+  "Muitos ambulantes e sem vaga para estacionar",
+  "Comida péssima, gente por todo lugar, não recomendo!",
+  "Prefira ficar em casa do que passar um dia nesse lugar"],
+content: ["Praia suja, ambulante berrando no seu ouvido, lotada...nunca mais",
+  "Fique em casa. Não venha para esse lugar. Muita farofa!",
+  "A praia é bem mais ou menos. Mas o acesso é pessímo e nunca tem vaga para meu carro. O acesso de transporte público é impossível",
+  "Não coma nada dos ambulantes. A comida é péssima e me fez muito mal. Muita gente por todo o lugar",
+  "Não venha. Escolha um shopping ou uma piscina. Seu tempo será melhor aproveitado"],
+grade: [3, 3, 3, 2, 3] }
+
+
+user_real.each_with_index do |user, user_index|
   puts "Creating user #{user_index}"
-  admin_priviledges = user_index == 1
+  admin_priviledges = user_index == 0
   user_name = User.new(
-    email: "#{user_index}@gmail.com",
+    email: "#{user_index + 1}@gmail.com",
     password: '123abc',
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
+    first_name: user.split(" ")[0],
+    last_name: user.split(" ")[1],
     admin: admin_priviledges
   )
   puts "Saving user #{user_index}"
   user_name.save!
   puts "User #{user_index} saved"
-  user_index += 1
-  beaches.each do |beach|
-    2.times do
-      r = Review.new(
-        beach_id: beach.id,
-        title: ["Melhor praia da vida!", "Praia mais suja que já visitei!", "Que espetáculo", "Sonhooooooo!", "Surf do bom", "Praia lotada! Nunca mais!"].sample,
-        content: ["Praia vazia, calma, ondas excelentes para quem procura um surf power, e sem muitos ambulantes.",
-        "Vista maravilhosa, brisa da boa, recomendo passar o dia inteiro", "Praia suja, ambulante berrando no seu ouvido, lotada...nunca mais"].sample,
-        parking: (1..5).to_a.sample,
-        restaurant: (1..5).to_a.sample,
-        public_transportation: (1..5).to_a.sample,
-        security: (2..5).to_a.sample,
-        cleaning: (2..5).to_a.sample,
-        rent_equipment: (2..5).to_a.sample,
-        wave: (3..5).to_a.sample,
-        wind: (3..5).to_a.sample,
-        accessibility: (3..5).to_a.sample,
-        sand_strip: (4..5).to_a.sample
-      )
-      sum_all = (r.parking + r.restaurant + r.public_transportation + r.security + r.cleaning + r.rent_equipment + r.wave + r.wind + r.accessibility + r.sand_strip) / 10.0
-      r.user = user_name
-      p "review saved"
-      if r.save
-        beach.update(
-          overall_parking: ((r.parking + (beach.overall_parking * beach.reviews.size)) / (beach.reviews.size + 1.0).round(3)),
-          overall_restaurant: ((r.restaurant + (beach.overall_restaurant * beach.reviews.size)) / (beach.reviews.size + 1.0).round(3)),
-          overall_public_transportation: ((r.public_transportation + (beach.overall_public_transportation * beach.reviews.size)) / (beach.reviews.size + 1.0)).round(3),
-          overall_security: ((r.security + (beach.overall_security * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
-          overall_cleaning: ((r.cleaning + (beach.overall_cleaning * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
-          overall_rent_equipment: ((r.rent_equipment + (beach.overall_rent_equipment * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
-          overall_wave: ((r.wave + (beach.overall_wave * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
-          overall_wind: ((r.wind + (beach.overall_wind * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
-          overall_accessibility: ((r.accessibility + (beach.overall_accessibility * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
-          overall_sand_strip: ((r.sand_strip + (beach.overall_sand_strip * beach.reviews.size)) / (beach.reviews.size + 1)).round(3),
-          overall_rating: ((sum_all + (beach.overall_rating * beach.reviews.size)) / (beach.reviews.size + 1)).round(3)
-        )
-      end
+  beaches.each_with_index do |beach, beach_index|
+    p beach_index
+    if beach_index < 8
+      grade_end = good_grade1
+    elsif beach_index < 17
+      grade_end = good_grade2
+    elsif beach_index < 27
+      grade_end = average_grade1
+    elsif beach_index < 34
+      grade_end = average_grade2
+    else
+      grade_end = bad_grade
     end
+    r = Review.new(
+      beach_id: beach.id,
+      title: grade_end[:title].sample,
+      content: grade_end[:content].sample,
+      parking: grade_end[:grade].sample,
+      restaurant: grade_end[:grade].sample,
+      public_transportation: grade_end[:grade].sample,
+      security: grade_end[:grade].sample,
+      cleaning: grade_end[:grade].sample,
+      rent_equipment: grade_end[:grade].sample,
+      wave: grade_end[:grade].sample,
+      wind: grade_end[:grade].sample,
+      accessibility: grade_end[:grade].sample,
+      sand_strip: grade_end[:grade].sample
+    )
+    p grade_end[:grade].sample
+    sum_all = (r.parking + r.restaurant + r.public_transportation + r.security + r.cleaning + r.rent_equipment + r.wave + r.wind + r.accessibility + r.sand_strip) / 10.0
+    r.user = user_name
+    p "review saved"
+    r.save!
+    beach.update(
+      overall_parking: ((r.parking + (beach.overall_parking * (beach.reviews.size - 1))) / (beach.reviews.size)).round(3),
+      overall_restaurant: ((r.restaurant + (beach.overall_restaurant * (beach.reviews.size - 1))) / (beach.reviews.size)).round(3),
+      overall_public_transportation: ((r.public_transportation + (beach.overall_public_transportation * (beach.reviews.size - 1))) / (beach.reviews.size)).round(3),
+      overall_security: ((r.security + (beach.overall_security * (beach.reviews.size - 1))) / (beach.reviews.size)).round(3),
+      overall_cleaning: ((r.cleaning + (beach.overall_cleaning * (beach.reviews.size - 1))) / (beach.reviews.size)).round(3),
+      overall_rent_equipment: ((r.rent_equipment + (beach.overall_rent_equipment * (beach.reviews.size - 1))) / (beach.reviews.size)).round(3),
+      overall_wave: ((r.wave + (beach.overall_wave * (beach.reviews.size - 1))) / (beach.reviews.size)).round(3),
+      overall_wind: ((r.wind + (beach.overall_wind * (beach.reviews.size - 1))) / (beach.reviews.size)).round(3),
+      overall_accessibility: ((r.accessibility + (beach.overall_accessibility * (beach.reviews.size - 1))) / (beach.reviews.size)).round(3),
+      overall_sand_strip: ((r.sand_strip + (beach.overall_sand_strip * (beach.reviews.size - 1))) / (beach.reviews.size)).round(3),
+      overall_rating: ((sum_all + (beach.overall_rating * (beach.reviews.size - 1))) / (beach.reviews.size)).round(3)
+    )
+    p "ok"
   end
 end
 
@@ -1099,7 +1178,7 @@ p "Feed water forecast values"
 
 def ocean_forecast
   WaterForecastValue.destroy_all
-  date1 = Time.now - 1.day
+  date1 = Time.now - 2.day
   date = Time.new(date1.year, date1.month, date1.day).strftime("%Y-%m-%d")
 
   # date = date.strftime("%Y-%m-%d")
