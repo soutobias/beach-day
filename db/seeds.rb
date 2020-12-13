@@ -1185,6 +1185,8 @@ def ocean_forecast
 
   date_now = Time.new(date1.year, date1.month, date1.day, 12)
 
+
+
   html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:60%5D%5B0:1:0%5D%5B1423:1:1423%5D%5B3954:1:3968%5D").read
   lines = html_file.split(/\n/)[13..-13]
   positions = WaterForecastStation.all
