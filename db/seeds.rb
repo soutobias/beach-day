@@ -1187,10 +1187,9 @@ def ocean_forecast
 
 
 
-  html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:60%5D%5B0:1:0%5D%5B1423:1:1423%5D%5B3954:1:3968%5D").read
+  html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:0%5D%5B0:1:0%5D%5B1423:1:1423%5D%5B3954:1:3968%5D").read
   lines = html_file.split(/\n/)[13..-13]
   positions = WaterForecastStation.all
-  WaterForecastValue.destroy_all
   t = 0
   lines.each do |line|
     date_model = (date_now + 3600 * t * 3).strftime("%Y-%m-%d %H:00:00")
