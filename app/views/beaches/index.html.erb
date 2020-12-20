@@ -8,22 +8,27 @@
 </header>
 <main>
   <div class="mr-3 ml-3">
-    <div id="beaches" class="search d-flex">
-      <p class="pl-3" >Qual a praia perfeita para você?</p>
-      <%= form_tag beaches_path, method: :get, class: "pl-3 d-flex" do %>
-        <div id= "search-data" class="form-search search-data" data-skills="<%= @names.to_json %>">
-          <%= text_field_tag :query, nil, class: "blank search-input", placeholder: "  Digite uma praia..."%>
-        </div>
-        <%= select_tag :options, raw("<option>Melhor praia</option><option>Melhor praia para surfe</option><option>Praia mais limpa</option><option>Praia mais segura</option><option>Praia mais acessível</option>" ), prompt: "Ordenar por", class: 'form-control', id: 'select_two' %>
-        <%= button_tag :submit, class: "non-btn" do %>
-          <i class="fas fa-search h2"></i>
+    <div id="beaches" class="search row justify-content-left align-items-center">
+      <div class="col-12 col-lg-3">
+        <p class="pl-3 p-beaches" >Qual a praia perfeita para você?</p>
+      </div>
+      <div class="col-10 col-lg-3">
+        <%= form_tag beaches_path, method: :get, class: "pl-3 d-flex" do %>
+          <div id= "search-data" class="form-search search-data" data-skills="<%= @names.to_json %>">
+            <%= text_field_tag :query, nil, class: "blank search-input", placeholder: "  Digite uma praia..."%>
+          </div>
+          <%= select_tag :options, raw("<option>Melhor praia</option><option>Melhor praia para surfe</option><option>Praia mais limpa</option><option>Praia mais segura</option><option>Praia mais acessível</option>" ), prompt: "Ordenar por", class: 'form-control', id: 'select_two' %>
+          <%= button_tag :submit, class: "non-btn" do %>
+            <i class="fas fa-search"></i>
+          <% end %>
         <% end %>
-      <% end %>
-      <div id="show-map" data-toggle="popover" title="Mostrar Mapa">
-        <i class="fas fa-globe-americas pl-2 img-map" id="img-map"></i>
+      </div>
+      <div class="col-2 col-lg-2">
+        <div id="show-map" data-toggle="popover" title="Mostrar Mapa">
+          <i class="fas fa-globe-americas pl-2 img-map" id="img-map"></i>
+        </div>
       </div>
     </div>
-
     <div class="row w-100">
       <div class="col-12">
         <div id="map1" data-markers="<%= @markers.to_json %>" class="inactive-tab m-2"></div>
@@ -41,13 +46,13 @@
                     <% rating =  beach.overall_rating.round(1) %>
                     <% 5.times do %>
                       <% if c < rating %>
-                        <span class="fas fa-star checked geral pl-2 pt-1"></span>
+                        <span class="fas fa-star geral pl-2 pt-1 checked"></span>
                       <% elsif c - rating < 0.5%>
-                        <span class="fas fa-star-half-alt checked geral pl-2 pt-1"></span>
+                        <span class="fas fa-star-half-alt geral pl-2 pt-1 checked"></span>
                       <% elsif c - rating <= 0.2%>
-                        <span class="fas fa-star checked geral pl-2 pt-1"></span>
+                        <span class="fas fa-star geral pl-2 pt-1 checked"></span>
                       <% else %>
-                        <span class="far fa-star checked geral pl-2 pt-1"></span>
+                        <span class="far fa-star geral pl-2 pt-1 checked"></span>
                       <% end  %>
                       <% c += 1 %>
                     <% end %>

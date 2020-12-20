@@ -74,8 +74,6 @@ header {
 main {
   margin-top: -930px;
   font-family: 'IM Fell French Canon Pro';
-  font-size: 1.4rem;
-  line-height: 1.6;
 }
 
 
@@ -147,12 +145,20 @@ main {
 
 @media (max-width: 720px) {
   main{
-    margin-top: 0px;
+    margin-top: -90px;
+  }
+  .index h1 {
+    top: 9rem;
   }
 }
 
 @media (max-width: 540px) {
   main{
-    margin-top: 0px;
+    margin-top: -90px;
   }
+  .index h1 {
+    top: 5.0rem;
+    font-size: 14vw;
+  }
+
 }

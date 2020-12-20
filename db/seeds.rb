@@ -963,6 +963,7 @@ def translate_description(description)
   return description
 end
 
+BuoyValue.destroy_all
 
 def buoy_data
   time_start = Time.now.to_i - 3600 * 3
@@ -970,7 +971,7 @@ def buoy_data
   buoy_stations = BuoyStation.all
   buoy_stations.each do |buoy_station|
     p buoy_station
-    meteo_values = RestClient.get "simcosta.furg.br/api/metereo_data?boiaID=12&type=json&time1=#{time_start}&time2=#{time_end}&params=Average_wind_direction_N,Last_sampling_interval_gust_speed,Average_Pressure,Average_Air_Temperature,Instantaneous_Humidity,Average_Humidity,Average_wind_speed"
+    meteo_values = RestClient.get "simcosta.furg.br/api/metereo_data?boiaID=3&type=json&time1=#{time_start}&time2=#{time_end}&params=Average_wind_direction_N,Last_sampling_interval_gust_speed,Average_Pressure,Average_Air_Temperature,Instantaneous_Humidity,Average_Humidity,Average_wind_speed"
     meteo_values = JSON.parse(meteo_values)
     meteo_values.each do |value|
       date_time = DateTime.new(value["YEAR"], value["MONTH"], value["DAY"], value["HOUR"], value["MINUTE"].to_i - 5, 0)
@@ -981,27 +982,28 @@ def buoy_data
           pressure: value["Avg_Air_Press"],
           air_temperature: value["Avg_Air_Tmp"],
           humidity: value["Avg_Hmt"],
-          wind_speed: value["Avg_Wnd_Sp"],
+          wind_speed: value["Avg_Wnd_Sp"].to_f,
           wind_direction: direction_to_string(value["Avg_Wnd_Dir_N"].to_f)
         )
       else
-        value = BuoyValue.new(
+        val = BuoyValue.new(
           date_time: date_time,
           pressure: value["Avg_Air_Press"],
           air_temperature: value["Avg_Air_Tmp"],
           humidity: value["Avg_Hmt"],
-          wind_speed: value["Avg_Wnd_Sp"],
+          wind_speed: value["Avg_Wnd_Sp"].to_f,
           wind_direction: direction_to_string(value["Avg_Wnd_Dir_N"].to_f)
         )
-        value.buoy_station = buoy_station
-        value.save!
+        val.buoy_station = buoy_station
+        val.save!
       end
     end
-    ocean_values = RestClient.get "http://simcosta.furg.br/api/oceanic_data?boiaID=12&type=json&time1=#{time_start}&time2=#{time_end}&params=Hsig_Significant_Wave_Height_m,Mean_Wave_Direction_deg,Hmax_Maximum_Wave_Height_m,TP_Peak_Period_seconds,Average_Temperature_deg_C"
+    ocean_values = RestClient.get "http://simcosta.furg.br/api/oceanic_data?boiaID=3&type=json&time1=#{time_start}&time2=#{time_end}&params=Hsig_Significant_Wave_Height_m,Mean_Wave_Direction_deg,Hmax_Maximum_Wave_Height_m,TP_Peak_Period_seconds,Average_Temperature_deg_C"
     ocean_values = JSON.parse(ocean_values)
     ocean_values.each do |value|
-      date_time = DateTime.new(value["YEAR"], value["MONTH"], value["DAY"], value["HOUR"], value["MINUTE"].to_i - 1, 0)
+      date_time = DateTime.new(value["YEAR"], value["MONTH"], value["DAY"], value["HOUR"], value["MINUTE"].to_i - 5, 0)
       buoy = BuoyValue.where("date_time = '#{date_time.strftime("%Y-%m-%d %H:%M:%S")}'")
+
       unless buoy.empty?
         buoy[0].update(
           wave_height: value["Hsig"],
@@ -1010,15 +1012,15 @@ def buoy_data
           wave_direction: value["Avg_Wv_Dir_N"]
         )
       else
-        value = BuoyValue.new(
+        val = BuoyValue.new(
           date_time: date_time,
           wave_height: value["Hsig"],
           water_temperature: value["Avg_W_Tmp1"],
           wave_formation: value["TP"],
           wave_direction: direction_to_string(value["Avg_Wv_Dir_N"].to_f)
         )
-        value.buoy_station = buoy_station
-        value.save!
+        val.buoy_station = buoy_station
+        val.save!
       end
     end
   end
@@ -1187,7 +1189,7 @@ def ocean_forecast
 
 
 
-  html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:0%5D%5B0:1:0%5D%5B1423:1:1423%5D%5B3954:1:3968%5D").read
+  html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:59%5D%5B0:1:0%5D%5B1423:1:1423%5D%5B3954:1:3968%5D").read
   lines = html_file.split(/\n/)[13..-13]
   positions = WaterForecastStation.all
   t = 0
@@ -1204,6 +1206,8 @@ def ocean_forecast
     t += 1
   end
 end
+
+
 
 ocean_forecast
 
@@ -1478,7 +1482,7 @@ def feed_real_time_data
     else
       date_time_1 = DateTime.new(Time.now.year, Time.now.month, Time.now.day, Time.now.hour).advance(hours: 3 - s).strftime("%Y-%m-%d %H:00:00")
     end
-    water_temperature = OceanForecastValue.where("beach_id = #{beach.id} AND date_time = '#{date_time_1}'")[0]
+    water_temperature = buoys[0].air_temperature
     cleaning = cleaning_values[@index_cleaning].status
 
     p beach.name

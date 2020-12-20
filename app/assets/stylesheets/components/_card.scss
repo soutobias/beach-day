@@ -333,3 +333,140 @@
   background: white;
   height: 200px;
 }
+
+
+
+@media (max-width: 960px) {
+.h2flip {
+  font-size: 30px !important;
+  }
+}
+
+@media (max-width: 720px) {
+.h2flip {
+  font-size: 25px !important;
+  }
+.front{
+  padding-left: 0px !important;
+}
+
+}
+@media (max-width: 540px) {
+.h2flip {
+  font-size: 15px !important;
+  }
+  .front{
+    padding-left: 0px !important;
+  }
+  .checked {
+    font-size: 8px !important;
+    padding-left: 0px !important;
+  }
+  .location-bottom-right{
+    position: absolute;
+    right: 2px;
+    bottom: 5px;
+    line-height: 50% !important;
+    text-shadow: 1px 1px black;
+    font-size: 8px !important;
+  }
+  .img-wea {
+    width: 23px;
+  }
+  .location-bottom-left{
+    position: absolute;
+    left: 2px;
+    bottom: 10px;
+  }
+
+  .flip {
+      >.front,
+      >.back {
+        height: 130px;
+        box-shadow: 0 0 10px 15px #e1d1d1;
+      }
+    .back{
+      display: none;
+    }
+    .front{
+      transform: none !important;
+    }
+  }
+}
+
+
+        // <div class="col-4 m-0">
+        //   <%= link_to beach_path(beach) do %>
+        //     <div class="flip m-3">
+        //       <div class="front" style="background-image: linear-gradient(rgba(255,255,255,0.7),rgba(0,0,0,0)), url('<%= cl_image_path beach.photo.key%>')">
+        //         <h2 class="text-shadow align-middle h2flip"><%=beach.name %></h2>
+        //         <div class="d-flex">
+        //           <p class="p location-bottom-right">
+        //             <% c = 1 %>
+        //             <% rating =  beach.overall_rating.round(1) %>
+        //             <% 5.times do %>
+        //               <% if c < rating %>
+        //                 <span class="fas fa-star checked geral pl-2 pt-1"></span>
+        //               <% elsif c - rating < 0.5%>
+        //                 <span class="fas fa-star-half-alt checked geral pl-2 pt-1"></span>
+        //               <% elsif c - rating <= 0.2%>
+        //                 <span class="fas fa-star checked geral pl-2 pt-1"></span>
+        //               <% else %>
+        //                 <span class="far fa-star checked geral pl-2 pt-1"></span>
+        //               <% end  %>
+        //               <% c += 1 %>
+        //             <% end %>
+        //           </p>
+        //           <div class="d-flex location-bottom-left">
+        //             <%= image_tag "weather_icons/#{beach.real_time_values[0].icon}.png", class: "img-wea" %>
+        //           </div>
+        //         </div>
+        //       </div>
+        //       <div class="back" >
+        //         <div class="barras text-align-center text-left pt-4">
+        //           <div class="row align-middle">
+        //             <div class="col-4">
+        //               <p class="pt-1">ESTACIONAMENTO</p>
+        //             </div>
+        //             <div class="col-8">
+        //               <div class="barra">
+        //                  <div class="barra-nivel" data-nivel="<%= (beach.overall_parking.round(1)*10).to_i%>"></div>
+        //               </div>
+        //             </div>
+        //             <div class="col-4">
+        //               <p  class="pt-1">RESTAURANTES</p>
+        //             </div>
+        //             <div class="col-8">
+        //               <div class="barra">
+        //                  <div class="barra-nivel" data-nivel="<%= (beach.overall_restaurant.round(1)*10).to_i%>"></div>
+        //               </div>
+        //             </div>
+        //             <div class="col-4">
+        //               <p class="pt-1">TRANSPORTE PÚBLICO</p>
+        //             </div>
+        //             <div class="col-8">
+        //               <div class="barra">
+        //                  <div class="barra-nivel" data-nivel="<%= (beach.overall_public_transportation.round(1)*10).to_i%>"></div>
+        //               </div>
+        //             </div>
+        //             <div class="col-4">
+        //               <p class="pt-1">SEGURANÇA</p>
+        //             </div>
+        //             <div class="col-8">
+        //               <div class="barra">
+        //                  <div class="barra-nivel" data-nivel="<%= (beach.overall_security.round(1)*10).to_i%>"></div>
+        //               </div>
+        //             </div>
+        //             <div class="col-4">
+        //               <p class="pt-1">ONDAS</p>
+        //             </div>
+        //             <div class="col-8">
+        //               <div class="barra">
+        //                  <div class="barra-nivel" data-nivel="<%= (beach.overall_wave.round(1)*10).to_i%>"></div>
+        //               </div>
+        //             </div>
+        //           </div>
+        //         </div>
+        //       </div>
+        //     </div>
+        //   <% end %>

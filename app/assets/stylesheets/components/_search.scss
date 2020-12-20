@@ -33,7 +33,6 @@
 
 .form-control {
   display: inline;
-  height: 40px;
   border-color: gray;
   font-family: 'Anton', sans-serif;
   color: #61a5c2;
@@ -43,7 +42,6 @@
 
 .blank {
   font-family: 'Anton', sans-serif;
-    padding-left: 9px;
     font-size: 15px;
     padding-top: 6px;
     padding-bottom: 6px;
@@ -83,3 +81,92 @@
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+
+.p-beaches{
+  font-size: 30px !important;
+  font-family: 'Anton', sans-serif;
+}
+
+@media (max-width: 960px) {
+  /* For a screen < 960px, this CSS will be read */
+  #filter p{
+    font-size: 15px;
+    font-family: 'Anton', sans-serif;
+  }
+  .p-beaches{
+    font-size: 20px !important;
+    font-family: 'Anton', sans-serif;
+  }
+  .form-control {
+    font-size: 10px;
+    width: 100px;
+  }
+  .search-input {
+    font-size: 10px;
+    width: 100px;
+  }
+}
+
+@media (max-width: 720px) {
+  #filter p{
+    font-size: 15px;
+    font-family: 'Anton', sans-serif;
+  }
+  .p-beaches{
+    font-size: 15px !important;
+    font-family: 'Anton', sans-serif;
+  }
+  .form-control {
+    font-size: 10px;
+    width: 100px;
+  }
+  .search-input {
+    font-size: 10px;
+    width: 100px;
+  }
+}
+@media (max-width: 540px) {
+  #filter p{
+    font-size: 10px;
+    font-family: 'Anton', sans-serif;
+  }
+  .p-beaches{
+    font-size: 15px !important;
+    font-family: 'Anton', sans-serif;
+  }
+  .form-control {
+    padding: 0 !important;
+    height: auto !important;
+    font-family: 'Anton', sans-serif;
+  }
+  .search-input {
+    font-size: 10px;
+    width: 100px;
+    ::-moz-placeholder{
+      font-size: 8px;
+    }
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      font-size: 8px;
+    }
+  }
+  .non-btn {
+    border: none;
+    background-color: transparent;
+    height: 38px;
+  }
+  .non-btn {
+    height: auto;
+    margin-top: 0px;
+    margin-left: 0px;
+    font-size: 25px !important;
+  }
+  .img-map{
+    font-size: 25px !important;
+  }
+  .search-data{
+    margin-top: 0 !important;
+    height: 100%;
+
+  }
+}
+
