@@ -634,7 +634,7 @@ namespace :web_scrapping do
         else
           date_time_1 = DateTime.new(Time.now.year, Time.now.month, Time.now.day, Time.now.hour).advance(hours: 3 - s).strftime("%Y-%m-%d %H:00:00")
         end
-        water_temperature = buoys[0].air_temperature
+        water_temperature = buoys[0].water_temperature
         cleaning = cleaning_values[@index_cleaning].status
 
         p beach.name
