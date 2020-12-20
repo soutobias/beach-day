@@ -21,13 +21,67 @@ namespace :web_scrapping do
       end
     end
 
+    def translate_description(description)
+      description = description.downcase
+      if description == "clear sky"
+        description = "Céu Limpo"
+      elsif description == "few clouds"
+        description = "Poucas Nuvens"
+      elsif description == "overcast clouds"
+        description = "Poucas Nuvens"
+      elsif description == "scattered clouds"
+        description = "Nuvens Esparsas"
+      elsif description == "broken clouds"
+        description = "Nuvens Esparsas"
+      elsif description == "shower rain"
+        description = "Chuva Forte"
+      elsif description == "rain"
+        description = "Chuva"
+      elsif description == "thunderstorm"
+        description = "Trovões"
+      elsif description == "thunderstorm with light rain"
+        description = "Trovões com chuva"
+      elsif description == "thunderstorm with rain"
+        description = "Trovões com chuva"
+      elsif description == "thunderstorm with heavy rain"
+        description = "Trovões com chuva"
+      elsif description == "light thunderstorm"
+        description = "Trovões"
+      elsif description == "heavy thunderstorm"
+        description = "Trovões"
+      elsif description == "ragged thunderstorm"
+        description = "Trovões"
+      elsif description == "light rain" || description == "light intensity shower rain"
+        description = "Chuva Fraca"
+      elsif description == "moderate rain" || description == "shower shower rain"
+        description = "Chuva Moderada"
+      elsif description == "heavy intensity rain" || description == "heavy intensity shower rain"
+        description = "Chuva Forte"
+      elsif description == "very heavy rain" || description == "ragged intensity shower rain"
+        description = "Chuva Muito Forte"
+      elsif description == "extreme rain"
+        description = "Temporal"
+      elsif description == "few clouds: 11-25%"
+        description = "Poucas Nuvens"
+      elsif description == "few clouds: 25-50%"
+        description = "Nuvens Esparsas"
+      elsif description == "few clouds: 51-84%"
+        description = "Nuvens Esparsas"
+      elsif description == "few clouds: 85-100%"
+        description = "Céu Nublado"
+      end
+      return description
+    end
+
+    BuoyValue.destroy_all
+
     def buoy_data
       time_start = Time.now.to_i - 3600 * 3
       time_end = Time.now.to_i
       buoy_stations = BuoyStation.all
       buoy_stations.each do |buoy_station|
         p buoy_station
-        meteo_values = RestClient.get "simcosta.furg.br/api/metereo_data?boiaID=12&type=json&time1=#{time_start}&time2=#{time_end}&params=Average_wind_direction_N,Last_sampling_interval_gust_speed,Average_Pressure,Average_Air_Temperature,Instantaneous_Humidity,Average_Humidity,Average_wind_speed"
+        meteo_values = RestClient.get "simcosta.furg.br/api/metereo_data?boiaID=3&type=json&time1=#{time_start}&time2=#{time_end}&params=Average_wind_direction_N,Last_sampling_interval_gust_speed,Average_Pressure,Average_Air_Temperature,Instantaneous_Humidity,Average_Humidity,Average_wind_speed"
         meteo_values = JSON.parse(meteo_values)
         meteo_values.each do |value|
           date_time = DateTime.new(value["YEAR"], value["MONTH"], value["DAY"], value["HOUR"], value["MINUTE"].to_i - 5, 0)
@@ -38,27 +92,28 @@ namespace :web_scrapping do
               pressure: value["Avg_Air_Press"],
               air_temperature: value["Avg_Air_Tmp"],
               humidity: value["Avg_Hmt"],
-              wind_speed: value["Avg_Wnd_Sp"],
+              wind_speed: value["Avg_Wnd_Sp"].to_f,
               wind_direction: direction_to_string(value["Avg_Wnd_Dir_N"].to_f)
             )
           else
-            value = BuoyValue.new(
+            val = BuoyValue.new(
               date_time: date_time,
               pressure: value["Avg_Air_Press"],
               air_temperature: value["Avg_Air_Tmp"],
               humidity: value["Avg_Hmt"],
-              wind_speed: value["Avg_Wnd_Sp"],
+              wind_speed: value["Avg_Wnd_Sp"].to_f,
               wind_direction: direction_to_string(value["Avg_Wnd_Dir_N"].to_f)
             )
-            value.buoy_station = buoy_station
-            value.save!
+            val.buoy_station = buoy_station
+            val.save!
           end
         end
-        ocean_values = RestClient.get "http://simcosta.furg.br/api/oceanic_data?boiaID=12&type=json&time1=#{time_start}&time2=#{time_end}&params=Hsig_Significant_Wave_Height_m,Mean_Wave_Direction_deg,Hmax_Maximum_Wave_Height_m,TP_Peak_Period_seconds,Average_Temperature_deg_C"
+        ocean_values = RestClient.get "http://simcosta.furg.br/api/oceanic_data?boiaID=3&type=json&time1=#{time_start}&time2=#{time_end}&params=Hsig_Significant_Wave_Height_m,Mean_Wave_Direction_deg,Hmax_Maximum_Wave_Height_m,TP_Peak_Period_seconds,Average_Temperature_deg_C"
         ocean_values = JSON.parse(ocean_values)
         ocean_values.each do |value|
-          date_time = DateTime.new(value["YEAR"], value["MONTH"], value["DAY"], value["HOUR"], value["MINUTE"].to_i - 1, 0)
+          date_time = DateTime.new(value["YEAR"], value["MONTH"], value["DAY"], value["HOUR"], value["MINUTE"].to_i - 5, 0)
           buoy = BuoyValue.where("date_time = '#{date_time.strftime("%Y-%m-%d %H:%M:%S")}'")
+
           unless buoy.empty?
             buoy[0].update(
               wave_height: value["Hsig"],
@@ -67,15 +122,15 @@ namespace :web_scrapping do
               wave_direction: value["Avg_Wv_Dir_N"]
             )
           else
-            value = BuoyValue.new(
+            val = BuoyValue.new(
               date_time: date_time,
               wave_height: value["Hsig"],
               water_temperature: value["Avg_W_Tmp1"],
               wave_formation: value["TP"],
               wave_direction: direction_to_string(value["Avg_Wv_Dir_N"].to_f)
             )
-            value.buoy_station = buoy_station
-            value.save!
+            val.buoy_station = buoy_station
+            val.save!
           end
         end
       end
@@ -143,7 +198,7 @@ namespace :web_scrapping do
             date_time = date_time.strftime("%Y-%m-%d 00:00:00")
             name = beach.css("[class='name']")[0].text
             description = beach.css("[class='location']")[0].text
-            status = beach.css(".status")[0].text
+            status = beach.css(".status")[0].text == "Própria"
             cleaning_station = CleaningStation.where("name = '#{name}' AND description = ?", description)[0]
 
             cleaning_value = CleaningValue.where("date_time = '#{date_time}' AND cleaning_station_id = #{cleaning_station.id}")
@@ -227,44 +282,38 @@ namespace :web_scrapping do
         end
       end
     end
+
     wave_forecast_data
+
   end
 
   task get_ocean_forecasts: :environment do
     def ocean_forecast
-      date1 = Time.now - 1.day
+      WaterForecastValue.destroy_all
+      date1 = Time.now - 2.day
       date = Time.new(date1.year, date1.month, date1.day).strftime("%Y-%m-%d")
 
       # date = date.strftime("%Y-%m-%d")
 
       date_now = Time.new(date1.year, date1.month, date1.day, 12)
 
-      begin
-        x = WaterForecastValue.first.date_time.strftime("%Y-%m-%d %H:00:00") == date_now.strftime("%Y-%m-%d %H:00:00")
-      rescue
-        x = false
-      end
-      unless x
-        begin
-          html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:60%5D%5B0:1:0%5D%5B1425:1:1425%5D%5B3954:1:3968%5D").read
-          lines = html_file.split(/\n/)[13..-13]
-          positions = WaterForecastStation.all
-          WaterForecastValue.destroy_all
-          t = 0
-          lines.each do |line|
-            date_model = (date_now + 3600 * t).strftime("%Y-%m-%d %H:00:00")
-            line = line.split(',')
-            line.each_with_index do |l, idx|
-              unless idx == 0
-                WaterForecastValue.create(water_forecast_station_id: positions[idx - 1].id, date_time: date_model, water_temperature: l.to_f)
-                p "saved #{positions[idx - 1].id}"
-              end
-            end
-            t += 1
+
+
+      html_file = open("https://tds.hycom.org/thredds/dodsC/GLBy0.08/expt_93.0/FMRC/runs/GLBy0.08_930_FMRC_RUN_#{date}T12:00:00Z.ascii?water_temp%5B0:1:59%5D%5B0:1:0%5D%5B1423:1:1423%5D%5B3954:1:3968%5D").read
+      lines = html_file.split(/\n/)[13..-13]
+      positions = WaterForecastStation.all
+      t = 0
+      lines.each do |line|
+        date_model = (date_now + 3600 * t * 3).strftime("%Y-%m-%d %H:00:00")
+        line = line.split(',')
+        line.each_with_index do |l, idx|
+          unless idx == 0
+            p l
+            WaterForecastValue.create(water_forecast_station_id: positions[idx - 1].id, date_time: date_model, water_temperature: l.to_f)
+            p "saved #{positions[idx - 1].id}"
           end
-        rescue
-          puts "Não há dados novos"
         end
+        t += 1
       end
     end
     ocean_forecast
@@ -297,7 +346,7 @@ namespace :web_scrapping do
         description = "Céu Limpo"
       elsif description == "few clouds"
         description = "Poucas Nuvens"
-      elsif description == "overclast clouds"
+      elsif description == "overcast clouds"
         description = "Poucas Nuvens"
       elsif description == "scattered clouds"
         description = "Nuvens Esparsas"
@@ -343,12 +392,13 @@ namespace :web_scrapping do
       return description
     end
 
+    WeatherForecastValue.destroy_all
+    WeatherForecastDaily.destroy_all
+
     def open_weather_api
       beaches = Beach.all
       date = Time.now
-      date = Time.new(Time.now.year, Time.now.month, Time.now.day).strftime("%Y-%m-%d")
-      WeatherForecastValue.destroy_all
-      WeatherForecastDaily.destroy_all
+      date = Time.new(Time.now.year, Time.now.month , Time.now.day ).strftime("%Y-%m-%d")
       beaches.each do |beach|
         meteo_values = RestClient.get "https://api.openweathermap.org/data/2.5/onecall?lat=#{beach.lat}&lon=#{beach.lng}&exclude=minutely&appid=#{ENV['OPENWEATHER_URL']}"
         meteo_values = JSON.parse(meteo_values)
@@ -369,6 +419,8 @@ namespace :web_scrapping do
             description = translate_description(hour["weather"][0]["description"])
             rain_probability = hour["pop"]
             icon = hour["weather"][0]["icon"]
+
+            p rain_probability
 
             p date_time
             weather_forecast_value = WeatherForecastValue.new(
@@ -403,6 +455,7 @@ namespace :web_scrapping do
           wind_direction = direction_to_string(day["wind_deg"].to_f)
           description = translate_description(day["weather"][0]["description"])
 
+
           icon = day["weather"][0]["icon"]
           rain_probability = day["pop"]
           uv = day["uvi"]
@@ -432,6 +485,7 @@ namespace :web_scrapping do
     open_weather_api
   end
 
+
   task feed_real_time: :environment do
     def direction_to_string(value)
       if value > 45 / 2 && value <= 45 + 45 / 2
@@ -458,7 +512,7 @@ namespace :web_scrapping do
         description = "Céu Limpo"
       elsif description == "few clouds"
         description = "Poucas Nuvens"
-      elsif description == "overclast clouds"
+      elsif description == "overcast clouds"
         description = "Poucas Nuvens"
       elsif description == "scattered clouds"
         description = "Nuvens Esparsas"
@@ -582,7 +636,7 @@ namespace :web_scrapping do
         else
           date_time_1 = DateTime.new(Time.now.year, Time.now.month, Time.now.day, Time.now.hour).advance(hours: 3 - s).strftime("%Y-%m-%d %H:00:00")
         end
-        water_temperature = OceanForecastValue.where("beach_id = #{beach.id} AND date_time = '#{date_time_1}'")[0]
+        water_temperature = buoys[0].air_temperature
         cleaning = cleaning_values[@index_cleaning].status
 
         p beach.name
@@ -713,12 +767,16 @@ namespace :web_scrapping do
         p "agora salvo"
       end
     end
+
     feed_weather_forecast
   end
 
   task feed_tides: :environment do
     def tidal_data
-      tides_values = RestClient.get "https://www.worldtides.info/api/v2?extremes&date=2020-12-03&lat=-22.9068&lon=-43.1729&days=7&station=UKHO:2201a&key=#{ENV['WORLDTIDE_API']}"
+      date1 = Time.now - 1.day
+      date = Time.new(date1.year, date1.month, date1.day).strftime("%Y-%m-%d")
+
+      tides_values = RestClient.get "https://www.worldtides.info/api/v2?extremes&date=#{date}&lat=-22.9068&lon=-43.1729&days=7&station=UKHO:2201a&key=#{ENV['WORLDTIDE_API']}"
       tides_values = JSON.parse(tides_values)
       tides_values["extremes"].each do |value|
         tide = value["height"]
@@ -736,7 +794,9 @@ namespace :web_scrapping do
           )
       end
     end
+
     Tide.destroy_all
+    puts "Feed Tides"
     tidal_data
   end
 end

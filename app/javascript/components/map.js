@@ -154,17 +154,17 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, data1, 
           const card = document.querySelector('#public-transportation');
           const card1 = document.querySelector('#car');
           const traffic = `
-          <div class="d-flex p-1  align-items-center">
-            <img class="image-smalls pr-2" src=${busIcon}/>
-            <div class="text-primary font-weight-bold text-right">
+          <div class="row w-100 p-1  align-items-center">
+            <img class="col-3 col-lg-1 image-smalls pr-2" src=${busIcon}/>
+            <div class="col-4 col-lg-2 text-primary font-weight-bold text-right">
               <p class="pr-1 pb-0">Distância:</p>
               <p class="pr-1 pb-0">Duração:</p>
             </div>
-            <div class="text-left">
+            <div class="col-5 col-lg-2 text-left">
               <p class="pl-1 pb-0">${trafficDistance}</p>
               <p class="pl-1 pb-0">${trafficTime}</p>
             </div>
-            <div class="pl-3">
+            <div class="col-12 col-lg-7 pl-3">
               ${routes}
             </div>
           </div>`;

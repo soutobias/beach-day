@@ -90,3 +90,50 @@
   opacity: 0.5;
   height: 24px;
 }
+
+@media (max-width: 960px) {
+  #map1{
+    box-shadow: 0 0 10px 15px #e1d1d1 !important;
+    height: 400px !important;
+  }
+  #floating-panel {
+    z-index: 5;
+    padding: 2px;
+    line-height: 10px;
+    border-color: gray;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    width: auto;
+    p{
+      margin-right: 2px;
+    }
+  }
+  .image-small-transit{
+    height: 15px;
+  }
+}
+
+
+@media (max-width: 540px) {
+  #map1{
+    box-shadow: 0 0 10px 15px #e1d1d1 !important;
+    height: 400px !important;
+  }
+  #floating-panel {
+    z-index: 5;
+    padding: 2px;
+    line-height: 10px;
+    border-color: gray;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    width: auto;
+    p{
+      margin-right: 2px;
+    }
+  }
+  .image-small-transit{
+    height: 15px;
+  }
+}

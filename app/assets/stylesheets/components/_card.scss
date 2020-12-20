@@ -334,27 +334,14 @@
   height: 200px;
 }
 
-
+.alert-p{
+  font-size: 10px;
+}
 
 @media (max-width: 960px) {
-.h2flip {
-  font-size: 30px !important;
-  }
-}
-
-@media (max-width: 720px) {
-.h2flip {
-  font-size: 25px !important;
-  }
-.front{
-  padding-left: 0px !important;
-}
-
-}
-@media (max-width: 540px) {
-.h2flip {
-  font-size: 15px !important;
-  }
+  .h2flip {
+    font-size: 15px !important;
+    }
   .front{
     padding-left: 0px !important;
   }
@@ -378,11 +365,154 @@
     left: 2px;
     bottom: 10px;
   }
-
   .flip {
       >.front,
       >.back {
-        height: 130px;
+        height: 110px;
+        box-shadow: 0 0 10px 15px #e1d1d1;
+      }
+  }
+  .h3-overview{
+    font-size: 15px;
+  }
+  #realtime{
+    h2{
+      font-size: 15px;
+    }
+  }
+  #weatherforecast{
+    h2{
+      font-size: 15px;
+    }
+  }
+  .card-trip{
+     height: 110px;
+    .image-temp{
+      width: 50px;
+      opacity: 0.7;
+
+    }
+    .image-wave{
+      width: 150px;
+      padding-top: 10px;
+      opacity: 0.7;
+
+    }
+    .image-wave1{
+      width: 140px;
+      padding-top: 14px;
+      opacity: 0.7;
+
+    }
+    .image-wea{
+      width: 100px;
+      opacity: 0.7;
+
+    }
+    .image-clean{
+      width: 50px;
+      padding-top: 3px;
+      opacity: 0.7;
+    }
+    .image-wind{
+      width: 50px;
+      opacity: 0.7;
+
+    }
+    p {
+      font-size: 10px;
+    }
+  }
+  .hourly{
+    height: 100%;
+  }
+
+  .daily{
+    height: 100%;
+  }
+  .image-small{
+    width: 40px;
+  }
+  .card-day{
+    margin-top: 15px;
+    font-size: 12px;
+  }
+
+  .card-transit{
+    width: 200px;
+    vertical-align: middle;
+    height: 100%;
+    h3{
+      font-size: 20px;
+    }
+    p{
+      font-size: 12px;
+    }
+    .image-smalls{
+      height: 20px;
+    }
+    .image-smallss{
+      height: 20px;
+    }
+  }
+
+
+  .card-transit-public{
+    margin: auto;
+    background-color: rgb(240,240,240);
+    border-color: #28b4d1;
+    border-radius: 10px;
+    width: 75%;
+    vertical-align: middle;
+    h3{
+      font-size: 18px;
+    }
+    p{
+      font-size: 10px;
+    }
+    .image-smalls{
+      height: 20px;
+      width: 100%;
+    }
+    .image-smallss{
+      height: 20px;
+      width: 100%;
+    }
+  }
+
+}
+
+@media (max-width: 750px) {
+  .h2flip {
+    font-size: 15px !important;
+    }
+  .front{
+    padding-left: 0px !important;
+  }
+  .checked {
+    font-size: 8px !important;
+    padding-left: 0px !important;
+  }
+  .location-bottom-right{
+    position: absolute;
+    right: 2px;
+    bottom: 5px;
+    line-height: 50% !important;
+    text-shadow: 1px 1px black;
+    font-size: 8px !important;
+  }
+  .img-wea {
+    width: 23px;
+  }
+  .location-bottom-left{
+    position: absolute;
+    left: 2px;
+    bottom: 10px;
+  }
+  .flip {
+      >.front,
+      >.back {
+        height: 110px;
         box-shadow: 0 0 10px 15px #e1d1d1;
       }
     .back{
@@ -392,81 +522,266 @@
       transform: none !important;
     }
   }
+  .h3-overview{
+    font-size: 15px;
+  }
+  #realtime{
+    h2{
+      font-size: 15px;
+    }
+  }
+  #weatherforecast{
+    h2{
+      font-size: 15px;
+    }
+  }
+  .card-trip{
+     height: 110px;
+    .image-temp{
+      width: 50px;
+      opacity: 0.7;
+
+    }
+    .image-wave{
+      width: 150px;
+      padding-top: 10px;
+      opacity: 0.7;
+
+    }
+    .image-wave1{
+      width: 140px;
+      padding-top: 14px;
+      opacity: 0.7;
+
+    }
+    .image-wea{
+      width: 100px;
+      opacity: 0.7;
+
+    }
+    .image-clean{
+      width: 50px;
+      padding-top: 3px;
+      opacity: 0.7;
+    }
+    .image-wind{
+      width: 50px;
+      opacity: 0.7;
+
+    }
+    p {
+      font-size: 10px;
+    }
+  }
+  .hourly{
+    height: 100%;
+  }
+
+  .daily{
+    height: 100%;
+  }
+  .image-small{
+    width: 40px;
+  }
+  .card-day{
+    margin-top: 15px;
+    font-size: 12px;
+  }
+
+  .card-transit{
+    width: 200px;
+    vertical-align: middle;
+    height: 100%;
+    h3{
+      font-size: 20px;
+    }
+    p{
+      font-size: 12px;
+    }
+    .image-smalls{
+      height: 20px;
+      width: auto;
+    }
+    .image-smallss{
+      height: 20px;
+      width: auto;
+    }
+  }
+
+
+  .card-transit-public{
+    margin: auto;
+    background-color: rgb(240,240,240);
+    border-color: #28b4d1;
+    border-radius: 10px;
+    width: 75%;
+    vertical-align: middle;
+    h3{
+      font-size: 18px;
+    }
+    p{
+      font-size: 10px;
+    }
+    .image-smalls{
+      width: 25px;
+      height: auto;
+    }
+    .image-smallss{
+      width: 25px;
+      height: auto;
+    }
+  }
+
+}
+
+@media (max-width: 540px) {
+  .h2flip {
+    font-size: 15px !important;
+    }
+  .front{
+    padding-left: 0px !important;
+  }
+  .checked {
+    font-size: 8px !important;
+    padding-left: 0px !important;
+  }
+  .location-bottom-right{
+    position: absolute;
+    right: 2px;
+    bottom: 5px;
+    line-height: 50% !important;
+    text-shadow: 1px 1px black;
+    font-size: 8px !important;
+  }
+  .img-wea {
+    width: 23px;
+  }
+  .location-bottom-left{
+    position: absolute;
+    left: 2px;
+    bottom: 10px;
+  }
+  .flip {
+      >.front,
+      >.back {
+        height: 110px;
+        box-shadow: 0 0 10px 15px #e1d1d1;
+      }
+    .back{
+      display: none;
+    }
+    .front{
+      transform: none !important;
+    }
+  }
+  .h3-overview{
+    font-size: 15px;
+  }
+  #realtime{
+    h2{
+      font-size: 15px;
+    }
+  }
+  #weatherforecast{
+    h2{
+      font-size: 15px;
+    }
+  }
+  .card-trip{
+     height: 110px;
+    .image-temp{
+      width: 50px;
+      opacity: 0.7;
+
+    }
+    .image-wave{
+      width: 150px;
+      padding-top: 10px;
+      opacity: 0.7;
+
+    }
+    .image-wave1{
+      width: 140px;
+      padding-top: 14px;
+      opacity: 0.7;
+
+    }
+    .image-wea{
+      width: 100px;
+      opacity: 0.7;
+
+    }
+    .image-clean{
+      width: 50px;
+      padding-top: 3px;
+      opacity: 0.7;
+    }
+    .image-wind{
+      width: 50px;
+      opacity: 0.7;
+
+    }
+    p {
+      font-size: 10px;
+    }
+  }
+  .hourly{
+    height: 100%;
+  }
+
+  .daily{
+    height: 100%;
+  }
+  .image-small{
+    width: 40px;
+  }
+  .card-day{
+    margin-top: 15px;
+    font-size: 12px;
+  }
+
+  .card-transit{
+    width: 200px;
+    vertical-align: middle;
+    height: 100%;
+    h3{
+      font-size: 20px;
+    }
+    p{
+      font-size: 12px;
+    }
+    .image-smalls{
+      height: 20px;
+    }
+    .image-smallss{
+      height: 20px;
+    }
+  }
+
+
+  .card-transit-public{
+    margin: auto;
+    background-color: rgb(240,240,240);
+    border-color: #28b4d1;
+    border-radius: 10px;
+    width: 75%;
+    vertical-align: middle;
+    h3{
+      font-size: 18px;
+    }
+    p{
+      font-size: 10px;
+    }
+    .image-smalls{
+      width: 25px;
+      height: auto;
+    }
+    .image-smallss{
+      width: 25px;
+      height: auto;
+    }
+  }
+
 }
 
 
-        // <div class="col-4 m-0">
-        //   <%= link_to beach_path(beach) do %>
-        //     <div class="flip m-3">
-        //       <div class="front" style="background-image: linear-gradient(rgba(255,255,255,0.7),rgba(0,0,0,0)), url('<%= cl_image_path beach.photo.key%>')">
-        //         <h2 class="text-shadow align-middle h2flip"><%=beach.name %></h2>
-        //         <div class="d-flex">
-        //           <p class="p location-bottom-right">
-        //             <% c = 1 %>
-        //             <% rating =  beach.overall_rating.round(1) %>
-        //             <% 5.times do %>
-        //               <% if c < rating %>
-        //                 <span class="fas fa-star checked geral pl-2 pt-1"></span>
-        //               <% elsif c - rating < 0.5%>
-        //                 <span class="fas fa-star-half-alt checked geral pl-2 pt-1"></span>
-        //               <% elsif c - rating <= 0.2%>
-        //                 <span class="fas fa-star checked geral pl-2 pt-1"></span>
-        //               <% else %>
-        //                 <span class="far fa-star checked geral pl-2 pt-1"></span>
-        //               <% end  %>
-        //               <% c += 1 %>
-        //             <% end %>
-        //           </p>
-        //           <div class="d-flex location-bottom-left">
-        //             <%= image_tag "weather_icons/#{beach.real_time_values[0].icon}.png", class: "img-wea" %>
-        //           </div>
-        //         </div>
-        //       </div>
-        //       <div class="back" >
-        //         <div class="barras text-align-center text-left pt-4">
-        //           <div class="row align-middle">
-        //             <div class="col-4">
-        //               <p class="pt-1">ESTACIONAMENTO</p>
-        //             </div>
-        //             <div class="col-8">
-        //               <div class="barra">
-        //                  <div class="barra-nivel" data-nivel="<%= (beach.overall_parking.round(1)*10).to_i%>"></div>
-        //               </div>
-        //             </div>
-        //             <div class="col-4">
-        //               <p  class="pt-1">RESTAURANTES</p>
-        //             </div>
-        //             <div class="col-8">
-        //               <div class="barra">
-        //                  <div class="barra-nivel" data-nivel="<%= (beach.overall_restaurant.round(1)*10).to_i%>"></div>
-        //               </div>
-        //             </div>
-        //             <div class="col-4">
-        //               <p class="pt-1">TRANSPORTE PÚBLICO</p>
-        //             </div>
-        //             <div class="col-8">
-        //               <div class="barra">
-        //                  <div class="barra-nivel" data-nivel="<%= (beach.overall_public_transportation.round(1)*10).to_i%>"></div>
-        //               </div>
-        //             </div>
-        //             <div class="col-4">
-        //               <p class="pt-1">SEGURANÇA</p>
-        //             </div>
-        //             <div class="col-8">
-        //               <div class="barra">
-        //                  <div class="barra-nivel" data-nivel="<%= (beach.overall_security.round(1)*10).to_i%>"></div>
-        //               </div>
-        //             </div>
-        //             <div class="col-4">
-        //               <p class="pt-1">ONDAS</p>
-        //             </div>
-        //             <div class="col-8">
-        //               <div class="barra">
-        //                  <div class="barra-nivel" data-nivel="<%= (beach.overall_wave.round(1)*10).to_i%>"></div>
-        //               </div>
-        //             </div>
-        //           </div>
-        //         </div>
-        //       </div>
-        //     </div>
-        //   <% end %>

@@ -73,7 +73,7 @@ class BeachesController < ApplicationController
     @tides = Tide.where("date_time >= '#{DateTime.now.strftime('%Y-%m-%d 00:00:00')}' AND date_time <= '#{DateTime.now.advance(days: 1).strftime('%Y-%m-%d 05:00:00')}'").order(date_time: :asc).limit(10)
     @tide = {}
     @tides.each do |tide|
-      @tide["#{tide.date_time.strftime('%d-%m %H:%M')}"] = tide.tide
+      @tide["#{tide.date_time.strftime('%d/%m %Hh')}"] = tide.tide
     end
   end
 

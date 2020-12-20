@@ -107,9 +107,9 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 750px) {
   #filter p{
-    font-size: 15px;
+    font-size: 10px;
     font-family: 'Anton', sans-serif;
   }
   .p-beaches{
@@ -117,12 +117,37 @@
     font-family: 'Anton', sans-serif;
   }
   .form-control {
-    font-size: 10px;
-    width: 100px;
+    padding: 0 !important;
+    height: auto !important;
+    font-family: 'Anton', sans-serif;
   }
   .search-input {
     font-size: 10px;
     width: 100px;
+    ::-moz-placeholder{
+      font-size: 8px;
+    }
+    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      font-size: 8px;
+    }
+  }
+  .non-btn {
+    border: none;
+    background-color: transparent;
+    height: 38px;
+  }
+  .non-btn {
+    height: auto;
+    margin-top: 0px;
+    margin-left: 0px;
+    font-size: 25px !important;
+  }
+  .img-map{
+    font-size: 25px !important;
+  }
+  .search-data{
+    margin-top: 0 !important;
+    height: 100%;
   }
 }
 @media (max-width: 540px) {
@@ -166,7 +191,6 @@
   .search-data{
     margin-top: 0 !important;
     height: 100%;
-
   }
 }
 

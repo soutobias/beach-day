@@ -47,3 +47,28 @@
 .btn-blue{
   background-color: #59929e !important;
 }
+
+@media (max-width: 540px) {
+  #card-review {
+    .p-card {
+      font-size: 10px;
+      z-index: 1;
+    }
+    .p-card2 {
+      font-size: 12px;
+      z-index: 1;
+
+    }
+    .p-card3 {
+      font-size: 13px;
+      font-weight: bold;
+      z-index: 1;
+
+    }
+    .p-card4 {
+      font-size: 13px;
+      z-index: 1;
+
+    }
+  }
+}

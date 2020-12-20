@@ -32,12 +32,29 @@
 .inactive-tab {
   display: none !important;
 }
+@media (max-width: 800px) {
+  .tabs-underlined .tab-underlined {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    font-size: 13px;
+    text-align: center;
+  }
+  .cont {
+    padding: 0px;
+  }
+}
+
 
 @media (max-width: 540px) {
   .tabs-underlined .tab-underlined {
     padding-top: 0px;
     padding-bottom: 0px;
-    font-size: 9px;
+    padding-right: 0px;
+    padding-left: 0px;
+    font-size: 8.5px;
+    text-align: center;
   }
   .cont {
     padding: 0px;

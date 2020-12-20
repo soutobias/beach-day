@@ -131,26 +131,18 @@ main {
 
 @media (max-width: 750px) {
   .banner {
-    height: 200px;
+    height: 300px;
     padding: 70px 0;
   }
   main{
-    margin-top: 0px;
-  }
-  .index p{
-    margin-top: -320px;
-  }
-}
-
-
-@media (max-width: 720px) {
-  main{
-    margin-top: -90px;
+    margin-top: -330px;
   }
   .index h1 {
-    top: 9rem;
+    top: 6.7rem;
+    font-size: 12vw;
   }
 }
+
 
 @media (max-width: 540px) {
   main{

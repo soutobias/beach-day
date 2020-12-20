@@ -3,7 +3,7 @@
   margin: 5px;
 }
 .barra {
-  width:100%;
+  width:90%;
   height:30px;
   background:#CCC;
   margin:10px;
@@ -41,6 +41,47 @@
   color: orange;
 }
 
+.checked1 {
+  color: orange;
+}
 .geral {
   font-size: 30px;
+}
+
+@media (max-width: 960px) {
+  .geral {
+    font-size: 20px;
+  }
+  .checked1{
+    font-size: 25px;
+  }
+  .barras {
+    font-size: 30px !important;
+  }
+}
+@media (max-width: 750px) {
+  .geral {
+    font-size: 18px;
+  }
+  .checked1{
+    font-size: 20px;
+  }
+  .barras {
+    font-size: 20px !important;
+  }
+}
+@media (max-width: 540px) {
+  .geral {
+    font-size: 15px;
+  }
+  .checked1{
+    font-size: 18px;
+  }
+  .barras {
+    font-size: 10px !important;
+  }
+  .range{
+    font-size: 10px !important;
+  }
+
 }
