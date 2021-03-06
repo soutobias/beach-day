@@ -282,8 +282,11 @@
                     <p class="p-0 m-0">HUMIDADE: <%= (hour.humidity).to_i %>%</p>
                   </div>
                 </div>
-                <% ocean = @oceans_today.where("date_time = '#{hour.date_time}'") %>
+                <% ocean = @oceans_today.where("date_time > '#{hour.date_time}'") %>
                 <div class="col-6 col-lg-2 card-trip mt-2 flex-grow-1">
+                  <% if !ocean[0].water_temperature %>
+                    <% ocean[0].water_temperature = 21 %>
+                  <% end %>
                   <% if ocean[0].water_temperature >= 20 %>
                     <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
                   <% else %>
@@ -353,7 +356,10 @@
                   <p class="p-0 m-0">HUMIDADE: <%= (hour.humidity).to_i %>%</p>
                 </div>
               </div>
-              <% ocean = @oceans_today_1.where("date_time = '#{hour.date_time}'") %>
+              <% ocean = @oceans_today_1.where("date_time > '#{hour.date_time}'") %>
+                <% if !ocean[0].water_temperature %>
+                  <% ocean[0].water_temperature = 21 %>
+                <% end %>
                 <div class="col-6 col-lg-2 card-trip mt-2 flex-grow-1">
                 <% if ocean[0].water_temperature >= 20 %>
                   <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
@@ -422,8 +428,11 @@
                     <p class="p-0 m-0">HUMIDADE: <%= (hour.humidity).to_i %>%</p>
                   </div>
                 </div>
-                <% ocean = @oceans_today_2.where("date_time = '#{hour.date_time}'") %>
+                <% ocean = @oceans_today_2.where("date_time > '#{hour.date_time}'") %>
                 <div class="col-6 col-lg-2 card-trip mt-2 flex-grow-1">
+                  <% if !ocean[0].water_temperature %>
+                    <% ocean[0].water_temperature = 21 %>
+                  <% end %>
                   <% if ocean[0].water_temperature %>
                     <% if ocean[0].water_temperature >= 20 %>
                       <%= image_tag "hot_water.png", class: "image-temp pt-1" %>
