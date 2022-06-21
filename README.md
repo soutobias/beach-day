@@ -1,24 +1,7 @@
-# README
+# BEACH-DAY
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Web application made to help people to find the best beaches in Rio de Janeiro.
 
-Things you may want to cover:
+Use of googlemaps api connections, openweather and worldtides and backend with tasks scheduler, webscrapping and selenium
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Web app: www.beachdayrio.com
